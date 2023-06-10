@@ -13,7 +13,7 @@ phenom
 A phenomenological model of X-ray Free Electron Laser (XFEL) radiation and radiation statistics.
 
 * Free software: 3-clause BSD license
-* Documentation: (COMING SOON!) https://twguest.github.io/phenom.
+* Documentation: https://twguest.github.io/phenom.
 
 Features
 --------
