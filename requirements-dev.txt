@@ -9,9 +9,8 @@ nbstripout
 pre-commit
 pre-commit-hooks
 pytest
-sphinx==6.2.1
 twine
-pip install urllib3==1.26.6 
+
 # These are dependencies of various sphinx extensions for documentation.
 ipython
 matplotlib
