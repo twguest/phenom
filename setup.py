@@ -40,7 +40,7 @@ with open(path.join(here, "requirements.txt")) as requirements_file:
 
 setup(
     name="phenom_xfel",
-    version='v0.0.1',#versioneer.get_version(),
+    version="v0.0.1",  # versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
     description="A phenomenological model of X-ray Free Electron Laser (XFEL) radiation and radiation statistics.",
     long_description=readme,

@@ -9,9 +9,9 @@ This script handles construction of a spectra
 """
 import numpy as np
 
-def flat_spectra(n = 50):
+
+def flat_spectra(n=50):
     """
     function for test purposes only
     """
     return np.ones(n)
-    
