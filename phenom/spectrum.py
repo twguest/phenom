@@ -21,7 +21,7 @@ def generate_gaussian_spectrum():
     pass
 
 
-def linear_SASE_spectrum(pulse_duration, photon_energy, bandwidth = 1e-04, t0 = 0, nt = 500, sigma = 3, representation = 'time'):
+def linear_SASE_spectrum(t,pulse_duration, photon_energy, bandwidth = 1e-04, t0 = 0):
     """
     generate a single SASE pulse profiles
 
@@ -37,41 +37,35 @@ def linear_SASE_spectrum(pulse_duration, photon_energy, bandwidth = 1e-04, t0 = 
     :param pulse_duration: expectation fwhm value of the SASE pulse time [in s]
     :param photon_energy: central energy of pulse [in eV]
     :param bandwidth: energy bandwidth / relative of the pulse
-    :param t0: center of intensity distribution in time (bandwidthfault 0s)
-    :param nt: number of points in time and freq domains.
-    :param sigma: number of spectral bandwidth boundaries to bandwidthfine energy-domain axis
-    :param representation: bandwidthtermines if time- or frequency-domain representation is returned 
-        options: 'time' or 'frequency'
+    :param t0: timing jitter (float) (should geberally be less than 2*sampling*bandwidth)
+    :param t: time axis
+    sampling = longitudinal axis width/(2*bandwidth) 
+    determines longitudinal pixel size.
+ 
     
     :returns: spectrum
     """
+    nt = t.shape[0]
     
-    rep_options = ['time', 'frequency']
-    assert representation in rep_options, "representation should be in {}".format(rep_options)
-    
-    bandwidth = photon_energy*bandwidth
-
     
     pulse_duration = np.sqrt(2) * pulse_duration / (2 * np.sqrt(2 * np.log(2)))  
-    bandwidth = np.sqrt(2) * bandwidth / (2 * np.sqrt(2 * np.log(2)))
+    bw =photon_energy*bandwidth * np.sqrt(2)
+    E = np.linspace(photon_energy-bw, photon_energy+bw, nt) ### bandwidthfine frequency/energy domain
 
-    E = np.linspace(photon_energy-bandwidth*sigma, photon_energy+bandwidth*sigma, nt) ### bandwidthfine frequency/energy domain
     estep = (E[1] - E[0])/hr_eV_s ### step size of freq domain
 
-    t = np.linspace(-np.pi / estep, np.pi / estep, nt) ### bandwidthfine time-domain
-    
+    et = np.linspace(-np.pi / estep, np.pi / estep, nt) ### bandwidthfine time-domain
+
     temporal_envelope = (1/np.sqrt(2*np.pi)) * \
-        gaussian_1d(t, 1, t0, pulse_duration)
+        gaussian_1d(et, 1, t0, pulse_duration)
     
-    spectral_envelope = gaussian_1d(E, 1, photon_energy, bandwidth)
+    spectral_envelope = gaussian_1d(E, 1, photon_energy, bw)
 
     random_phases = np.random.uniform(-np.pi, np.pi, temporal_envelope.shape)
     
     spectrum = fft.fftshift(fft.fft(spectral_envelope*np.exp(-1j*random_phases)))*temporal_envelope
+    spectrum/= np.sqrt(np.sum(abs(spectrum))**2) ### normalise area under intensity curve to 1
     
-    if representation == 'frequency':
-        spectrum = np.fft.ifft(spectrum)
- 
     return spectrum
 
 

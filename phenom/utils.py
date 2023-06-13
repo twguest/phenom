@@ -10,9 +10,11 @@ import numpy as np
 
 from scipy.constants import c,h,e
 
+
 def e2wav(photon_energy):
     return (h*c)/(e*photon_energy)
 
-
 def e2k(photon_energy):
     return (np.pi*2)/e2wav(photon_energy)
+
+ 
