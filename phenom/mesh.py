@@ -10,14 +10,7 @@ class Mesh:
     numpy arrays defining exact coordinates.
     
     **kwargs
-    :params nx: (optional) [int]
-    :params ny: (optional) [int]
-    :params nt: (optional) [int]
 
- 
-    :params dx: (optional) [float64]
-    :params dy: (optional) [float64]
-    :params dt: (optional) [float64]
     
     
     :params x: (optional) [np.ndarray]
@@ -35,36 +28,13 @@ class Mesh:
                  x = None,
                  y = None,
                  t = None):
+    
+        self.x = x
+        self.y = y
+        self.t = t
+        
+        self.build_from_array()
 
-        self.ndims = 0
-        
-        
-        
-        if x is None and y is None and t is None:
-            self.x = x
-            self.y = y
-            self.t = t
-            
-            self.build_from_array()
-        
-        else:
-            self.nx = nx 
-            self.ny = ny 
-            self.nt = nt
-            
-            self.dx = dx
-            self.dy = dy
-            self.dt = dt
-            
-            self.xMin = -self.dx*self.nx//2
-            self.xMax = -1*self.xMin
-            
-            self.yMin = -self.dy*self.ny//2
-            self.yMax = -1*self.yMin
-
-            self.tMin = -self.dt*self.nt//2
-            self.tMax = -1*self.tMin  
-        
 
     def sampling(self):
         """

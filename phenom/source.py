@@ -12,150 +12,199 @@ import numpy as np
 import h5py_wrapper as h5w
 
 from phenom.gaussian import complex_gaussian_beam
-from phenom.wavefront import wavefront_tilt, spherical_phase
+from phenom.wavefront_tools import wavefront_tilt, spherical_phase
 from phenom.utils import e2wav
 
-def generate_beam_envelope(self, pulse_properties):
-        """
-        a function to generate a gaussian photon field based on the source properties
-
-        this can be extended at a later date to include perturbations, i.e the zernike polynomials.
-        """
-
-        xx, yy = np.meshgrid(np.linspace(pulse_properties['xMin'], pulse_properties['xMax'], pulse_properties['nx']), np.linspace(pulse_properties['yMin'], pulse_properties['yMax'], pulse_properties['ny']))
-        
-        return complex_gaussian_beam(x = xx, y = yy, photon_energy = pulse_properties['photon_energy'],
-        i = pulse_properties[pulse_energy], sig0 = pulse_properties['sig0'],
-        sigma = pulse_properties['sigma'], div = pulse_properties['div'],
-        theta_x = pulse_properties['theta_x'], theta_y = pulse_properties['theta_y'],
-        x0 = pulse_properties['x0'], y0 = pulse_properties['y0'])
+from phenom.spectrum import linear_SASE_spectrum
 
 
 
 
-def calc_pulse_energy(dx,dy,dt,E, pulse_intensity):
+def sase_pulse(x,y,
+               t,
+               photon_energy,
+               pulse_energy,
+               pulse_duration,
+               bandwidth,
+               sigma,
+               div,
+               x0,
+               y0,
+               t0,
+               theta_x,
+               theta_y,
+               ):
+    
     """
-    calculate energy of  in time domain
-
-    :param wf: wpg.Wavefront structure
-    :return: pulse energy value, J
+    SASE pulse model
+    
+    :param x: horizontal coordinates (np.ndarray) 
+    :param y: vertical coordinates (np.ndarray) 
+    :param photon_energy: photon energy in eV (float)
+    :param pulse_energy: pulse energy in J (float)
+    :param pulse_duration: pulse duration in seconds (float)
+    :param bandwidth: pulse bandwidth as a fraction of photon energy (float)
+    :param sigma: gaussian beam width (float)
+    :param div: beam divergence (float)
+    :param x0: horizontal position jitter (float)
+    :param y0: vertical position jitter (float)
+    :param t0: temporal jitter (float)
+    :param theta_x: horizontal pointing angle (float)
+    :param theta_y: vertical pointing angle (float)
+             
     """
-    J2eV = 6.24150934e18
+    
+    tfield = linear_SASE_spectrum(t,
+                                  pulse_duration = pulse_duration,
+                                  photon_energy = photon_energy,
+                                  bandwidth = bandwidth,
+                                  t0 = t0,
+                                  )
+    
+    sfield = complex_gaussian_beam(x = x, y = y,
+                                   photon_energy = photon_energy,
+                                   pulse_energy = photon_energy,
+                                   sigma = sigma,
+                                   div = div,
+                                   x0 = x0,
+                                   y0 = x0,
+                                   theta_x = theta_x,
+                                   theta_y = theta_y)
+    
+    tilt = wavefront_tilt(x = x, y = y, 
+                          photon_energy = photon_energy,
+                          theta_x = theta_x,
+                          theta_y = theta_y)
+    
+    efield = sfield[:,:,np.newaxis]*tilt[:,:,np.newaxis]*tfield
+    efield/= np.sqrt(np.sum(abs(efield)**2) * np.ptp(x)*np.ptp(y)*np.ptp(t))
+    efield*= pulse_energy
+
+    return efield
+
+
+def check_arg_types(args):
+    
+    parse_types = [float, list, np.ndarray, function]
+    
+    keys = (list(args.keys()))
+    
+    for key in keys:
         
-    pulse_energy = pulse_intensity
-    pulse_energy_J = pulse_energy * dx * dy * 1e6 * dt
-    photons_per_pulse = pulse_energy_J * J2eV / E
-    
-    #print(
-    #    "Number of photons per pulse: {:e}".format(photons_per_pulse)
-    #)
-    
-    return pulse_energy_J, photons_per_pulse
+        key_types = {}
+        key_types[key] = type(args[key])
+        print(type(args[key]))
+        assert key_types[key] in parse_types, " input {} should be in {}".format(key, parse_types)
 
-
-
-
-def generate_pulse(temporal, spatial, pulse_energy):
-    return spatial[:,:,np.newaxis]*temporal
+        if args[key] == list:
+        
+            if type(list[0]) == 'float':    
+                args[key] = np.asarray(args[key])
+                key_types[key] = type(args[key])
+                
+            elif type(list[0]) == 'lambda':
+                key_types[key] = 'lambda_list'
+                
+                
+                
+def check_arg_len(args, __type__):
     
-# =============================================================================
-#  
-# class Source:
-#     
-#     def __init__(self, nx, ny, nt, dx, dy, dt):
-#         """
-#         """
-# 
-#         self.mesh = {}
-#         self.mesh['nx'] = nx
-#         self.mesh['ny'] = ny
-#         self.mesh['nt'] = nt
-#     
-#         self.mesh['dx'] = dx
-#         self.mesh['dy'] = dy
-#         self.mesh['dz'] = dt
-#         
-#     
-#     def generate():
-#         """
-#         this function generates a wavefront and assigns it certain properties
-#         which in turn determine its statistics.
-#         """
-# =============================================================================
+    for key in list(args.keys()):
+        
+        if type(args[key]) == 'list' or 'lambda_list' or 'np.ndarray()':
+            print(type(args[key]))
+
     
+def parse(args):
+    
+
+    
+    del args['x']
+    del args['y']
+    del args['self']
+    
+    
+    __keys__ = list(args.keys())
+            
+                
+    __type__ = check_arg_types(args)
+     
+    __lens__ = check_arg_len(args, __type__)
+        
+    
+    
+    for key in __keys__:    
+            
+        if type(__keys__) == 'float':
+            pass
+        
+        if type(__keys__) == 'np.ndarray':
+            pass
+        
+        if type(__keys__) == 'lambda':
+            pass
+
+        
+ 
+
+   
 class Source:
     """
-    a generalised source model
     """
-
+    
 
     def __init__(self,
-                mesh,
-                photon_energy,
-                pulse_energy,
-                sig0,
-                sigma,
-                div,
-                x0,
-                y0,
-                z0,
-                pulse_duration,
-                bandwidth,
-                theta_x,
-                theta_y,
-                dR,
-                spectrum = 'flat',
-                spectrum_representation = 'time',
-                mode = 0):
+                 x,y,
+                 t,
+                 photon_energy,
+                 pulse_energy,
+                 pulse_duration,
+                 bandwidth,
+                 sigma,
+                 div,
+                 x0,
+                 y0,
+                 t0,
+                 theta_x,
+                 theta_y,
+                 N,
+                 ):
 
         """
         initialisation function. 
         
-        :param photon_energy: photon energy in keV
-        :param mesh: felpy style mesh file defining xMin, xMax, yMin, yMax, nx, ny
-        :param x: horizontal coordinates
-        :param y: vertical coordinates
-        :param i: on-axis beam intensity
-        :param sig0: waist fwhm 
-        :param sigma: fwhm @ a distance z from the source
-        :param div: beam divergence
-        :param theta_x: horizontal tilt wavevector
-        :param theta_y: vertical tilt wavevector
-        :param x0: horizontal shift 
-        :param y0: vertical shift
-        :param pulse_duration: temporal duration of the pulse
+        :param x: horizontal coordinates (np.ndarray) 
+        :param y: vertical coordinates (np.ndarray) 
+        :param photon_energy: photon energy in eV (float)
+        :param pulse_energy: pulse energy in J (float)
+        :param pulse_duration: pulse duration in seconds (float)
+        :param bandwidth: pulse bandwidth as a fraction of photon energy (float)
+        :param sigma: gaussian beam width (float)
+        :param div: beam divergence (float)
+        :param x0: horizontal position jitter (float)
+        :param y0: vertical position jitter (float)
+        :param t0: temporal jitter (float)
+        :param theta_x: horizontal pointing angle (float)
+        :param theta_y: vertical pointing angle (float)
+        
+        :param N: number of pulses - only valid if all other parameters are floats or lambdas
+                 
         """
+        parse(locals())
         
         self.metadata = {}
         self.metadata['pulses'] = []
         
-        self.source_properties = {}
- 
- 
-        self.mesh = mesh
+        self.x = x
+        self.y = y
+
+# =============================================================================
+#         for item in self.source_properties:
+#             assert type(self.source_properties[item]) is np.ndarray, "{} is a list - please input it as an np.ndarray instead"
+#     
+# =============================================================================
     
-        self.source_properties['photon_energy'] = photon_energy
-        self.source_properties['pulse_energy'] = pulse_energy
-        self.source_properties['sig0'] = sig0 
-        self.source_properties['sigma'] = sigma
-        self.source_properties['div'] = div
-        self.source_properties['x0'] = x0
-        self.source_properties['y0'] = y0
-        self.source_properties['pulse_duration'] = pulse_duration
-        self.source_properties['theta_x'] = theta_x
-        self.source_properties['theta_y'] = theta_y
-        self.source_properties['dR'] = dR
-        self.source_properties['bandwidth'] = bandwidth
-        self.source_properties['z0'] = z0
-        
-        self.spectrum = spectrum
-        self.spectrum_representation  = spectrum_representation
-        self.mode = mode
- 
-        
-        for item in self.source_properties:
-            assert type(self.source_properties[item]) is np.ndarray, "{} is a list - please input it as an np.ndarray instead"
-    
+
         
         
     @property
@@ -287,6 +336,9 @@ class Source:
     
     def generator(self, outdir = "", filename = None, N = 1, save = True):
             """
+            parser
+            
+            s
             this is the emission process, and generates N wavefronts according to the rules given by the source paramters file.
             
             currently, it will only support cases where the input dictionary has values in the form of a single value or list.
@@ -326,6 +378,8 @@ class Source:
                     
                     pulse_properties['e_min'] = f[0]
                     pulse_properties['e_max'] = f[-1]
+                    
+                    
                     
                     efield = self.generate_beam_envelope(pulse_properties)[:,:,np.newaxis]*tilt[:,:,np.newaxis]*fp
                     
