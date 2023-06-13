@@ -6,8 +6,10 @@ Created on Sat Jun 10 20:01:09 2023
 @author: twguest
 """
 
-import numpy as np
+from copy import copy
 
+import numpy as np
+from types import FunctionType
 
 import h5py_wrapper as h5w
 
@@ -85,7 +87,7 @@ def sase_pulse(x,y,
 
 def check_arg_types(args):
     
-    parse_types = [float, list, np.ndarray, function]
+    parse_types = [float, list, np.ndarray, FunctionType]
     
     keys = (list(args.keys()))
     
@@ -93,68 +95,174 @@ def check_arg_types(args):
         
         key_types = {}
         key_types[key] = type(args[key])
-        print(type(args[key]))
+        
+        # print(type(args[key])) # dev @author: twg - 13/06/23
+        
         assert key_types[key] in parse_types, " input {} should be in {}".format(key, parse_types)
 
-        if args[key] == list:
+            
+        ### list to array
+        if type(args[key]) == list:
+  
+            args[key] = np.asarray(args[key])
+            key_types[key] = type(args[key])
         
-            if type(list[0]) == 'float':    
-                args[key] = np.asarray(args[key])
-                key_types[key] = type(args[key])
-                
-            elif type(list[0]) == 'lambda':
-                key_types[key] = 'lambda_list'
-                
-                
-                
-def check_arg_len(args, __type__):
-    
-    for key in list(args.keys()):
-        
-        if type(args[key]) == 'list' or 'lambda_list' or 'np.ndarray()':
-            print(type(args[key]))
+                        
 
+                
+def sort_arg_types(args, __type__):
+    """ 
+    parser utility: sorts function types + array length assertions
     
-def parse(args):
+    :param args: arguments of the Source function
+    :param __type__: argument types
     
+    :returns N: number of pulses to iterate over
+    :returns __set__: dict of argument keys sorted by value type
+    """    
 
-    
-    del args['x']
-    del args['y']
-    del args['self']
-    
-    
     __keys__ = list(args.keys())
-            
-                
-    __type__ = check_arg_types(args)
-     
-    __lens__ = check_arg_len(args, __type__)
-        
     
+    __arrays__ = []
+    __lams__ = []
     
-    for key in __keys__:    
-            
-        if type(__keys__) == 'float':
-            pass
-        
-        if type(__keys__) == 'np.ndarray':
-            pass
-        
-        if type(__keys__) == 'lambda':
-            pass
-
-        
- 
-
+    N = 1 ### number of pulses
    
+    for key in __keys__:
+        
+        
+        # print(key,type(args[key])) # dev @author: twguest - 13/06/23
+        
+        if type(args[key]) == np.ndarray:
+            
+            __arrays__.append(key)
+            
+        elif type(args[key]) == FunctionType:
+            __lams__.append(key)
+                  
+            
+    __len__ = [args[key].shape[0] for key in __arrays__]
+    
+    if len(__arrays__) > 0:
+
+        assert np.all( __len__ == np.mean(__len__)), "all length of all lists and 1d numpy arrays must be equal"
+    
+        N = int(np.mean(__len__))
+        
+    
+    __floats__ = list(set(__keys__) - set(__arrays__) - set(__lams__))
+    
+    __set__ = {}
+   
+    __set__['float'] = __floats__
+    __set__['np.ndarray'] = __arrays__
+    __set__['FunctionType'] = __lams__
+    
+    return N, __set__
+    
+    
+def get_queue(args):
+    """ 
+    source models method of parsing input values to individual pulse values
+    """
+    try:
+        del args['x']
+    except(KeyError):
+        pass
+    
+    try:
+        del args['y']
+    except(KeyError):
+        pass
+    
+    try:
+        del args['t']
+    except(KeyError):
+        pass
+        
+                     
+    __type__ = check_arg_types(args)
+    N, __set__ = sort_arg_types(args, __type__)
+    
+    
+    __queue__ = {}
+    
+    for key in __set__['float']:
+        __queue__[key] = np.ones([N]) * args[key]
+        
+    for key in __set__['FunctionType']:
+
+        
+        assert type(args[key](0)) == float, "all lambdas should generate a float"
+        
+        __queue__[key] = np.array([args[key](n) for n in range(N)])
+
+    return __queue__ 
+
+
 class Source:
     """
     """
     
 
+    def __init__(self, **kwargs):
+ 
+        self.args = locals()
+        
+        self.args.update(kwargs)
+        
+        del self.args['self']
+        del self.args['kwargs']
+ 
+    
+        if 'x' in list(self.args.keys()):
+            self.x = self.args['x']
+        if 'y' in list(self.args.keys()):
+            self.y = self.args['y']
+        if 't' in list(self.args.keys()):
+            self.t = self.args['t']
+                       
+        __queue__ = get_queue(self.args)
+        
+            
+        for key in list(__queue__.keys()):
+            assert type(__queue__[key]) == np.ndarray
+        
+            
+        self.__queue__ = __queue__
+
+
+    def get_process_parameters(self):
+        
+        N = self.__queue__[list(self.__queue__.keys())[0]].shape[0] ## get number of processes
+        
+        self.processes = {}
+        
+        for n in range(N):
+             
+            params = {}
+            
+            for key in list(self.__queue__.keys()):
+                params[key] = self.__queue__[key][n]
+            
+            if hasattr(self, 'x'):
+                params['x'] = self.x
+            if hasattr(self, 'y'):
+                params['y'] = self.y
+            if hasattr(self, 't'):
+                params['t'] = self.t
+                    
+            self.processes[str(n)] = params
+
+        del self.__queue__       
+        
+        
+ 
+class SASE_Source(Source):
+
     def __init__(self,
-                 x,y,
+                 x, 
+                 y,
                  t,
                  photon_energy,
                  pulse_energy,
@@ -166,10 +274,7 @@ class Source:
                  y0,
                  t0,
                  theta_x,
-                 theta_y,
-                 N,
-                 ):
-
+                 theta_y):
         """
         initialisation function. 
         
@@ -188,25 +293,62 @@ class Source:
         :param theta_y: vertical pointing angle (float)
         
         :param N: number of pulses - only valid if all other parameters are floats or lambdas
-                 
+                      
         """
-        parse(locals())
-        
-        self.metadata = {}
-        self.metadata['pulses'] = []
-        
-        self.x = x
-        self.y = y
-
-# =============================================================================
-#         for item in self.source_properties:
-#             assert type(self.source_properties[item]) is np.ndarray, "{} is a list - please input it as an np.ndarray instead"
-#     
-# =============================================================================
+        super().__init__(x = x,
+                         y = y,
+                         t = t,
+                         photon_energy = photon_energy,
+                         pulse_energy = pulse_energy,
+                         pulse_duration = pulse_duration,
+                         bandwidth = bandwidth,
+                         sigma = sigma,
+                         div = div,
+                         x0 = x0,
+                         y0 = y0,
+                         theta_x = theta_x,
+                         theta_y = theta_y) 
     
-
-        
-        
+        def generate_sase_field(params):
+            
+            sase_pulse(x = params['x'],
+                             y = params['x'],
+                             t = params['x'],
+                             photon_energy = photon_energy,
+                             pulse_energy = pulse_energy,
+                             pulse_duration = pulse_duration,
+                             bandwidth = bandwidth,
+                             sigma = sigma,
+                             div = div,
+                             x0 = x0,
+                             y0 = y0,
+                             theta_x = theta_x,
+                             theta_y = theta_y)
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @property
     def _control(self):
         """
