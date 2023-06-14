@@ -10,6 +10,9 @@ phenom Documentation
    :maxdepth: 2
 
    installation
-   usage
-   release-history
+   quickstart
+   examples 
+   api
    min_versions
+   release-history 
+    

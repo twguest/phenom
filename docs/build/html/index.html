@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>phenom Documentation &mdash; phenom X.Y.Z.post6+gd4f24a7 documentation</title>
+  <title>phenom Documentation &mdash; phenom X.Y.Z.post17.dev0+ga94ad18 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
@@ -18,6 +18,7 @@
         <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -36,7 +37,7 @@
             phenom
           </a>
               <div class="version">
-                X.Y.Z.post6+gd4f24a7
+                X.Y.Z.post17.dev0+ga94ad18
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -48,9 +49,11 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick-Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 </ul>
 
         </div>
@@ -82,15 +85,26 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#phenom.spectra.flat_spectra"><code class="docutils literal notranslate"><span class="pre">flat_spectra()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick-Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#phenom.source.sase_pulse"><code class="docutils literal notranslate"><span class="pre">sase_pulse()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt1.html">Generating a Single Pulse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt2.html">Generating Ensembles of Pulses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt2.html#Generating-a-single-pulse-using-source.SASE_Source">Generating a single pulse using source.SASE_Source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.source.SASE_Source"><code class="docutils literal notranslate"><span class="pre">SASE_Source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.spectrum.linear_SASE_spectrum"><code class="docutils literal notranslate"><span class="pre">linear_SASE_spectrum()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="release-history.html#initial-release-2023-06-10">Initial Release (2023-06-10)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
 </ul>
 </div>
 </section>

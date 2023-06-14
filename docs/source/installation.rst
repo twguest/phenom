@@ -4,4 +4,4 @@ Installation
 
 At the command line::
 
-    $ pip install phenom
+    $ pip install phenom-xfel
