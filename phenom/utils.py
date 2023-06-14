@@ -7,8 +7,7 @@ Created on Sat Jun 10 20:03:10 2023
 """
 
 import numpy as np
-
-from scipy.constants import c, h, e
+from scipy.constants import c, e, h
 
 
 def e2wav(photon_energy):

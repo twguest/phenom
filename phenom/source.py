@@ -7,17 +7,15 @@ Created on Sat Jun 10 20:01:09 2023
 """
 
 
-import numpy as np
 from types import FunctionType
 
+import h5py
+import numpy as np
 
 from phenom.gaussian import complex_gaussian_beam
-from phenom.wavefront_tools import wavefront_tilt
-from phenom.utils import e2wav
-
 from phenom.spectrum import linear_SASE_spectrum
-
-import h5py
+from phenom.utils import e2wav
+from phenom.wavefront_tools import wavefront_tilt
 
 
 def sase_pulse(

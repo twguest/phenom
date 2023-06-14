@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-
 from numpy import fft
+from scipy.constants import e, h
 
 from phenom.gaussian import gaussian_1d
-
-from scipy.constants import h, e
-
 
 h_eV_s = h / e
 hr_eV_s = h_eV_s / (2 * np.pi)
