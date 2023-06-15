@@ -1,0 +1,15 @@
+=====
+API
+=====
+
+Start by importing phenom.
+
+.. code-block:: python
+
+    import phenom
+
+.. autofunction:: phenom.source.SASE_Source    
+.. autofunction:: phenom.spectrum.linear_SASE_spectrum
+
+SASE Pulse
+==========

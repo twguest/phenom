@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>phenom.source &mdash; phenom X.Y.Z.post24.dev0+g8592b51 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            phenom
+          </a>
+              <div class="version">
+                X.Y.Z.post24.dev0+g8592b51
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../release-history.html">Release History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">phenom</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">phenom.source</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for phenom.source</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Sat Jun 10 20:01:09 2023</span>
+
+<span class="sd">@author: twguest</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span>
+
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">phenom.gaussian</span> <span class="kn">import</span> <span class="n">complex_gaussian_beam</span>
+<span class="kn">from</span> <span class="nn">phenom.spectrum</span> <span class="kn">import</span> <span class="n">linear_SASE_spectrum</span>
+<span class="kn">from</span> <span class="nn">phenom.utils</span> <span class="kn">import</span> <span class="n">e2wav</span>
+<span class="kn">from</span> <span class="nn">phenom.wavefront_tools</span> <span class="kn">import</span> <span class="n">wavefront_tilt</span>
+
+
+<div class="viewcode-block" id="sase_pulse"><a class="viewcode-back" href="../../usage.html#phenom.source.sase_pulse">[docs]</a><span class="k">def</span> <span class="nf">sase_pulse</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">,</span>
+    <span class="n">t</span><span class="p">,</span>
+    <span class="n">photon_energy</span><span class="p">,</span>
+    <span class="n">pulse_energy</span><span class="p">,</span>
+    <span class="n">pulse_duration</span><span class="p">,</span>
+    <span class="n">bandwidth</span><span class="p">,</span>
+    <span class="n">sigma</span><span class="p">,</span>
+    <span class="n">div</span><span class="p">,</span>
+    <span class="n">x0</span><span class="p">,</span>
+    <span class="n">y0</span><span class="p">,</span>
+    <span class="n">t0</span><span class="p">,</span>
+    <span class="n">theta_x</span><span class="p">,</span>
+    <span class="n">theta_y</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    SASE pulse model</span>
+
+<span class="sd">    :param x: horizontal coordinates (np.ndarray)</span>
+<span class="sd">    :param y: vertical coordinates (np.ndarray)</span>
+<span class="sd">    :param photon_energy: photon energy in eV (float)</span>
+<span class="sd">    :param pulse_energy: pulse energy in J (float)</span>
+<span class="sd">    :param pulse_duration: pulse duration in seconds (float)</span>
+<span class="sd">    :param bandwidth: pulse bandwidth as a fraction of photon energy (float)</span>
+<span class="sd">    :param sigma: gaussian beam width (float)</span>
+<span class="sd">    :param div: beam divergence (float)</span>
+<span class="sd">    :param x0: horizontal position jitter (float)</span>
+<span class="sd">    :param y0: vertical position jitter (float)</span>
+<span class="sd">    :param t0: temporal jitter (float)</span>
+<span class="sd">    :param theta_x: horizontal pointing angle (float)</span>
+<span class="sd">    :param theta_y: vertical pointing angle (float)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">tfield</span> <span class="o">=</span> <span class="n">linear_SASE_spectrum</span><span class="p">(</span>
+        <span class="n">t</span><span class="p">,</span>
+        <span class="n">pulse_duration</span><span class="o">=</span><span class="n">pulse_duration</span><span class="p">,</span>
+        <span class="n">photon_energy</span><span class="o">=</span><span class="n">photon_energy</span><span class="p">,</span>
+        <span class="n">bandwidth</span><span class="o">=</span><span class="n">bandwidth</span><span class="p">,</span>
+        <span class="n">t0</span><span class="o">=</span><span class="n">t0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">sfield</span> <span class="o">=</span> <span class="n">complex_gaussian_beam</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+        <span class="n">photon_energy</span><span class="o">=</span><span class="n">photon_energy</span><span class="p">,</span>
+        <span class="n">pulse_energy</span><span class="o">=</span><span class="n">photon_energy</span><span class="p">,</span>
+        <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
+        <span class="n">div</span><span class="o">=</span><span class="n">div</span><span class="p">,</span>
+        <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span>
+        <span class="n">y0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span>
+        <span class="n">theta_x</span><span class="o">=</span><span class="n">theta_x</span><span class="p">,</span>
+        <span class="n">theta_y</span><span class="o">=</span><span class="n">theta_y</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">tilt</span> <span class="o">=</span> <span class="n">wavefront_tilt</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">photon_energy</span><span class="o">=</span><span class="n">photon_energy</span><span class="p">,</span> <span class="n">theta_x</span><span class="o">=</span><span class="n">theta_x</span><span class="p">,</span> <span class="n">theta_y</span><span class="o">=</span><span class="n">theta_y</span><span class="p">)</span>
+
+    <span class="n">efield</span> <span class="o">=</span> <span class="n">sfield</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">*</span> <span class="n">tilt</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="o">*</span> <span class="n">tfield</span>
+    <span class="n">efield</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">efield</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+    <span class="n">efield</span> <span class="o">*=</span> <span class="n">pulse_energy</span>
+
+    <span class="k">return</span> <span class="n">efield</span></div>
+
+
+<span class="k">def</span> <span class="nf">check_arg_types</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">parse_types</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">FunctionType</span><span class="p">]</span>
+
+    <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+        <span class="n">key_types</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">key_types</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+
+        <span class="c1"># print(type(args[key])) # dev @author: twg - 13/06/23</span>
+
+        <span class="k">assert</span> <span class="n">key_types</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">in</span> <span class="n">parse_types</span><span class="p">,</span> <span class="s2">&quot; input </span><span class="si">{}</span><span class="s2"> should be in </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">parse_types</span><span class="p">)</span>
+
+        <span class="c1">### list to array</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="n">key_types</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">sort_arg_types</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">__type__</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parser utility: sorts function types + array length assertions</span>
+
+<span class="sd">    :param args: arguments of the Source function</span>
+<span class="sd">    :param __type__: argument types</span>
+
+<span class="sd">    :returns N: number of pulses to iterate over</span>
+<span class="sd">    :returns __set__: dict of argument keys sorted by value type</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__keys__</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="n">__arrays__</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">__lams__</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1">### number of pulses</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">__keys__</span><span class="p">:</span>
+        <span class="c1"># print(key,type(args[key])) # dev @author: twguest - 13/06/23</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+            <span class="n">__arrays__</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="n">FunctionType</span><span class="p">:</span>
+            <span class="n">__lams__</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="fm">__len__</span> <span class="o">=</span> <span class="p">[</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">__arrays__</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">__arrays__</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="fm">__len__</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="fm">__len__</span><span class="p">)),</span> <span class="s2">&quot;all length of all lists and 1d numpy arrays must be equal&quot;</span>
+
+        <span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="fm">__len__</span><span class="p">))</span>
+
+    <span class="n">__floats__</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">__keys__</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">__arrays__</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">__lams__</span><span class="p">))</span>
+
+    <span class="fm">__set__</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="fm">__set__</span><span class="p">[</span><span class="s2">&quot;float&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">__floats__</span>
+    <span class="fm">__set__</span><span class="p">[</span><span class="s2">&quot;np.ndarray&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">__arrays__</span>
+    <span class="fm">__set__</span><span class="p">[</span><span class="s2">&quot;FunctionType&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">__lams__</span>
+
+    <span class="k">return</span> <span class="n">N</span><span class="p">,</span> <span class="fm">__set__</span>
+
+
+<span class="k">def</span> <span class="nf">get_queue</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    source models method of parsing input values to individual pulse values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">__type__</span> <span class="o">=</span> <span class="n">check_arg_types</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">N</span><span class="p">,</span> <span class="fm">__set__</span> <span class="o">=</span> <span class="n">sort_arg_types</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">__type__</span><span class="p">)</span>
+
+    <span class="n">__queue__</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="fm">__set__</span><span class="p">[</span><span class="s2">&quot;float&quot;</span><span class="p">]:</span>
+        <span class="n">__queue__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">N</span><span class="p">])</span> <span class="o">*</span> <span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="fm">__set__</span><span class="p">[</span><span class="s2">&quot;FunctionType&quot;</span><span class="p">]:</span>
+        <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">](</span><span class="mi">0</span><span class="p">))</span> <span class="o">==</span> <span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;all lambdas should generate a float&quot;</span>
+
+        <span class="n">__queue__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">](</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="fm">__set__</span><span class="p">[</span><span class="s2">&quot;np.ndarray&quot;</span><span class="p">]:</span>
+        <span class="n">__queue__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">__queue__</span>
+
+
+<span class="k">def</span> <span class="nf">init_metadata</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    wrapper to create metadata during Source init</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;stored&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<span class="k">class</span> <span class="nc">Source</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base structure of phenom.source model</span>
+
+<span class="sd">    features:</span>
+<span class="sd">        - io</span>
+<span class="sd">        - execute</span>
+<span class="sd">        - parseing annd</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">init_metadata</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;self&quot;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;kwargs&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="s2">&quot;x&quot;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;y&quot;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;t&quot;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]</span>
+
+        <span class="n">__queue__</span> <span class="o">=</span> <span class="n">get_queue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">__queue__</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">__queue__</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__queue__</span> <span class="o">=</span> <span class="n">__queue__</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_process_parameters</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get_process_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        calculates set of individual pulse parameters from queue</span>
+<span class="sd">        used to generate of processes from queue</span>
+
+
+<span class="sd">        TO-DO: this function is where pulse name in the source .h5 is determined</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__queue__</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__queue__</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__queue__</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__queue__</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1">## get number of processes</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">processes</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__queue__</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="n">params</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__queue__</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">n</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">processes</span><span class="p">[</span><span class="s2">&quot;proc</span><span class="si">{:03}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="o">=</span> <span class="n">params</span>
+
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__queue__</span>
+
+    <span class="k">def</span> <span class="nf">refresh_processes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        regeneerate processes list from stored args.</span>
+
+<span class="sd">        used to regenerate pulses given input rules</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;processes&quot;</span><span class="p">):</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">processes</span>
+
+        <span class="n">__queue__</span> <span class="o">=</span> <span class="n">get_queue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">__queue__</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">__queue__</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__queue__</span> <span class="o">=</span> <span class="n">__queue__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_process_parameters</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">sdir</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        a non-parallelised method of generating pulse wavefront files using a method</span>
+<span class="sd">        files are saved in perscribed sdirs</span>
+
+<span class="sd">        :param method: wavefront generating method that takes in process params as its input</span>
+<span class="sd">        :param sdir: single save directory</span>
+
+<span class="sd">        ### execture needs a check that process keys match requirements of method</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">hf</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">sdir</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">sdir</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">sdir</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="s2">&quot;list of strings should be length N (number of pulses to be generated)&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">sdir</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;sdir should be type str or list&quot;</span>
+
+        <span class="k">for</span> <span class="n">itr</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processes</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">sdir</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
+                <span class="n">file</span> <span class="o">=</span> <span class="n">sdir</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">sdir</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;.h5&quot;</span> <span class="ow">in</span> <span class="n">sdir</span><span class="p">:</span>
+                    <span class="n">file</span> <span class="o">=</span> <span class="n">sdir</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.h5&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{:03}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">itr</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.h5&quot;</span>
+
+                <span class="k">if</span> <span class="s2">&quot;.hdf5&quot;</span> <span class="ow">in</span> <span class="n">sdir</span><span class="p">:</span>
+                    <span class="n">file</span> <span class="o">=</span> <span class="n">sdir</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.h5&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{:03}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">itr</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.hdf5&quot;</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">processes</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file</span>
+
+            <span class="n">efield</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processes</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+
+            <span class="n">group</span> <span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">group</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">efield</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">efield</span><span class="p">)</span>
+
+            <span class="n">params</span> <span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s2">&quot;/params&quot;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="n">params</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">processes</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">k</span><span class="p">])</span>
+
+            <span class="n">mesh</span> <span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s2">&quot;/mesh&quot;</span><span class="p">)</span>
+            <span class="n">mesh</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">mesh</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">mesh</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)</span>
+
+        <span class="n">hf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="c1">###</span>
+
+    <span class="k">def</span> <span class="nf">store_hdf5</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sdir</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;stored&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">sdir</span><span class="p">))</span>
+
+        <span class="n">hf</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">sdir</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SASE_Source"><a class="viewcode-back" href="../../api.html#phenom.source.SASE_Source">[docs]</a><span class="k">class</span> <span class="nc">SASE_Source</span><span class="p">(</span><span class="n">Source</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">,</span>
+        <span class="n">t</span><span class="p">,</span>
+        <span class="n">photon_energy</span><span class="p">,</span>
+        <span class="n">pulse_energy</span><span class="p">,</span>
+        <span class="n">pulse_duration</span><span class="p">,</span>
+        <span class="n">bandwidth</span><span class="p">,</span>
+        <span class="n">sigma</span><span class="p">,</span>
+        <span class="n">div</span><span class="p">,</span>
+        <span class="n">x0</span><span class="p">,</span>
+        <span class="n">y0</span><span class="p">,</span>
+        <span class="n">t0</span><span class="p">,</span>
+        <span class="n">theta_x</span><span class="p">,</span>
+        <span class="n">theta_y</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        initialisation function.</span>
+
+<span class="sd">        :param x: horizontal coordinates (np.ndarray)</span>
+<span class="sd">        :param y: vertical coordinates (np.ndarray)</span>
+<span class="sd">        :param photon_energy: photon energy in eV (float)</span>
+<span class="sd">        :param pulse_energy: pulse energy in J (float)</span>
+<span class="sd">        :param pulse_duration: pulse duration in seconds (float)</span>
+<span class="sd">        :param bandwidth: pulse bandwidth as a fraction of photon energy (float)</span>
+<span class="sd">        :param sigma: gaussian beam width (float)</span>
+<span class="sd">        :param div: beam divergence (float)</span>
+<span class="sd">        :param x0: horizontal position jitter (float)</span>
+<span class="sd">        :param y0: vertical position jitter (float)</span>
+<span class="sd">        :param t0: temporal jitter (float)</span>
+<span class="sd">        :param theta_x: horizontal pointing angle (float)</span>
+<span class="sd">        :param theta_y: vertical pointing angle (float)</span>
+
+<span class="sd">        :param N: number of pulses - only valid if all other parameters are floats or lambdas</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span>
+            <span class="n">photon_energy</span><span class="o">=</span><span class="n">photon_energy</span><span class="p">,</span>
+            <span class="n">pulse_energy</span><span class="o">=</span><span class="n">pulse_energy</span><span class="p">,</span>
+            <span class="n">pulse_duration</span><span class="o">=</span><span class="n">pulse_duration</span><span class="p">,</span>
+            <span class="n">bandwidth</span><span class="o">=</span><span class="n">bandwidth</span><span class="p">,</span>
+            <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
+            <span class="n">div</span><span class="o">=</span><span class="n">div</span><span class="p">,</span>
+            <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span>
+            <span class="n">y0</span><span class="o">=</span><span class="n">y0</span><span class="p">,</span>
+            <span class="n">t0</span><span class="o">=</span><span class="n">t0</span><span class="p">,</span>
+            <span class="n">theta_x</span><span class="o">=</span><span class="n">theta_x</span><span class="p">,</span>
+            <span class="n">theta_y</span><span class="o">=</span><span class="n">theta_y</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">generate_sase_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">sase_field</span> <span class="o">=</span> <span class="n">sase_pulse</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">t</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">,</span>
+            <span class="n">photon_energy</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;photon_energy&quot;</span><span class="p">],</span>
+            <span class="n">pulse_energy</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;pulse_energy&quot;</span><span class="p">],</span>
+            <span class="n">pulse_duration</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;pulse_duration&quot;</span><span class="p">],</span>
+            <span class="n">bandwidth</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;bandwidth&quot;</span><span class="p">],</span>
+            <span class="n">sigma</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;sigma&quot;</span><span class="p">],</span>
+            <span class="n">div</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;div&quot;</span><span class="p">],</span>
+            <span class="n">x0</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;x0&quot;</span><span class="p">],</span>
+            <span class="n">y0</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;y0&quot;</span><span class="p">],</span>
+            <span class="n">t0</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;t0&quot;</span><span class="p">],</span>
+            <span class="n">theta_x</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;theta_x&quot;</span><span class="p">],</span>
+            <span class="n">theta_y</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;theta_y&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">sase_field</span>
+
+    <span class="k">def</span> <span class="nf">generate_pulses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sdir</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_sase_field</span><span class="p">,</span> <span class="n">sdir</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Trey Guest.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

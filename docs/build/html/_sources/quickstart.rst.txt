@@ -1,0 +1,1 @@
+=================Quick-Start Guide=================Start by importing phenom... code-block:: python    import phenomThe quickest way to generate represenations of the SASE field is using the SASEwavefront function.. code-block:: python    import phenom.source.sase_pulse    .. autofunction:: phenom.source.sase_pulse
