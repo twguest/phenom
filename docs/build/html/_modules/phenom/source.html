@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>phenom.source &mdash; phenom X.Y.Z.post18.dev0+g1b9a6f0 documentation</title>
+  <title>phenom.source &mdash; phenom X.Y.Z.post24.dev0+g8592b51 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
@@ -35,7 +35,7 @@
             phenom
           </a>
               <div class="version">
-                X.Y.Z.post18.dev0+g1b9a6f0
+                X.Y.Z.post24.dev0+g8592b51
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -47,7 +47,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick-Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
@@ -88,20 +88,18 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span>
 
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">phenom.gaussian</span> <span class="kn">import</span> <span class="n">complex_gaussian_beam</span>
-<span class="kn">from</span> <span class="nn">phenom.wavefront_tools</span> <span class="kn">import</span> <span class="n">wavefront_tilt</span>
-<span class="kn">from</span> <span class="nn">phenom.utils</span> <span class="kn">import</span> <span class="n">e2wav</span>
-
 <span class="kn">from</span> <span class="nn">phenom.spectrum</span> <span class="kn">import</span> <span class="n">linear_SASE_spectrum</span>
+<span class="kn">from</span> <span class="nn">phenom.utils</span> <span class="kn">import</span> <span class="n">e2wav</span>
+<span class="kn">from</span> <span class="nn">phenom.wavefront_tools</span> <span class="kn">import</span> <span class="n">wavefront_tilt</span>
 
-<span class="kn">import</span> <span class="nn">h5py</span>
 
-
-<div class="viewcode-block" id="sase_pulse"><a class="viewcode-back" href="../../quickstart.html#phenom.source.sase_pulse">[docs]</a><span class="k">def</span> <span class="nf">sase_pulse</span><span class="p">(</span>
+<div class="viewcode-block" id="sase_pulse"><a class="viewcode-back" href="../../usage.html#phenom.source.sase_pulse">[docs]</a><span class="k">def</span> <span class="nf">sase_pulse</span><span class="p">(</span>
     <span class="n">x</span><span class="p">,</span>
     <span class="n">y</span><span class="p">,</span>
     <span class="n">t</span><span class="p">,</span>

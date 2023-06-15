@@ -10,3 +10,6 @@ Start by importing phenom.
 
 .. autofunction:: phenom.source.SASE_Source    
 .. autofunction:: phenom.spectrum.linear_SASE_spectrum
+
+SASE Pulse
+==========

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>phenom.spectrum &mdash; phenom X.Y.Z.post18.dev0+g1b9a6f0 documentation</title>
+  <title>phenom.spectrum &mdash; phenom X.Y.Z.post24.dev0+g8592b51 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
@@ -35,7 +35,7 @@
             phenom
           </a>
               <div class="version">
-                X.Y.Z.post18.dev0+g1b9a6f0
+                X.Y.Z.post24.dev0+g8592b51
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -47,7 +47,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick-Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../min_versions.html">Minimum Version of Python and NumPy</a></li>
@@ -82,13 +82,10 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">fft</span>
+<span class="kn">from</span> <span class="nn">scipy.constants</span> <span class="kn">import</span> <span class="n">e</span><span class="p">,</span> <span class="n">h</span>
 
 <span class="kn">from</span> <span class="nn">phenom.gaussian</span> <span class="kn">import</span> <span class="n">gaussian_1d</span>
-
-<span class="kn">from</span> <span class="nn">scipy.constants</span> <span class="kn">import</span> <span class="n">h</span><span class="p">,</span> <span class="n">e</span>
-
 
 <span class="n">h_eV_s</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="n">e</span>
 <span class="n">hr_eV_s</span> <span class="o">=</span> <span class="n">h_eV_s</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
