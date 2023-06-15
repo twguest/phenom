@@ -3,13 +3,22 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-phenom Documentation
-====================
+Welcome to Phenom
+=================
+
+Let's get started:
+
+At the command line::
+
+    $ pip install phenom-xfel
 
 .. toctree::
    :maxdepth: 2
 
    installation
    usage
-   release-history
+   examples 
+   api
    min_versions
+   release-history 
+    
