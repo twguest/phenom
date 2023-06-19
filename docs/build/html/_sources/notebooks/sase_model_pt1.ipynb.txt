@@ -2,7 +2,6 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "id": "6d292a8c",
    "metadata": {},
    "source": [
     "# Usage\n",
@@ -11,7 +10,6 @@
   },
   {
    "cell_type": "markdown",
-   "id": "68a59b9a",
    "metadata": {},
    "source": [
     "\n",
@@ -20,18 +18,15 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
-   "id": "c23fffd5",
+   "execution_count": null,
    "metadata": {},
    "outputs": [],
    "source": [
-    "import numpy as np\n",
     "from phenom.source import sase_pulse"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "336a81cb",
    "metadata": {},
    "source": [
     ".. autosummary::\n",
@@ -41,11 +36,12 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
-   "id": "6d24e2cd",
+   "execution_count": 1,
    "metadata": {},
    "outputs": [],
    "source": [
+    "import numpy as np\n",
+    "from matplotlib import pyplot as plt\n",
     "from phenom.gaussian import complex_gaussian_beam\n",
     "from phenom.wavefront_tools import wavefront_tilt\n",
     "from phenom.source import Source\n",
@@ -56,7 +52,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "d6ef0a33",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -73,7 +68,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "58601e85",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -87,7 +81,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "4e15c61e",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -104,7 +97,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "927ef2ba",
    "metadata": {},
    "outputs": [],
    "source": []
@@ -112,7 +104,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "abea6f97",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -126,7 +117,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "5c8d891f",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -137,7 +127,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "da2faa4a",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -147,7 +136,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "e9017f80",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -157,7 +145,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "fbe0948f",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -168,7 +155,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "7c8942ae",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -179,7 +165,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "20434144",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -190,7 +175,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "85351361",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -200,7 +184,6 @@
   {
    "cell_type": "code",
    "execution_count": null,
-   "id": "74282b30",
    "metadata": {},
    "outputs": [],
    "source": []
