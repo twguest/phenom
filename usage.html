@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; phenom X.Y.Z+13.g6fc6b35 documentation</title>
+  <title>Usage &mdash; phenom 0.post46.dev0+g61a471a documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
@@ -18,10 +18,11 @@
         <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Release History" href="release-history.html" />
+    <link rel="next" title="Examples" href="examples.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
@@ -37,7 +38,7 @@
             phenom
           </a>
               <div class="version">
-                X.Y.Z+13.g6fc6b35
+                0.post46.dev0+g61a471a
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -50,11 +51,13 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#phenom.spectra.flat_spectra"><code class="docutils literal notranslate"><span class="pre">flat_spectra()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.source.sase_pulse"><code class="docutils literal notranslate"><span class="pre">sase_pulse()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 </ul>
 
         </div>
@@ -83,16 +86,100 @@
              
   <section id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h1>
+<p>This package was designed as a flexible method to easily generate SASE-like wavefields.</p>
 <p>Start by importing phenom.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">phenom</span>
 </pre></div>
 </div>
+<p>The simplest way to generate represenations of the SASE field is using the SASE
+wavefront function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">phenom.source.sase_pulse</span>
+</pre></div>
+</div>
+<p>This function produces SASE-like wavefields with the following deterministic properties:</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="phenom.spectra.flat_spectra">
-<span class="sig-prename descclassname"><span class="pre">phenom.spectra.</span></span><span class="sig-name descname"><span class="pre">flat_spectra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/spectra.html#flat_spectra"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.spectra.flat_spectra" title="Permalink to this definition">¶</a></dt>
-<dd><p>function for test purposes only</p>
+<dt class="sig sig-object py" id="phenom.source.sase_pulse">
+<span class="sig-prename descclassname"><span class="pre">phenom.source.</span></span><span class="sig-name descname"><span class="pre">sase_pulse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#sase_pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.sase_pulse" title="Permalink to this definition">¶</a></dt>
+<dd><p>SASE pulse model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – horizontal coordinates (np.ndarray)</p></li>
+<li><p><strong>y</strong> – vertical coordinates (np.ndarray)</p></li>
+<li><p><strong>photon_energy</strong> – photon energy in eV (float)</p></li>
+<li><p><strong>pulse_energy</strong> – pulse energy in J (float)</p></li>
+<li><p><strong>pulse_duration</strong> – pulse duration in seconds (float)</p></li>
+<li><p><strong>bandwidth</strong> – pulse bandwidth as a fraction of photon energy (float)</p></li>
+<li><p><strong>sigma</strong> – gaussian beam width (float)</p></li>
+<li><p><strong>div</strong> – beam divergence (float)</p></li>
+<li><p><strong>x0</strong> – horizontal position jitter (float)</p></li>
+<li><p><strong>y0</strong> – vertical position jitter (float)</p></li>
+<li><p><strong>t0</strong> – temporal jitter (float)</p></li>
+<li><p><strong>theta_x</strong> – horizontal pointing angle (float)</p></li>
+<li><p><strong>theta_y</strong> – vertical pointing angle (float)</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
+<p>This properties are based on a model of XFEL radiation containing 3 components:</p>
+<ol class="arabic simple">
+<li><p>A complex wavefront</p></li>
+<li><p>A complex time spectrum</p></li>
+<li><p>A complex pointing angle tilt.</p></li>
+</ol>
+<p>These functions define require the following variables, respectively:</p>
+<ol class="arabic simple">
+<li><p>Gaussian beam width, beam divergence, horizontal and vertical position jitters.</p></li>
+<li><p>Pulse duration, pulse bandwidth.</p></li>
+<li><p>Horizontal pointing angle, vertical pointing angle.</p></li>
+</ol>
+<p>Generating a SASE pulse looks something like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">phenom.source</span> <span class="kn">import</span> <span class="n">sase_pulse</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">500e-06</span><span class="p">,</span> <span class="mf">500e-06</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">500e-063</span><span class="p">,</span> <span class="mf">500e-06</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">100e-15</span><span class="p">,</span> <span class="mf">100e-15</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+
+<span class="n">electric_field</span>  <span class="o">=</span> <span class="n">sase_pulse</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
+                              <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
+                              <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="p">,</span>
+                              <span class="n">photon_energy</span> <span class="o">=</span> <span class="mf">9200.</span><span class="p">,</span>
+                              <span class="n">pulse_energy</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
+                              <span class="n">pulse_duration</span> <span class="o">=</span> <span class="mf">25e-15</span><span class="p">,</span>
+                              <span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1e03</span><span class="p">,</span>
+                              <span class="n">sigma</span> <span class="o">=</span> <span class="mf">100e-06</span><span class="p">,</span>
+                              <span class="n">div</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
+                              <span class="n">x0</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span>
+                              <span class="n">y0</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span>
+                              <span class="n">t0</span> <span class="o">=</span> <span class="mf">2e-15</span><span class="p">,</span>
+                              <span class="n">theta_x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                              <span class="n">theta_y</span> <span class="o">=</span> <span class="mf">0.</span>
+           <span class="p">)</span>
+</pre></div>
+</div>
+<p>The output of this function is a complex representation of the electric field in the space-time domain.</p>
+<p>Let’s take a look at its intensity in space and time:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">ii</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">electric_field</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">[</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">]</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Time-averaged Spatial Profile&quot;</span><span class="p">)</span>
+<span class="n">im1</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ii</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x (m)&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;y (m)&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im1</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Intensity ($W/m^2$)&quot;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Integrated Temporal Intensity&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (femtoseconds)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Intensity ($W/m^2$)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="mf">1e15</span><span class="p">,</span> <span class="n">ii</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/sase_pulse_demo.png"><img alt="_images/sase_pulse_demo.png" src="_images/sase_pulse_demo.png" style="width: 600px;" /></a>
 </section>
 
 
@@ -100,7 +187,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="release-history.html" class="btn btn-neutral float-right" title="Release History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
