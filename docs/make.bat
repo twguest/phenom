@@ -1,7 +1,5 @@
 @ECHO OFF
 
-sudo apt install pandoc
-pip install pandoc
 pushd %~dp0
 
 REM Command file for Sphinx documentation
