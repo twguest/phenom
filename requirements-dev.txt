@@ -18,5 +18,4 @@ numpydoc
 sphinx-copybutton
 sphinx_rtd_theme
 nbsphinx
-py-pandoc
 ipykernel
