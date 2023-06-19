@@ -1,5 +1,8 @@
 name: Build Documentation
-
+simple:
+  image:
+    name: pandoc
+    entrypoint: ["/bin/sh", "-c"]
 on:
   push:
   pull_request:
