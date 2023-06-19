@@ -36,7 +36,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": null,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -113,80 +113,6 @@
     "theta_x = theta_y = 500e-09\n",
     "tilt = wavefront_tilt(x = x, y = y, theta_x = theta_x, theta_y = theta_y, photon_energy = photon_energy)"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "plt.imshow(abs(sfield)**2)\n",
-    "plt.colorbar()"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "plt.plot(t, abs(efield.mean(axis = (0,1))**2  ))"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "plt.imshow( abs(efield.mean(axis = (-1)))**2 ) "
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "plt.imshow( np.angle( tilt[:,:]), cmap = 'hsv' )\n",
-    "plt.colorbar()"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "plt.imshow( np.angle( efield[:,:,].mean(-1)), cmap = 'hsv' )\n",
-    "plt.colorbar()"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "plt.imshow( np.angle( sfield[:,:]), cmap = 'hsv' )\n",
-    "plt.colorbar()\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "SASE"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {
