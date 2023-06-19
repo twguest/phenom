@@ -41,7 +41,7 @@ jobs:
           # versions. Explicitly upgrade them because they often create
           # installation problems if out of date.
           python -m pip install --upgrade pip setuptools numpy
-
+          pip install pandoc  
           pip install .
           pip install -r requirements-dev.txt
           pip list
