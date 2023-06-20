@@ -1,6 +1,4 @@
-======
-PHENOM
-======
+# PHENOM 
 
 .. image:: https://github.com/twguest/phenom/actions/workflows/testing.yml/badge.svg
    :target: https://github.com/twguest/phenom/actions/workflows/testing.yml
