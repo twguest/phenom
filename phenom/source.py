@@ -289,36 +289,36 @@ class Source:
             assert len(sdir) == self.N, "list of strings should be length N (number of pulses to be generated)"
         else:
             assert type(sdir) == str, "sdir should be type str or list"
-        
+
         with h5py.File(sdir, "w") as hf:
             for itr, key in enumerate(list(self.processes.keys())):
                 if type(sdir) == list:
                     file = sdir[itr]
-    
+
                 if type(sdir) == str:
                     if ".h5" in sdir:
                         file = sdir.split(".h5")[0] + "{:03}".format(itr) + ".h5"
-    
+
                     if ".hdf5" in sdir:
                         file = sdir.split(".h5")[0] + "{:03}".format(itr) + ".hdf5"
-    
+
                 self.processes[key]["file"] = file
-    
+
                 efield = method(self.processes[key])
-    
+
                 group = hf.create_group(key)
                 group.create_dataset("data", shape=efield.shape, data=efield)
-    
+
                 params = hf.create_group(key + "/params")
-    
+
                 for k in list(self.processes[key].keys()):
                     params.create_dataset(k, data=self.processes[key][k])
-    
+
                 mesh = hf.create_group(key + "/mesh")
                 mesh.create_dataset("x", data=self.x)
                 mesh.create_dataset("y", data=self.y)
                 mesh.create_dataset("t", data=self.t)
-    
+
             hf.close()
         ###
 
