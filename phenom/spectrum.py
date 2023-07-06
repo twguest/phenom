@@ -12,14 +12,6 @@ hr_eV_s = h_eV_s / (2 * np.pi)
 np.seterr(invalid="ignore")
 
 
-def generate_SASE_spectrum():
-    pass
-
-
-def generate_gaussian_spectrum():
-    pass
-
-
 def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0):
     """
     generate a single SASE pulse profiles

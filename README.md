@@ -26,14 +26,6 @@ The phenomenological SASE model consists of two primary functions:
 
 Application of the model is based on the assumption that time-varying fluctuations in these wavefield components are sufficient to describe much of the shot-to-shot statistical properties of XFEL radiation.
 
-## Examples
-
-## Features
-
-## References
-
-## Articles citing PHENOM
+## Usage
 
 ## Contributors
-
-## Get Involved

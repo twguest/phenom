@@ -1,1 +1,1 @@
-========Examples========.. toctree::   :maxdepth: 2   :caption: The SASE Model:      notebooks/sase_model_pt1   notebooks/sase_model_pt2        
+========Examples========.. toctree::   :maxdepth: 2   notebooks/sase_model_pt1   notebooks/sase_model_pt2   notebooks/sase_model_pt3        
