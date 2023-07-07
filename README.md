@@ -18,7 +18,7 @@ To check that your instillation has worked, open iPython and try::
     
 For more information on usage, see the docs [here](https://twguest.github.io/phenom).
 
-## Background
+## Features
 The phenomenological SASE model consists of two primary functions:
 
 1. SASE pulse spectrum
@@ -26,6 +26,14 @@ The phenomenological SASE model consists of two primary functions:
 
 Application of the model is based on the assumption that time-varying fluctuations in these wavefield components are sufficient to describe much of the shot-to-shot statistical properties of XFEL radiation.
 
-## Usage
+## Examples
+Phenom has been designed to require minimal knowledge of the XFEL process prior to generating your first pulse.
 
-## Contributors
+Details on generating these pulses can be found in the [documentation](https://twguest.github.io/phenom).
+
+We highlight three
+
+## Special Thanks:
+
+[1]: https://github.com/JunCEEE
+[![github]([https://cloud.githubusercontent.com/assets/17016297/18839843/0e06a67a-83d2-11e6-993a-b35a182500e0.png](https://avatars.githubusercontent.com/u/3163505?v=4)https://avatars.githubusercontent.com/u/3163505?v=4)][1]
