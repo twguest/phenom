@@ -21,9 +21,9 @@ For more information on usage, see the docs [here](https://twguest.github.io/phe
 ## Examples
 Phenom has been designed to require minimal knowledge of the XFEL process prior to generating your first pulse.
 
-[Generating your first pulse with phenom](https://twguest.github.io/phenom/notebooks/sase_model_pt1.html)
-[Simulating a SASE Source](https://twguest.github.io/phenom/notebooks/sase_model_pt2.html).
-[A Model of the European XFEL](https://twguest.github.io/phenom/notebooks/sase_model_pt3.html).
+1. [Generating your first pulse with phenom](https://twguest.github.io/phenom/notebooks/sase_model_pt1.html)
+2. [Simulating a SASE Source](https://twguest.github.io/phenom/notebooks/sase_model_pt2.html).
+3. [A Model of the European XFEL](https://twguest.github.io/phenom/notebooks/sase_model_pt3.html).
 
 More details on generating these pulses can be found in the [documentation](https://twguest.github.io/phenom).
 
