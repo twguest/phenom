@@ -16,8 +16,6 @@ To check that your instillation has worked, open iPython and try::
 
     $ import phenom
     
-For more information on usage, see the docs [here](https://twguest.github.io/phenom).
-
 ## Examples
 Phenom has been designed to require minimal knowledge of the XFEL process prior to generating your first pulse.
 
