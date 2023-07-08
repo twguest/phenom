@@ -7,7 +7,15 @@
 ./_images/notebooks_sase_model_pt1_5_1.png
 ./_images/notebooks_sase_model_pt1_7_1.png
 ./_images/notebooks_sase_model_pt1_9_1.png
+./_images/notebooks_sase_model_pt2_12_1.png
+./_images/notebooks_sase_model_pt2_19_0.png
+./_images/notebooks_sase_model_pt2_25_0.png
+./_images/notebooks_sase_model_pt2_28_0.png
+./_images/notebooks_sase_model_pt2_31_0.png
 ./_images/notebooks_sase_model_pt2_4_1.png
+./_images/notebooks_sase_model_pt3_10_0.png
+./_images/notebooks_sase_model_pt3_2_1.png
+./_images/notebooks_sase_model_pt3_7_1.png
 ./_images/sase_pulse_demo.png
 ./_modules/index.html
 ./_modules/phenom/source.html
@@ -20,6 +28,7 @@
 ./_sources/min_versions.rst.txt
 ./_sources/notebooks/sase_model_pt1.ipynb.txt
 ./_sources/notebooks/sase_model_pt2.ipynb.txt
+./_sources/notebooks/sase_model_pt3.ipynb.txt
 ./_sources/quickstart.rst.txt
 ./_sources/release-history.rst.txt
 ./_sources/usage.rst.txt
@@ -77,6 +86,8 @@
 ./notebooks/sase_model_pt1.ipynb
 ./notebooks/sase_model_pt2.html
 ./notebooks/sase_model_pt2.ipynb
+./notebooks/sase_model_pt3.html
+./notebooks/sase_model_pt3.ipynb
 ./objects.inv
 ./quickstart.html
 ./release-history.html
