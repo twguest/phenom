@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Examples &mdash; phenom 0.0.3.post2+gcf568cb documentation</title>
+  <title>Examples &mdash; phenom 0.0.3.post10.dev0+g31d86a1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
@@ -22,8 +22,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Generate your first SASE Pulse" href="notebooks/sase_model_pt1.html" />
-    <link rel="prev" title="Usage" href="usage.html" /> 
+    <link rel="next" title="Generating Pulses" href="notebooks/sase_model_pt1.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,7 +38,7 @@
             phenom
           </a>
               <div class="version">
-                0.0.3.post2+gcf568cb
+                0.0.3.post10.dev0+g31d86a1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -50,16 +50,24 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt1.html">Generate your first SASE Pulse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt2.html">The SASE Source Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt3.html">Modelling the SASE Undulator of the European XFEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/sase_model_pt1.html">Generating Pulses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/sase_model_pt2.html">The SASE Source Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/sase_model_pt2.html#Generating-Multiple-Pulses">Generating Multiple Pulses</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tutorials">Tutorials:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/sase_model_pt3.html">Tutorial: Using phenom to Model Shot-to-Shot the European XFEL</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#integration">Integration:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/phenom_to_wpg.html">Interfacing with WavefrontPropaGator (WPG)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="min_versions.html">Minimum Version of Python and NumPy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="release-history.html">Release History</a></li>
 </ul>
 
         </div>
@@ -88,28 +96,59 @@
              
   <section id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h1>
+<section id="getting-started">
+<h2>Getting Started:<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/sase_model_pt1.html">Generate your first SASE Pulse</a></li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/sase_model_pt2.html">The SASE Source Module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt2.html#Generating-and-storing-a-pulse">Generating and storing a pulse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt2.html#Generating-Multiple-Pulses">Generating Multiple Pulses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/sase_model_pt1.html">Generating Pulses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt1.html#Generate-a-Single-Pulse">Generate a Single Pulse</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="notebooks/sase_model_pt3.html">Modelling the SASE Undulator of the European XFEL</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt3.html#A-Model-of-SA1-at-the-European-XFEL">A Model of SA1 at the European XFEL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/sase_model_pt2.html">The SASE Source Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt2.html#Store-a-Pulse">Store a Pulse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt2.html#Load-a-Pulse-from-Memory">Load a Pulse from Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/sase_model_pt2.html#Generating-Multiple-Pulses">Generating Multiple Pulses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt2.html#Pulses-from-Lists">Pulses from Lists</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt2.html#Pulses-from-Arrays">Pulses from Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt2.html#Pulses-from-Lambdas">Pulses from Lambdas</a></li>
 </ul>
 </li>
 </ul>
 </div>
+</section>
+<section id="tutorials">
+<h2>Tutorials:<a class="headerlink" href="#tutorials" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/sase_model_pt3.html">Tutorial: Using phenom to Model Shot-to-Shot the European XFEL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/sase_model_pt3.html#An-Emipirical-Model-of-SA1-Undulator-at-the-European-XFEL">An Emipirical Model of SA1 Undulator at the European XFEL</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="integration">
+<h2>Integration:<a class="headerlink" href="#integration" title="Permalink to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/phenom_to_wpg.html">Interfacing with WavefrontPropaGator (WPG)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/phenom_to_wpg.html#Converting-Source-Data-to-a-WPG-Wavefront">Converting Source Data to a WPG Wavefront</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/phenom_to_wpg.html#Converting-Multiple-Pulses-to-WPG-Wavefronts">Converting Multiple Pulses to WPG Wavefronts</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="notebooks/sase_model_pt1.html" class="btn btn-neutral float-right" title="Generate your first SASE Pulse" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notebooks/sase_model_pt1.html" class="btn btn-neutral float-right" title="Generating Pulses" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interfacing with WavefrontPropaGator (WPG) &mdash; phenom 0.0.3.post10.dev0+g31d86a1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API" href="../api.html" />
+    <link rel="prev" title="Tutorial: Using phenom to Model Shot-to-Shot the European XFEL" href="sase_model_pt3.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            phenom
+          </a>
+              <div class="version">
+                0.0.3.post10.dev0+g31d86a1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#getting-started">Getting Started:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#tutorials">Tutorials:</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../examples.html#integration">Integration:</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Interfacing with WavefrontPropaGator (WPG)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Converting-Source-Data-to-a-WPG-Wavefront">Converting Source Data to a WPG Wavefront</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Converting-Multiple-Pulses-to-WPG-Wavefronts">Converting Multiple Pulses to WPG Wavefronts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">phenom</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
+      <li class="breadcrumb-item active">Interfacing with WavefrontPropaGator (WPG)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/phenom_to_wpg.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p>This tutorial requires that the WavefrontPropaGator (WPG) package is installed.</p>
+<p>Since the WPG package is a requirement of phenom, we encourage you to install WPG if you wish to use the phenom WPG interface.</p>
+<p>You can check your installation of WPG, and the subsequent requirement of SRW as :</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">wpg</span>
+<span class="kn">from</span> <span class="nn">wpg</span> <span class="kn">import</span> <span class="n">srwlpy</span> <span class="k">as</span> <span class="n">srwl</span>
+</pre></div>
+</div>
+</div>
+<section id="Interfacing-with-WavefrontPropaGator-(WPG)">
+<h1>Interfacing with WavefrontPropaGator (WPG)<a class="headerlink" href="#Interfacing-with-WavefrontPropaGator-(WPG)" title="Permalink to this heading">¶</a></h1>
+<p>The phenom.wpg script provides the functionalities require to convert the source wavefront files to the WavefrontPropaGator (WPG) format.</p>
+<p>Load the source generated in the any of the previous <a class="reference external" href="https://twguest.github.io/phenom/examples.html">tutorials</a>:</p>
+<section id="Converting-Source-Data-to-a-WPG-Wavefront">
+<h2>Converting Source Data to a WPG Wavefront<a class="headerlink" href="#Converting-Source-Data-to-a-WPG-Wavefront" title="Permalink to this heading">¶</a></h2>
+<p>The ‘wpg_converter’ writes each key of the source to a seperate .h5 file that is WPG readable</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phenom.wpg</span> <span class="kn">import</span> <span class="n">wpg_converter</span>
+<span class="n">save_loc</span> <span class="o">=</span> <span class="s2">&quot;./sase_field.h5&quot;</span> <span class="c1">### master .h5</span>
+<span class="n">key</span> <span class="o">=</span>  <span class="s2">&quot;pulse000&quot;</span> <span class="c1">### pulse_id</span>
+
+<span class="n">wfr</span> <span class="o">=</span> <span class="n">wpg_converter</span><span class="p">(</span><span class="n">save_loc</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="p">)</span>
+<span class="n">wfr</span><span class="o">.</span><span class="n">store_hdf5</span><span class="p">(</span><span class="s2">&quot;./wpg_sase.h5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>With the pulse wavefront now WPG readable, we can apply in to wavefront propagation simulations:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">wpg.beamline</span> <span class="kn">import</span> <span class="n">Beamline</span>
+<span class="kn">from</span> <span class="nn">wpg.optical_elements</span> <span class="kn">import</span> <span class="n">Drift</span>
+
+<span class="kn">from</span> <span class="nn">wpg.wpg_uti_wf</span> <span class="kn">import</span> <span class="n">plot_intensity_map</span>
+
+<span class="n">wfr</span><span class="o">.</span><span class="n">load_hdf5</span><span class="p">(</span><span class="s2">&quot;./wpg_sase.h5&quot;</span><span class="p">)</span>
+
+<span class="n">bl</span> <span class="o">=</span> <span class="n">Beamline</span><span class="p">()</span>
+<span class="n">bl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Drift</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">propagation_parameters</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">bl</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">wfr</span><span class="p">)</span>
+
+<span class="n">plot_intensity_map</span><span class="p">(</span><span class="n">wfr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_phenom_to_wpg_7_0.png" src="../_images/notebooks_phenom_to_wpg_7_0.png" />
+</div>
+</div>
+</section>
+<section id="Converting-Multiple-Pulses-to-WPG-Wavefronts">
+<h2>Converting Multiple Pulses to WPG Wavefronts<a class="headerlink" href="#Converting-Multiple-Pulses-to-WPG-Wavefronts" title="Permalink to this heading">¶</a></h2>
+<p>We can convert all pulses in a source .h5 to WPG readable wavefronts by iterating of the source .h5:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span> <span class="k">as</span> <span class="nn">h5</span>
+<span class="kn">from</span> <span class="nn">phenom.wpg</span> <span class="kn">import</span> <span class="n">wpg_converter</span>
+
+<span class="k">with</span> <span class="n">h5</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">save_loc</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">hf</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="n">wfr</span> <span class="o">=</span> <span class="n">wpg_converter</span><span class="p">(</span><span class="n">save_loc</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="p">)</span>
+        <span class="n">wfr</span><span class="o">.</span><span class="n">store_hdf5</span><span class="p">(</span><span class="s2">&quot;./wpg_sase_</span><span class="si">{}</span><span class="s2">.h5&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sase_model_pt3.html" class="btn btn-neutral float-left" title="Tutorial: Using phenom to Model Shot-to-Shot the European XFEL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Trey Guest.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

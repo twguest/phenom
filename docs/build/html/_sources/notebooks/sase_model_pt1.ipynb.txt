@@ -2,10 +2,10 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "id": "58972405",
+   "id": "5ee3938b",
    "metadata": {},
    "source": [
-    "# Generate your first SASE Pulse\n",
+    "# Generating Pulses\n",
     "\n",
     "Here is a demonstrastion of how to generate a single SASE pulse\n",
     "\n",
@@ -16,15 +16,23 @@
     "3. Gaussian Properties: Pulse width (m), Pulse duration (s) and Divergence half-angle ($\\theta$) \n",
     "4. Pulse Error: Spatial (m) and Temporal jitter (s), Transverse pointing error (rad.)\n",
     "\n",
-    "See here(link) for source documentation.\n",
+    "See the module [documentation](https://twguest.github.io/phenom/API.html#phenom.source.sase_pulse) for more\n",
     "\n",
     "We begin by importing the sase_pulse function from the phenom.source module:"
    ]
   },
   {
+   "cell_type": "markdown",
+   "id": "4e1af635",
+   "metadata": {},
+   "source": [
+    "## Generate a Single Pulse"
+   ]
+  },
+  {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "4b18b71f",
+   "id": "1d1f79e8",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -33,7 +41,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "7cccd739",
+   "id": "4c0c4011",
    "metadata": {},
    "source": [
     "from which we can define a pulse of arbitrary characteristics"
@@ -42,7 +50,7 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "7986f74b",
+   "id": "04a17e35",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -72,7 +80,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "4d0ef600",
+   "id": "b276ddcc",
    "metadata": {},
    "source": [
     "We can visualise the spatial and temporal intensity properties of this field:"
@@ -81,7 +89,7 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "f2be8911",
+   "id": "2060dc23",
    "metadata": {},
    "outputs": [
     {

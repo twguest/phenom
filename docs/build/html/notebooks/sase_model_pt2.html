@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The SASE Source Module &mdash; phenom 0.0.3.post2+gcf568cb documentation</title>
+  <title>The SASE Source Module &mdash; phenom 0.0.3.post10.dev0+g31d86a1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Modelling the SASE Undulator of the European XFEL" href="sase_model_pt3.html" />
-    <link rel="prev" title="Generate your first SASE Pulse" href="sase_model_pt1.html" /> 
+    <link rel="next" title="Tutorial: Using phenom to Model Shot-to-Shot the European XFEL" href="sase_model_pt3.html" />
+    <link rel="prev" title="Generating Pulses" href="sase_model_pt1.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,7 +41,7 @@
             phenom
           </a>
               <div class="version">
-                0.0.3.post2+gcf568cb
+                0.0.3.post10.dev0+g31d86a1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -53,28 +53,27 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="sase_model_pt1.html">Generate your first SASE Pulse</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">The SASE Source Module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#Generating-and-storing-a-pulse">Generating and storing a pulse</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Loading-a-pulse-from-memory">Loading a pulse from memory</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../examples.html#getting-started">Getting Started:</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sase_model_pt1.html">Generating Pulses</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">The SASE Source Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Store-a-Pulse">Store a Pulse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Load-a-Pulse-from-Memory">Load a Pulse from Memory</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#Generating-Multiple-Pulses">Generating Multiple Pulses</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#Parsing-lists-to-SASE_Source">Parsing lists to SASE_Source</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Parsing-numpy-arrays-to-SASE_Source">Parsing numpy arrays to SASE_Source</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#Generating-Stochastic-Pulses">Generating Stochastic Pulses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Pulses-from-Lists">Pulses from Lists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Pulses-from-Arrays">Pulses from Arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Pulses-from-Lambdas">Pulses from Lambdas</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="sase_model_pt3.html">Modelling the SASE Undulator of the European XFEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#tutorials">Tutorials:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#integration">Integration:</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../min_versions.html">Minimum Version of Python and NumPy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
 </ul>
 
         </div>
@@ -114,8 +113,8 @@
 </pre></div>
 </div>
 </div>
-<section id="Generating-and-storing-a-pulse">
-<h2>Generating and storing a pulse<a class="headerlink" href="#Generating-and-storing-a-pulse" title="Permalink to this heading">¶</a></h2>
+<section id="Store-a-Pulse">
+<h2>Store a Pulse<a class="headerlink" href="#Store-a-Pulse" title="Permalink to this heading">¶</a></h2>
 <p>The SASE source class provides a mechanism of generating multiple pulses and storing them to individual .h5 files. In the simplest case, it takes as its inputs identical parameters to the sase_source function defined in the previous section.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -158,8 +157,9 @@
 </pre></div>
 </div>
 </div>
-<section id="Loading-a-pulse-from-memory">
-<h3>Loading a pulse from memory<a class="headerlink" href="#Loading-a-pulse-from-memory" title="Permalink to this heading">¶</a></h3>
+</section>
+<section id="Load-a-Pulse-from-Memory">
+<h2>Load a Pulse from Memory<a class="headerlink" href="#Load-a-Pulse-from-Memory" title="Permalink to this heading">¶</a></h2>
 <p>The SASE_Source module stores pulses within a master .h5 file</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -272,12 +272,12 @@ Text(0.5, 0, &#39;Time (fs)&#39;)
 </section>
 </section>
 <section id="Generating-Multiple-Pulses">
-<h2>Generating Multiple Pulses<a class="headerlink" href="#Generating-Multiple-Pulses" title="Permalink to this heading">¶</a></h2>
+<h1>Generating Multiple Pulses<a class="headerlink" href="#Generating-Multiple-Pulses" title="Permalink to this heading">¶</a></h1>
 <p>The advantadge that the SASE pulse class brings over the sase_pulse function is the capacity to generate ensembles of pulses in a pythonised manner. Each of the non-mesh variables of the SASE pulse class can take the form of a list, numpy.ndarray or python ‘lambda’.</p>
 <p>The source module will generate and save N pulses to the SASE master .h5, where N is the length of the longest non-integer input of the function.</p>
 <p>Let’s consider a few examples</p>
-<section id="Parsing-lists-to-SASE_Source">
-<h3>Parsing lists to SASE_Source<a class="headerlink" href="#Parsing-lists-to-SASE_Source" title="Permalink to this heading">¶</a></h3>
+<section id="Pulses-from-Lists">
+<h2>Pulses from Lists<a class="headerlink" href="#Pulses-from-Lists" title="Permalink to this heading">¶</a></h2>
 <p>Suppose we want to consider a set of 5 pulses in the energy range 1-5 keV. If these pulses have identical properties, other than photon energy, we can generate them as follows:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -385,8 +385,8 @@ Pulse Parameters:
 </div>
 </div>
 </section>
-<section id="Parsing-numpy-arrays-to-SASE_Source">
-<h3>Parsing numpy arrays to SASE_Source<a class="headerlink" href="#Parsing-numpy-arrays-to-SASE_Source" title="Permalink to this heading">¶</a></h3>
+<section id="Pulses-from-Arrays">
+<h2>Pulses from Arrays<a class="headerlink" href="#Pulses-from-Arrays" title="Permalink to this heading">¶</a></h2>
 <p>Let’s now consider the case of a pulse with a fluctuating center-of-mass in the transverse-plane. If this process is determininstic, we can define a set of input parameters from an arbitrary function.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -517,8 +517,8 @@ Pulse Parameters:
 </div>
 </div>
 </section>
-<section id="Generating-Stochastic-Pulses">
-<h3>Generating Stochastic Pulses<a class="headerlink" href="#Generating-Stochastic-Pulses" title="Permalink to this heading">¶</a></h3>
+<section id="Pulses-from-Lambdas">
+<h2>Pulses from Lambdas<a class="headerlink" href="#Pulses-from-Lambdas" title="Permalink to this heading">¶</a></h2>
 <p>The SASE pulse model is inherently stochastic due to the partially random SASE spectral distribution. Using python lambdas, we can create a source that with properties that fluctuate in time.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
@@ -582,14 +582,13 @@ Pulse Parameters:
 <p>In the following example - we demonstrate how these properties can be used to make a custom represenation of your SASE source</p>
 </section>
 </section>
-</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="sase_model_pt1.html" class="btn btn-neutral float-left" title="Generate your first SASE Pulse" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="sase_model_pt3.html" class="btn btn-neutral float-right" title="Modelling the SASE Undulator of the European XFEL" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="sase_model_pt1.html" class="btn btn-neutral float-left" title="Generating Pulses" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sase_model_pt3.html" class="btn btn-neutral float-right" title="Tutorial: Using phenom to Model Shot-to-Shot the European XFEL" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

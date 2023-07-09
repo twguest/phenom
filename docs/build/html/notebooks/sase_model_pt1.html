@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generate your first SASE Pulse &mdash; phenom 0.0.3.post2+gcf568cb documentation</title>
+  <title>Generating Pulses &mdash; phenom 0.0.3.post10.dev0+g31d86a1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
@@ -41,7 +41,7 @@
             phenom
           </a>
               <div class="version">
-                0.0.3.post2+gcf568cb
+                0.0.3.post10.dev0+g31d86a1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -53,16 +53,21 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Generate your first SASE Pulse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sase_model_pt2.html">The SASE Source Module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sase_model_pt3.html">Modelling the SASE Undulator of the European XFEL</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../examples.html#getting-started">Getting Started:</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Generating Pulses</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Generate-a-Single-Pulse">Generate a Single Pulse</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sase_model_pt2.html">The SASE Source Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sase_model_pt2.html#Generating-Multiple-Pulses">Generating Multiple Pulses</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#tutorials">Tutorials:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#integration">Integration:</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../min_versions.html">Minimum Version of Python and NumPy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
 </ul>
 
         </div>
@@ -80,7 +85,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
-      <li class="breadcrumb-item active">Generate your first SASE Pulse</li>
+      <li class="breadcrumb-item active">Generating Pulses</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/notebooks/sase_model_pt1.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,8 +95,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="Generate-your-first-SASE-Pulse">
-<h1>Generate your first SASE Pulse<a class="headerlink" href="#Generate-your-first-SASE-Pulse" title="Permalink to this heading">¶</a></h1>
+  <section id="Generating-Pulses">
+<h1>Generating Pulses<a class="headerlink" href="#Generating-Pulses" title="Permalink to this heading">¶</a></h1>
 <p>Here is a demonstrastion of how to generate a single SASE pulse</p>
 <p>The ‘sase.pulse’ function generates an array containing a scalar complex electric field representation of an XFEL Source. The pulse function takes as its input the following parameters:</p>
 <ol class="arabic simple">
@@ -100,8 +105,10 @@
 <li><p>Gaussian Properties: Pulse width (m), Pulse duration (s) and Divergence half-angle (<span class="math notranslate nohighlight">\(\theta\)</span>)</p></li>
 <li><p>Pulse Error: Spatial (m) and Temporal jitter (s), Transverse pointing error (rad.)</p></li>
 </ol>
-<p>See here(link) for source documentation.</p>
+<p>See the module <a class="reference external" href="https://twguest.github.io/phenom/API.html#phenom.source.sase_pulse">documentation</a> for more</p>
 <p>We begin by importing the sase_pulse function from the phenom.source module:</p>
+<section id="Generate-a-Single-Pulse">
+<h2>Generate a Single Pulse<a class="headerlink" href="#Generate-a-Single-Pulse" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -183,9 +190,10 @@ Text(0.5, 0, &#39;Time (fs)&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_sase_model_pt1_5_1.png" src="../_images/notebooks_sase_model_pt1_5_1.png" />
+<img alt="../_images/notebooks_sase_model_pt1_6_1.png" src="../_images/notebooks_sase_model_pt1_6_1.png" />
 </div>
 </div>
+</section>
 </section>
 
 

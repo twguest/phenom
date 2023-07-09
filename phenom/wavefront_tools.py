@@ -17,7 +17,7 @@ def wavefront_tilt(x, y, theta_x, theta_y, photon_energy):
     define a two-dimensional complex tilted plane-wave, tilted along transverse pointing vectors kx and ky
 
     :param mesh: [2,nx,ny] array of coordinates, first-axis corresponds to x and y axis,
-    see felpy.utils.np_utils.get_mesh for more
+
     :param kx: horizontal pointing vector [-pi, pi]
     :param ky: vertical pointing vector [-pi, pi]
     """

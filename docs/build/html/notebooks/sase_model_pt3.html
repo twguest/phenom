@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modelling the SASE Undulator of the European XFEL &mdash; phenom 0.0.3.post2+gcf568cb documentation</title>
+  <title>Tutorial: Using phenom to Model Shot-to-Shot the European XFEL &mdash; phenom 0.0.3.post10.dev0+g31d86a1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
@@ -25,7 +25,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API" href="../api.html" />
+    <link rel="next" title="Interfacing with WavefrontPropaGator (WPG)" href="phenom_to_wpg.html" />
     <link rel="prev" title="The SASE Source Module" href="sase_model_pt2.html" /> 
 </head>
 
@@ -41,7 +41,7 @@
             phenom
           </a>
               <div class="version">
-                0.0.3.post2+gcf568cb
+                0.0.3.post10.dev0+g31d86a1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -53,19 +53,19 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="sase_model_pt1.html">Generate your first SASE Pulse</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sase_model_pt2.html">The SASE Source Module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Modelling the SASE Undulator of the European XFEL</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#A-Model-of-SA1-at-the-European-XFEL">A Model of SA1 at the European XFEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#getting-started">Getting Started:</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../examples.html#tutorials">Tutorials:</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Tutorial: Using phenom to Model Shot-to-Shot the European XFEL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#An-Emipirical-Model-of-SA1-Undulator-at-the-European-XFEL">An Emipirical Model of SA1 Undulator at the European XFEL</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#integration">Integration:</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../min_versions.html">Minimum Version of Python and NumPy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../release-history.html">Release History</a></li>
 </ul>
 
         </div>
@@ -83,7 +83,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
-      <li class="breadcrumb-item active">Modelling the SASE Undulator of the European XFEL</li>
+      <li class="breadcrumb-item active">Tutorial: Using phenom to Model Shot-to-Shot the European XFEL</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/notebooks/sase_model_pt3.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -93,12 +93,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="Modelling-the-SASE-Undulator-of-the-European-XFEL">
-<h1>Modelling the SASE Undulator of the European XFEL<a class="headerlink" href="#Modelling-the-SASE-Undulator-of-the-European-XFEL" title="Permalink to this heading">¶</a></h1>
+  <section id="Tutorial:-Using-phenom-to-Model-Shot-to-Shot-the-European-XFEL">
+<h1>Tutorial: Using phenom to Model Shot-to-Shot the European XFEL<a class="headerlink" href="#Tutorial:-Using-phenom-to-Model-Shot-to-Shot-the-European-XFEL" title="Permalink to this heading">¶</a></h1>
 <p>Our objective here is to generate pulses whose properties pertain analytical expressions of some other beam properties.</p>
 <p>In doing so, we may reduce the number of variables that needs to be parsed to our source model.</p>
-<section id="A-Model-of-SA1-at-the-European-XFEL">
-<h2>A Model of SA1 at the European XFEL<a class="headerlink" href="#A-Model-of-SA1-at-the-European-XFEL" title="Permalink to this heading">¶</a></h2>
+<section id="An-Emipirical-Model-of-SA1-Undulator-at-the-European-XFEL">
+<h2>An Emipirical Model of SA1 Undulator at the European XFEL<a class="headerlink" href="#An-Emipirical-Model-of-SA1-Undulator-at-the-European-XFEL" title="Permalink to this heading">¶</a></h2>
 <p>We make use analytical expressions of pulse properties at the SA1 undulator of the European XFEL (Sinn Link), which obtains the following parameters as a function of photon energy and electron beam charge:</p>
 <ol class="arabic simple">
 <li><p>Pulse energy in Joules</p></li>
@@ -195,10 +195,7 @@
 <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">energies</span><span class="p">,</span> <span class="n">analytical_pulse_divergence</span><span class="p">(</span><span class="n">photon_energy</span> <span class="o">=</span> <span class="n">energies</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">)</span>
 <span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Energy (eV)&quot;</span><span class="p">)</span>
 <span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Pulse Divergence ($\mu$rad)&quot;</span><span class="p">)</span>
-
-<span class="c1"># analytical_pulse_width(photon_energy = energies)</span>
-<span class="c1"># analytical_pulse_divergence(photon_energy = energies)</span>
-<br/></pre></div>
+</pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
@@ -217,7 +214,9 @@ Text(0, 0.5, &#39;Pulse Divergence ($\\mu$rad)&#39;)
 <img alt="../_images/notebooks_sase_model_pt3_2_1.png" src="../_images/notebooks_sase_model_pt3_2_1.png" />
 </div>
 </div>
-<p>We can use this model to generate pulses under a standard operating condition of the SPB/SFX instrument:</p>
+<section id="A-Custom-SASE-Source">
+<h3>A Custom SASE Source<a class="headerlink" href="#A-Custom-SASE-Source" title="Permalink to this heading">¶</a></h3>
+<p>We can use this model to generate pulses under a standard operating condition of the <a class="reference external" href="http://scripts.iucr.org/cgi-bin/paper?S1600577519003308">SPB/SFX</a> instrument:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -233,7 +232,7 @@ Text(0, 0.5, &#39;Pulse Divergence ($\\mu$rad)&#39;)
                <span class="n">beam_charge</span><span class="p">,</span>
                <span class="n">nr</span> <span class="o">=</span> <span class="mi">512</span><span class="p">,</span>
                <span class="n">nt</span> <span class="o">=</span> <span class="mi">512</span><span class="p">,</span>
-               <span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
+               <span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1e-04</span><span class="p">,</span>
                <span class="n">x0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
                <span class="n">y0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
                <span class="n">t0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
@@ -335,7 +334,7 @@ Text(0.5, 0, &#39;Time (fs)&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_sase_model_pt3_7_1.png" src="../_images/notebooks_sase_model_pt3_7_1.png" />
+<img alt="../_images/notebooks_sase_model_pt3_8_1.png" src="../_images/notebooks_sase_model_pt3_8_1.png" />
 </div>
 </div>
 <p>We can similarly pass a list of photon_energies:</p>
@@ -379,9 +378,10 @@ Text(0.5, 0, &#39;Time (fs)&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_sase_model_pt3_10_0.png" src="../_images/notebooks_sase_model_pt3_10_0.png" />
+<img alt="../_images/notebooks_sase_model_pt3_11_0.png" src="../_images/notebooks_sase_model_pt3_11_0.png" />
 </div>
 </div>
+</section>
 </section>
 </section>
 
@@ -390,7 +390,7 @@ Text(0.5, 0, &#39;Time (fs)&#39;)
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="sase_model_pt2.html" class="btn btn-neutral float-left" title="The SASE Source Module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="phenom_to_wpg.html" class="btn btn-neutral float-right" title="Interfacing with WavefrontPropaGator (WPG)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

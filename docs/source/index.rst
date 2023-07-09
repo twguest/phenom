@@ -6,19 +6,10 @@
 Welcome to Phenom
 =================
 
-Let's get started:
-
-At the command line::
-
-    $ pip install phenom-xfel
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    installation
-   usage
    examples 
    api
-   min_versions
-   release-history 
-    

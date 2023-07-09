@@ -57,11 +57,3 @@ def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0
 
 if __name__ == "__main__":
     spectrum = linear_SASE_spectrum(pulse_duration=25e-15, photon_energy=9500, bandwidth=1e-3, nt=750)
-
-
-# =============================================================================
-#     from scipy.optimize import curve_fit
-#     p,_ = curve_fit(gaussian_1d, res[0], res[1],p0 = [0, np.std(res[0])])
-#     plt.plot(res[0], gaussian_1d(res[0],*p))
-#
-# =============================================================================
