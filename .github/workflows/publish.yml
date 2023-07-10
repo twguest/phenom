@@ -1,0 +1,32 @@
+name: Publish your documentation
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '14'
+        registry-url: https://registry.npmjs.org/
+  
+    - name: Install and publish
+      run: |
+        startClean=""
+        # Check on which branch it is running
+        if [[ ${GITHUB_REF} == "refs/heads/main" ]]; then
+          startClean="--cleanStart --confirm"
+        fi
+
+        # Install doctor
+        npm i @estruyf/doctor -g
+
+        # Start doctor publish
+        doctor publish --auth password --username "${{ secrets.USERNAME }}" --password "${{ secrets.PASSWORD }}" -u "${{ secrets.SITEURL }}" $startClean 
