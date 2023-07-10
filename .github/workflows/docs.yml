@@ -1,52 +1,33 @@
 name: Build Documentation
 
-on:
-  push:
-  pull_request:
+dist: jammy
+language: python
+python:
+  - 3.9
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - $HOME/.ccache  # https://github.com/travis-ci/travis-ci/issues/5853
+addons:
+  apt_packages:
+    - pandoc
+env:
+  global:
+    # Doctr deploy key for twguest/phenom
+    - secure: "TOlAivoHFVW/FDn20vzidMO9UHG5dxMUJPWvqZHCmQr2H8vE+IX+FGoamyUcZ6XK1y7SdzOqHp0LpTbiry1QyToqsgfalTKignp95m8JSmX93IbotuvikSBbOxUzDhH9JOecxJxznFVHSuVyhBiWdWBKJrz1JI38dx4SqcI6fJQBVFsObf6T8/l1LseKgRjOqKJZGattw3T21y4rNQsSDkLkBWV/vN1Q1utcGMzTZmMHNHyBb6kpcnRsFraUfaaiyegZtwsU1zw3ruQGyI1DWhP6vlT/n255d33dS2coUnmThUJzGlXxovpAfiWXRsMcSfSCgI8hHJ+hyvjlWzCLPm1JJ4HkcBb5Tcvwg+8o0uIQjIC0/fAOrgkZeaKyhqThLNL9u8rOPmpQYHcIHrCClrhOdQi5qsgdowsISXDbSdCB1+ofW2nnXlDHAihlW9wEsDFsVYBlkVEXQ2uQ6SUzk5VW9efKxjUgi9mbCoB+15l+gp0QS5gZQDLMNdE6UgNcfFmfnE/otwqAiTWjNvkfAsCIMZ2JmPuti43HQKD9ffHoNXlUTbVzbFtSoR2aEWJb6z5WNWDBNqXz6Kj/M9G6iXwCnnhp35tB1EFtE9gSay7czccIqpD84cYGZkBzIzpkM0jCn2Y+s0IOSx+6k5mXGxAFQHdm4ucYAxGhOgPwi80="
+install:
+  # Install this package and the packages listed in requirements.txt.
+  - pip install .
+  - pip install ur
+  # Install extra requirements for running tests and building docs.
+  - pip install -r requirements-dev.txt
 
-jobs:
-  build_docs:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.10"]
-      fail-fast: false
+script:
+  - coverage run -m pytest  # Run the tests and check for test coverage.
+  - coverage report -m  # Generate test coverage report.
+  - sudo apt install pandoc 
+  - pip install pandoc
+  - pip install doctr
 
-    defaults:
-      run:
-        shell: bash -l {0}
-
-    steps:
-      - name: Set env vars
-        run: |
-          export REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}  # just the repo, as opposed to org/repo
-          echo "REPOSITORY_NAME=${REPOSITORY_NAME}" >> $GITHUB_ENV
-
-      - name: Checkout the code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 1000  # should be enough to reach the most recent tag
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install documentation-building requirements
-        run: |
-          # For reference: https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html.
-          set -vxeuo pipefail
-
-          # These packages are installed in the base environment but may be older
-          # versions. Explicitly upgrade them because they often create
-          # installation problems if out of date.
-          python -m pip install --upgrade pip setuptools numpy
-    
-          pip install .
-          pip install -r requirements-dev.txt
-          pip list
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.REPOSITORY_NAME }}-docs
-          path: docs/build/html/
+  - doctr deploy --built-docs docs/build/html .
+      
