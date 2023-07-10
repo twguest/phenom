@@ -1,5 +1,9 @@
 name: Build Documentation
 
+on:
+  pull_request:
+  push:
+  
 dist: jammy
 language: python
 python:
