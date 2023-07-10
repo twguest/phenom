@@ -20,7 +20,7 @@ jobs:
       run: |
         startClean=""
         # Check on which branch it is running
-        if [[ ${GITHUB_REF} == "refs/heads/main" ]]; then
+        if [[ ${GITHUB_REF} == "refs/heads/master" ]]; then
           startClean="--cleanStart --confirm"
         fi
 
