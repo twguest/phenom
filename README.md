@@ -19,9 +19,9 @@ To check that your instillation has worked, open iPython and try::
 ## Examples
 Phenom has been designed to require minimal knowledge of the XFEL process prior to generating your first pulse.
 
-1. [Getting Started](https://github.com/twguest/phenom/blob/master/docs/build/html/notebooks/sase_model_pt1.ipynb)
-2. [Tutorials](https://github.com/twguest/phenom/blob/master/docs/build/html/notebooks/sase_model_pt2.ipynb).
-3. [Integrating with WPG](https://github.com/twguest/phenom/blob/master/docs/build/html/notebooks/phenom_to_wpg.ipynb).
+1. [Getting Started](https://twguest.github.io/phenom/notebooks/sase_model_pt1.html)
+2. [Tutorials](https://twguest.github.io/phenom/notebooks/sase_model_pt2.ipynb).
+3. [Integrating with WPG](https://twguest.github.io/phenom/notebooks/phenom_to_wpg.ipynb).
 
 More details on generating these pulses can be found in the [documentation](https://twguest.github.io/phenom).
 
