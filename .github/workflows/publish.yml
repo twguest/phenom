@@ -1,31 +1,16 @@
-name: Publish your documentation
-
-on:
-  push:
-    branches:
-      - master
-
+name: Build and Deploy
+on: [push]
+permissions:
+  contents: write
 jobs:
-  build:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '14'
-        registry-url: https://registry.npmjs.org/
-  
-    - name: Install and publish
-      run: |
-        startClean=""
-        # Check on which branch it is running
-        if [[ ${GITHUB_REF} == "refs/heads/main" ]]; then
-          startClean="--cleanStart --confirm"
-        fi
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
 
-        # Install doctor
-        npm i @estruyf/doctor -g
-
-        # Start doctor publish
-        doctor publish --auth password --username "${{ secrets.USERNAME }}" --password "${{ secrets.PASSWORD }}" -u "${{ secrets.SITEURL }}" $startClean 
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs/build # The folder the action should deploy.
