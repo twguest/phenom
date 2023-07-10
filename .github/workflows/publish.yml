@@ -28,4 +28,4 @@ jobs:
         npm i @estruyf/doctor -g
 
         # Start doctor publish
-        doctor publish --auth password --username "${{ secrets.USERNAME }}" --password "${{ secrets.PASSWORD }}" -u "${{ secrets.SITEURL }}" $startClean  
+        doctor deploy --auth password --username "${{ secrets.USERNAME }}" --password "${{ secrets.PASSWORD }}" -u "${{ secrets.SITEURL }}" $startClean --built-docs docs/build/html . 
