@@ -1,24 +1,32 @@
-name: Docs
-on: [push, pull_request, workflow_dispatch]
-permissions:
-    contents: write
+name: Publish your documentation
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+
 jobs:
-  docs:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
-      - name: Install dependencies
-        run: |
-          pip install sphinx sphinx_rtd_theme
-      - name: Sphinx build
-        run: |
-          sphinx-build doc _build
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        with:
-          publish_branch: master
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/build/
-          force_orphan: true
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '14'
+        registry-url: https://registry.npmjs.org/
+  
+    - name: Install and publish
+      run: |
+        startClean=""
+        # Check on which branch it is running
+        if [[ ${GITHUB_REF} == "refs/heads/main" ]]; then
+          startClean="--cleanStart --confirm"
+        fi
+
+        # Install doctor
+        npm i @estruyf/doctor -g
+
+        # Start doctor publish
+        doctor publish --auth password --username "${{ secrets.USERNAME }}" --password "${{ secrets.PASSWORD }}" -u "${{ secrets.SITEURL }}" $startClean  
