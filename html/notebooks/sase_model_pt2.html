@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The SASE Source Module &mdash; phenom 0.0.3.post10.dev0+g31d86a1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorial: Using phenom to Model Shot-to-Shot the European XFEL" href="sase_model_pt3.html" />
+    <link rel="prev" title="Generating Pulses" href="sase_model_pt1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            phenom
+          </a>
+              <div class="version">
+                0.0.3.post10.dev0+g31d86a1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../examples.html#getting-started">Getting Started:</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sase_model_pt1.html">Generating Pulses</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">The SASE Source Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Store-a-Pulse">Store a Pulse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Load-a-Pulse-from-Memory">Load a Pulse from Memory</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Generating-Multiple-Pulses">Generating Multiple Pulses</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Pulses-from-Lists">Pulses from Lists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Pulses-from-Arrays">Pulses from Arrays</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Pulses-from-Lambdas">Pulses from Lambdas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#tutorials">Tutorials:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#integration">Integration:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">phenom</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
+      <li class="breadcrumb-item active">The SASE Source Module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/sase_model_pt2.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="The-SASE-Source-Module">
+<h1>The SASE Source Module<a class="headerlink" href="#The-SASE-Source-Module" title="Permalink to this heading">¶</a></h1>
+<p>XFEL pulses seldom come alone - in the following section, we demonstrate how the ‘phenom.source’ module can be used to generate large ensembles of XFEL pulses.</p>
+<p>To do so, we begin by importing the SASE source module</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phenom.source</span> <span class="kn">import</span> <span class="n">SASE_Source</span>
+</pre></div>
+</div>
+</div>
+<section id="Store-a-Pulse">
+<h2>Store a Pulse<a class="headerlink" href="#Store-a-Pulse" title="Permalink to this heading">¶</a></h2>
+<p>The SASE source class provides a mechanism of generating multiple pulses and storing them to individual .h5 files. In the simplest case, it takes as its inputs identical parameters to the sase_source function defined in the previous section.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1">## define the spatial/temporal mesh</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">250e-06</span><span class="p">,</span> <span class="mf">250e-06</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">25e-15</span><span class="p">,</span> <span class="mf">25e-15</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
+
+<span class="c1">## define the pulse</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">SASE_Source</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
+                  <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
+                  <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="p">,</span>
+                  <span class="n">photon_energy</span> <span class="o">=</span> <span class="mf">10e3</span><span class="p">,</span>
+                  <span class="n">pulse_energy</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
+                  <span class="n">pulse_duration</span> <span class="o">=</span> <span class="mf">15e-15</span><span class="p">,</span>
+                  <span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
+                  <span class="n">sigma</span> <span class="o">=</span> <span class="mf">50e-06</span><span class="p">,</span>
+                  <span class="n">div</span> <span class="o">=</span> <span class="mf">2.5e-03</span><span class="p">,</span>
+                  <span class="n">x0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">y0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">t0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">theta_x</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">theta_y</span> <span class="o">=</span> <span class="mf">0.0</span>
+                  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>which we can within a .h5 file:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">save_loc</span> <span class="o">=</span> <span class="s2">&quot;./sase_field.h5&quot;</span>
+<span class="n">src</span><span class="o">.</span><span class="n">generate_pulses</span><span class="p">(</span><span class="n">save_loc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Load-a-Pulse-from-Memory">
+<h2>Load a Pulse from Memory<a class="headerlink" href="#Load-a-Pulse-from-Memory" title="Permalink to this heading">¶</a></h2>
+<p>The SASE_Source module stores pulses within a master .h5 file</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span> <span class="k">as</span> <span class="nn">h5</span>
+
+
+<span class="k">with</span> <span class="n">h5</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">save_loc</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pulses in the master file:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">((</span><span class="n">hf</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Contents of each pulse:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">hf</span><span class="p">[</span><span class="s1">&#39;pulse000&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pulse Mesh Fields:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">hf</span><span class="p">[</span><span class="s1">&#39;pulse000&#39;</span><span class="p">][</span><span class="s1">&#39;mesh&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pulse Parameters:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">hf</span><span class="p">[</span><span class="s1">&#39;pulse000&#39;</span><span class="p">][</span><span class="s1">&#39;params&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pulse Data:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type: &quot;</span><span class="p">,</span> <span class="n">hf</span><span class="p">[</span><span class="s1">&#39;pulse000&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][()]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape: &quot;</span><span class="p">,</span> <span class="n">hf</span><span class="p">[</span><span class="s1">&#39;pulse000&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][()]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Pulses in the master file:
+&lt;KeysViewHDF5 [&#39;pulse000&#39;]&gt;
+
+Contents of each pulse:
+&lt;KeysViewHDF5 [&#39;data&#39;, &#39;mesh&#39;, &#39;params&#39;]&gt;
+
+Pulse Mesh Fields:
+&lt;KeysViewHDF5 [&#39;t&#39;, &#39;x&#39;, &#39;y&#39;]&gt;
+
+Pulse Parameters:
+&lt;KeysViewHDF5 [&#39;bandwidth&#39;, &#39;div&#39;, &#39;file&#39;, &#39;photon_energy&#39;, &#39;pulse_duration&#39;, &#39;pulse_energy&#39;, &#39;sigma&#39;, &#39;t0&#39;, &#39;theta_x&#39;, &#39;theta_y&#39;, &#39;x0&#39;, &#39;y0&#39;]&gt;
+
+Pulse Data:
+Type:  complex128
+Shape:  (500, 500, 250)
+</pre></div></div>
+</div>
+<p>To complete this example, lets load the electric field and mesh of the first pulse, and plot its intensity as demonstrated eariler</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">h5</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">save_loc</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">sase_pulse</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="s1">&#39;pulse000&#39;</span><span class="p">][</span><span class="s1">&#39;mesh&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">][()]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">sase_pulse</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="s1">&#39;pulse000&#39;</span><span class="p">][</span><span class="s1">&#39;mesh&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">][()]</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">sase_pulse</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="s1">&#39;pulse000&#39;</span><span class="p">][</span><span class="s1">&#39;mesh&#39;</span><span class="p">][</span><span class="s1">&#39;t&#39;</span><span class="p">][()]</span>
+
+    <span class="n">sase_pulse</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="s1">&#39;pulse000&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][()]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">[</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">]</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="c1">### spatial intensity</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">imshow</span><span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="n">sase_pulse</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">2</span><span class="p">),</span>
+                <span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e06</span><span class="p">,</span>
+                          <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e06</span><span class="p">,</span>
+                          <span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e06</span><span class="p">,</span>
+                          <span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e06</span><span class="p">],</span>
+                <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;bone&#39;</span>
+                <span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Intensity (W/mm$^2$)&quot;</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x ($\mu$m)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y ($\mu$m)&#39;</span><span class="p">)</span>
+
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="mf">1e15</span><span class="p">,</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">sase_pulse</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (fs)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 0, &#39;Time (fs)&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_sase_model_pt2_12_1.png" src="../_images/notebooks_sase_model_pt2_12_1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="Generating-Multiple-Pulses">
+<h1>Generating Multiple Pulses<a class="headerlink" href="#Generating-Multiple-Pulses" title="Permalink to this heading">¶</a></h1>
+<p>The advantadge that the SASE pulse class brings over the sase_pulse function is the capacity to generate ensembles of pulses in a pythonised manner. Each of the non-mesh variables of the SASE pulse class can take the form of a list, numpy.ndarray or python ‘lambda’.</p>
+<p>The source module will generate and save N pulses to the SASE master .h5, where N is the length of the longest non-integer input of the function.</p>
+<p>Let’s consider a few examples</p>
+<section id="Pulses-from-Lists">
+<h2>Pulses from Lists<a class="headerlink" href="#Pulses-from-Lists" title="Permalink to this heading">¶</a></h2>
+<p>Suppose we want to consider a set of 5 pulses in the energy range 1-5 keV. If these pulses have identical properties, other than photon energy, we can generate them as follows:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span><span class="mi">2000</span><span class="p">,</span><span class="mi">3000</span><span class="p">,</span><span class="mi">4000</span><span class="p">,</span><span class="mi">5000</span><span class="p">]</span> <span class="c1">### list of energies in eV</span>
+
+<span class="c1">## using the properties defined above</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">SASE_Source</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
+                  <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
+                  <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="p">,</span>
+                  <span class="n">photon_energy</span> <span class="o">=</span> <span class="n">energies</span><span class="p">,</span>
+                  <span class="n">pulse_energy</span> <span class="o">=</span> <span class="mf">1e-04</span><span class="p">,</span>
+                  <span class="n">pulse_duration</span> <span class="o">=</span> <span class="mf">15e-15</span><span class="p">,</span>
+                  <span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
+                  <span class="n">sigma</span> <span class="o">=</span> <span class="mf">50e-06</span><span class="p">,</span>
+                  <span class="n">div</span> <span class="o">=</span> <span class="mf">2.5e-03</span><span class="p">,</span>
+                  <span class="n">x0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">y0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">t0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">theta_x</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">theta_y</span> <span class="o">=</span> <span class="mf">0.0</span>
+                  <span class="p">)</span>
+
+<span class="c1">## storing these avefronts in the following location</span>
+<span class="n">save_loc</span> <span class="o">=</span> <span class="s2">&quot;./sase_field.h5&quot;</span>
+<span class="n">src</span><span class="o">.</span><span class="n">generate_pulses</span><span class="p">(</span><span class="n">save_loc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The .h5 master now contains 5 SASE pulses. We can check their paramters</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span> <span class="k">as</span> <span class="nn">h5</span>
+
+
+<span class="k">with</span> <span class="n">h5</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">save_loc</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pulses in the master file:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">((</span><span class="n">hf</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">hf</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pulse Parameters:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;photon_energy&#39;</span><span class="p">][()],</span><span class="s2">&quot;eV&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Pulses in the master file:
+&lt;KeysViewHDF5 [&#39;pulse000&#39;, &#39;pulse001&#39;, &#39;pulse002&#39;, &#39;pulse003&#39;, &#39;pulse004&#39;]&gt;
+
+Pulse Parameters:
+1000 eV
+
+Pulse Parameters:
+2000 eV
+
+Pulse Parameters:
+3000 eV
+
+Pulse Parameters:
+4000 eV
+
+Pulse Parameters:
+5000 eV
+
+</pre></div></div>
+</div>
+<p>We can compare their spectrums:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="k">with</span> <span class="n">h5</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">save_loc</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">hf</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">sase_pulse</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][()]</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;mesh&#39;</span><span class="p">][</span><span class="s1">&#39;t&#39;</span><span class="p">][()]</span>
+        <span class="n">photon_energy</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;photon_energy&#39;</span><span class="p">][()]</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="mf">1e15</span><span class="p">,</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">sase_pulse</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span>
+               <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.2e}</span><span class="s1"> keV&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">photon_energy</span><span class="o">*</span><span class="mf">1e3</span><span class="p">))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Intensity (W/mm$^2$)&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (fs)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_sase_model_pt2_19_0.png" src="../_images/notebooks_sase_model_pt2_19_0.png" />
+</div>
+</div>
+</section>
+<section id="Pulses-from-Arrays">
+<h2>Pulses from Arrays<a class="headerlink" href="#Pulses-from-Arrays" title="Permalink to this heading">¶</a></h2>
+<p>Let’s now consider the case of a pulse with a fluctuating center-of-mass in the transverse-plane. If this process is determininstic, we can define a set of input parameters from an arbitrary function.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">100e-06</span><span class="p">,</span><span class="mf">100e-06</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">100e-06</span><span class="p">,</span><span class="mf">100e-06</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Using these values as the input to the SASE_Source function yields:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## using the properties defined above</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">SASE_Source</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
+                  <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
+                  <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="p">,</span>
+                  <span class="n">photon_energy</span> <span class="o">=</span> <span class="mf">10e03</span><span class="p">,</span>
+                  <span class="n">pulse_energy</span> <span class="o">=</span> <span class="mf">1e-04</span><span class="p">,</span>
+                  <span class="n">pulse_duration</span> <span class="o">=</span> <span class="mf">15e-15</span><span class="p">,</span>
+                  <span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
+                  <span class="n">sigma</span> <span class="o">=</span> <span class="mf">50e-06</span><span class="p">,</span>
+                  <span class="n">div</span> <span class="o">=</span> <span class="mf">2.5e-03</span><span class="p">,</span>
+                  <span class="n">x0</span> <span class="o">=</span> <span class="n">x0</span><span class="p">,</span> <span class="c1">### provide coordinates here</span>
+                  <span class="n">y0</span> <span class="o">=</span> <span class="n">y0</span><span class="p">,</span> <span class="c1">### and here</span>
+                  <span class="n">t0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">theta_x</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">theta_y</span> <span class="o">=</span> <span class="mf">0.0</span>
+                  <span class="p">)</span>
+
+<span class="c1">## storing these avefronts in the following location</span>
+<span class="n">save_loc</span> <span class="o">=</span> <span class="s2">&quot;./sase_field.h5&quot;</span>
+<span class="n">src</span><span class="o">.</span><span class="n">generate_pulses</span><span class="p">(</span><span class="n">save_loc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>which we can check from the stored pulse intensites:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">h5</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">save_loc</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+
+    <span class="k">for</span> <span class="n">itr</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">hf</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+
+        <span class="n">ax</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+
+        <span class="n">sase_pulse</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][()]</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="n">sase_pulse</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">2</span><span class="p">),</span>
+                        <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;bone&#39;</span>
+                    <span class="p">)</span>
+
+        <span class="n">ax</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_sase_model_pt2_25_0.png" src="../_images/notebooks_sase_model_pt2_25_0.png" />
+</div>
+</div>
+<p>Note that we can combine this method with the previous changes in photon energy if the length of the inputs are equivalent</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span><span class="mi">2000</span><span class="p">,</span><span class="mi">3000</span><span class="p">,</span><span class="mi">4000</span><span class="p">,</span><span class="mi">5000</span><span class="p">]</span> <span class="c1">### list of energies in eV</span>
+
+<span class="c1">## using the properties defined above</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">SASE_Source</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
+                  <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
+                  <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="p">,</span>
+                  <span class="n">photon_energy</span> <span class="o">=</span> <span class="n">energies</span><span class="p">,</span>
+                  <span class="n">pulse_energy</span> <span class="o">=</span> <span class="mf">1e-04</span><span class="p">,</span>
+                  <span class="n">pulse_duration</span> <span class="o">=</span> <span class="mf">15e-15</span><span class="p">,</span>
+                  <span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
+                  <span class="n">sigma</span> <span class="o">=</span> <span class="mf">50e-06</span><span class="p">,</span>
+                  <span class="n">div</span> <span class="o">=</span> <span class="mf">2.5e-03</span><span class="p">,</span>
+                  <span class="n">x0</span> <span class="o">=</span> <span class="n">x0</span><span class="p">,</span> <span class="c1">### provide coordinates here</span>
+                  <span class="n">y0</span> <span class="o">=</span> <span class="n">y0</span><span class="p">,</span> <span class="c1">### and here</span>
+                  <span class="n">t0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">theta_x</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">theta_y</span> <span class="o">=</span> <span class="mf">0.0</span>
+                  <span class="p">)</span>
+
+<span class="c1">## storing these avefronts in the following location</span>
+<span class="n">save_loc</span> <span class="o">=</span> <span class="s2">&quot;./sase_field.h5&quot;</span>
+<span class="n">src</span><span class="o">.</span><span class="n">generate_pulses</span><span class="p">(</span><span class="n">save_loc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">h5</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">save_loc</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+
+    <span class="k">for</span> <span class="n">itr</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">hf</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+
+        <span class="n">ax</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+
+        <span class="n">sase_pulse</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][()]</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="n">sase_pulse</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">2</span><span class="p">),</span>
+                        <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;bone&#39;</span>
+                    <span class="p">)</span>
+        <span class="n">photon_energy</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;photon_energy&#39;</span><span class="p">][()]</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Photon Energy:</span><span class="se">\n</span><span class="si">{:.2e}</span><span class="s2"> eV&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">photon_energy</span><span class="o">*</span><span class="mf">1e3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_sase_model_pt2_28_0.png" src="../_images/notebooks_sase_model_pt2_28_0.png" />
+</div>
+</div>
+</section>
+<section id="Pulses-from-Lambdas">
+<h2>Pulses from Lambdas<a class="headerlink" href="#Pulses-from-Lambdas" title="Permalink to this heading">¶</a></h2>
+<p>The SASE pulse model is inherently stochastic due to the partially random SASE spectral distribution. Using python lambdas, we can create a source that with properties that fluctuate in time.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energies</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span><span class="mi">2000</span><span class="p">,</span><span class="mi">3000</span><span class="p">,</span><span class="mi">4000</span><span class="p">,</span><span class="mi">5000</span><span class="p">]</span> <span class="c1">### list of energies in eV</span>
+
+<span class="c1">## using the properties defined above</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">SASE_Source</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
+                  <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
+                  <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="p">,</span>
+                  <span class="n">photon_energy</span> <span class="o">=</span> <span class="n">energies</span><span class="p">,</span>
+                  <span class="n">pulse_energy</span> <span class="o">=</span> <span class="mf">1e-04</span><span class="p">,</span>
+                  <span class="n">pulse_duration</span> <span class="o">=</span> <span class="mf">15e-15</span><span class="p">,</span>
+                  <span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
+                  <span class="n">sigma</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span><span class="o">*</span><span class="mf">250e-06</span><span class="p">,</span>
+                  <span class="n">div</span> <span class="o">=</span> <span class="mf">2.5e-03</span><span class="p">,</span>
+                  <span class="n">x0</span> <span class="o">=</span> <span class="n">x0</span><span class="p">,</span> <span class="c1">### provide coordinates here</span>
+                  <span class="n">y0</span> <span class="o">=</span> <span class="n">y0</span><span class="p">,</span> <span class="c1">### and here</span>
+                  <span class="n">t0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">theta_x</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="n">theta_y</span> <span class="o">=</span> <span class="mf">0.0</span>
+                  <span class="p">)</span>
+
+<span class="c1">## storing these avefronts in the following location</span>
+<span class="n">save_loc</span> <span class="o">=</span> <span class="s2">&quot;./sase_field.h5&quot;</span>
+<span class="n">src</span><span class="o">.</span><span class="n">generate_pulses</span><span class="p">(</span><span class="n">save_loc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">h5</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">save_loc</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
+
+    <span class="k">for</span> <span class="n">itr</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">hf</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+
+        <span class="n">ax</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+
+        <span class="n">sase_pulse</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][()]</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">((</span><span class="nb">abs</span><span class="p">(</span><span class="n">sase_pulse</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">2</span><span class="p">),</span>
+                        <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;bone&#39;</span>
+                    <span class="p">)</span>
+        <span class="n">photon_energy</span> <span class="o">=</span> <span class="n">hf</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;photon_energy&#39;</span><span class="p">][()]</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Photon Energy:</span><span class="se">\n</span><span class="si">{:.2e}</span><span class="s2"> eV&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">photon_energy</span><span class="o">*</span><span class="mf">1e3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_sase_model_pt2_31_0.png" src="../_images/notebooks_sase_model_pt2_31_0.png" />
+</div>
+</div>
+<p>In the following example - we demonstrate how these properties can be used to make a custom represenation of your SASE source</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sase_model_pt1.html" class="btn btn-neutral float-left" title="Generating Pulses" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sase_model_pt3.html" class="btn btn-neutral float-right" title="Tutorial: Using phenom to Model Shot-to-Shot the European XFEL" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Trey Guest.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
