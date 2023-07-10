@@ -3,8 +3,7 @@ name: Publish your documentation
 on:
   push:
     branches:
-      - dev
-      - main
+      - master
 
 jobs:
   build:
