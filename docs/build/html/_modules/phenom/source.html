@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>phenom.source &mdash; phenom 0.0.1.post61.dev0+g7c5302a documentation</title>
+  <title>phenom.source &mdash; phenom 0.0.2.post0.dev0+g4264519 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
@@ -35,7 +35,7 @@
             phenom
           </a>
               <div class="version">
-                0.0.1.post61.dev0+g7c5302a
+                0.0.2.post0.dev0+g4264519
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -95,7 +95,6 @@
 
 <span class="kn">from</span> <span class="nn">phenom.gaussian</span> <span class="kn">import</span> <span class="n">complex_gaussian_beam</span>
 <span class="kn">from</span> <span class="nn">phenom.spectrum</span> <span class="kn">import</span> <span class="n">linear_SASE_spectrum</span>
-<span class="kn">from</span> <span class="nn">phenom.utils</span> <span class="kn">import</span> <span class="n">e2wav</span>
 <span class="kn">from</span> <span class="nn">phenom.wavefront_tools</span> <span class="kn">import</span> <span class="n">wavefront_tilt</span>
 
 
@@ -113,25 +112,56 @@
     <span class="n">y0</span><span class="p">,</span>
     <span class="n">t0</span><span class="p">,</span>
     <span class="n">theta_x</span><span class="p">,</span>
-    <span class="n">theta_y</span><span class="p">,</span>
-<span class="p">):</span>
+    <span class="n">theta_y</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    SASE pulse model</span>
+<span class="sd">    Generate a Self-Amplified Spontaneous Emission (SASE) pulse model.</span>
 
-<span class="sd">    :param x: horizontal coordinates (np.ndarray)</span>
-<span class="sd">    :param y: vertical coordinates (np.ndarray)</span>
-<span class="sd">    :param photon_energy: photon energy in eV (float)</span>
-<span class="sd">    :param pulse_energy: pulse energy in J (float)</span>
-<span class="sd">    :param pulse_duration: pulse duration in seconds (float)</span>
-<span class="sd">    :param bandwidth: pulse bandwidth as a fraction of photon energy (float)</span>
-<span class="sd">    :param sigma: gaussian beam width (float)</span>
-<span class="sd">    :param div: beam divergence (float)</span>
-<span class="sd">    :param x0: horizontal position jitter (float)</span>
-<span class="sd">    :param y0: vertical position jitter (float)</span>
-<span class="sd">    :param t0: temporal jitter (float)</span>
-<span class="sd">    :param theta_x: horizontal pointing angle (float)</span>
-<span class="sd">    :param theta_y: vertical pointing angle (float)</span>
+<span class="sd">    This function models a SASE pulse by combining the temporal profile (from the linear_SASE_spectrum function), the spatial profile (from the complex_gaussian_beam function), and a wavefront tilt.</span>
 
+<span class="sd">    :param x: numpy.ndarray</span>
+<span class="sd">        Horizontal coordinates, representing the spatial dimension in the horizontal direction.</span>
+
+<span class="sd">    :param y: numpy.ndarray</span>
+<span class="sd">        Vertical coordinates, representing the spatial dimension in the vertical direction.</span>
+
+<span class="sd">    :param t: numpy.ndarray</span>
+<span class="sd">        Time coordinates, representing the temporal dimension of the pulse.</span>
+
+<span class="sd">    :param photon_energy: float</span>
+<span class="sd">        Photon energy of the pulse, in electronvolts (eV).</span>
+
+<span class="sd">    :param pulse_energy: float</span>
+<span class="sd">        Total energy of the pulse, in joules (J).</span>
+
+<span class="sd">    :param pulse_duration: float</span>
+<span class="sd">        Duration of the pulse, in seconds.</span>
+
+<span class="sd">    :param bandwidth: float</span>
+<span class="sd">        Bandwidth of the pulse, given as a fraction of the photon energy.</span>
+
+<span class="sd">    :param sigma: float</span>
+<span class="sd">        Gaussian beam width, representing the standard deviation of the spatial Gaussian profile.</span>
+
+<span class="sd">    :param div: float</span>
+<span class="sd">        Beam divergence, in radians.</span>
+
+<span class="sd">    :param x0: float</span>
+<span class="sd">        Horizontal position jitter, representing a shift in the horizontal direction.</span>
+
+<span class="sd">    :param y0: float</span>
+<span class="sd">        Vertical position jitter, representing a shift in the vertical direction.</span>
+
+<span class="sd">    :param t0: float</span>
+<span class="sd">        Temporal jitter, representing a shift in the temporal profile.</span>
+
+<span class="sd">    :param theta_x: float</span>
+<span class="sd">        Horizontal pointing angle, defining the tilt of the wavefront in the horizontal direction.</span>
+
+<span class="sd">    :param theta_y: float</span>
+<span class="sd">        Vertical pointing angle, defining the tilt of the wavefront in the vertical direction.</span>
+
+<span class="sd">    :return: numpy.ndarray</span>
+<span class="sd">        Electric field of the modeled SASE pulse, represented as a complex array.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">tfield</span> <span class="o">=</span> <span class="n">linear_SASE_spectrum</span><span class="p">(</span>
@@ -165,6 +195,33 @@
 
 
 <span class="k">def</span> <span class="nf">check_arg_types</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check the argument types in a given dictionary.</span>
+<span class="sd">    </span>
+<span class="sd">    This function verifies that each value in the dictionary corresponds to one of the allowed types. If the value is a list, it is converted to a NumPy array.</span>
+<span class="sd">    </span>
+<span class="sd">    :param args: dict</span>
+<span class="sd">        A dictionary containing the arguments to be checked. The keys represent argument names, and the values are the corresponding objects to be verified.</span>
+<span class="sd">    </span>
+<span class="sd">    :raises AssertionError:</span>
+<span class="sd">        If any value in the dictionary is not of one of the allowed types: float, list, numpy.ndarray, or FunctionType.</span>
+<span class="sd">    </span>
+<span class="sd">    :side effect:</span>
+<span class="sd">        If any value in the dictionary is of type list, it is converted to a numpy.ndarray, and the dictionary is updated in place.</span>
+<span class="sd">    </span>
+<span class="sd">    :Note:</span>
+<span class="sd">        This function is intended for internal use, to ensure that the inputs to a given function adhere to the expected types.</span>
+<span class="sd">        It is useful in the development and debugging process, particularly when dealing with complex functions that accept multiple argument types.</span>
+<span class="sd">    </span>
+<span class="sd">    :Example:</span>
+<span class="sd">        args = {</span>
+<span class="sd">            &#39;x&#39;: [1, 2, 3],</span>
+<span class="sd">            &#39;y&#39;: 5.0,</span>
+<span class="sd">            &#39;func&#39;: lambda x: x**2</span>
+<span class="sd">        }</span>
+<span class="sd">        check_arg_types(args)</span>
+<span class="sd">        # args now contains: {&#39;x&#39;: numpy.ndarray([1, 2, 3]), &#39;y&#39;: 5.0, &#39;func&#39;: &lt;function&gt;}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">parse_types</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">FunctionType</span><span class="p">]</span>
 
     <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
@@ -185,15 +242,35 @@
 
 <span class="k">def</span> <span class="nf">sort_arg_types</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">__type__</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    parser utility: sorts function types + array length assertions</span>
+<span class="sd">    Sorts the arguments based on their types and asserts array length consistency.</span>
 
-<span class="sd">    :param args: arguments of the Source function</span>
-<span class="sd">    :param __type__: argument types</span>
+<span class="sd">    This utility function organizes the arguments of the Source function by their types into different categories and ensures that all lists and 1D NumPy arrays have equal lengths. It&#39;s useful for categorizing and validating the input parameters.</span>
 
-<span class="sd">    :returns N: number of pulses to iterate over</span>
-<span class="sd">    :returns __set__: dict of argument keys sorted by value type</span>
+<span class="sd">    :param args: dict</span>
+<span class="sd">        A dictionary containing the arguments of the Source function. The keys represent argument names, and the values are the corresponding objects to be sorted.</span>
+
+<span class="sd">    :param __type__: type</span>
+<span class="sd">        The expected types for the arguments.</span>
+
+<span class="sd">    :returns N: int</span>
+<span class="sd">        The number of pulses to iterate over. If there are no arrays in the arguments, this value will be 1. Otherwise, it will be the common length of all 1D NumPy arrays.</span>
+
+<span class="sd">    :returns __set__: dict</span>
+<span class="sd">        A dictionary with keys representing the types (&quot;float&quot;, &quot;np.ndarray&quot;, &quot;FunctionType&quot;) and values as lists containing the corresponding keys from the input &#39;args&#39; that match the type.</span>
+
+<span class="sd">    :raises AssertionError:</span>
+<span class="sd">        If the lengths of all lists and 1D NumPy arrays are not equal.</span>
+
+<span class="sd">    :Example:</span>
+<span class="sd">        args = {</span>
+<span class="sd">            &#39;x&#39;: np.array([1, 2, 3]),</span>
+<span class="sd">            &#39;y&#39;: 5.0,</span>
+<span class="sd">            &#39;func&#39;: lambda x: x**2</span>
+<span class="sd">        }</span>
+<span class="sd">        N, sorted_args = sort_arg_types(args, __type__)</span>
+<span class="sd">        # N = 3</span>
+<span class="sd">        # sorted_args = {&#39;float&#39;: [&#39;y&#39;], &#39;np.ndarray&#39;: [&#39;x&#39;], &#39;FunctionType&#39;: [&#39;func&#39;]}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">__keys__</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
     <span class="n">__arrays__</span> <span class="o">=</span> <span class="p">[]</span>
@@ -275,16 +352,33 @@
 
 
 <span class="k">class</span> <span class="nc">Source</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Base structure of phenom.source model</span>
-
-<span class="sd">    features:</span>
-<span class="sd">        - io</span>
-<span class="sd">        - execute</span>
-<span class="sd">        - parseing annd</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A generic class representing a source for generating electromagnetic wavefronts.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">        args : dict</span>
+<span class="sd">            A dictionary containing the arguments that define the source properties.</span>
+<span class="sd">        metadata : dict</span>
+<span class="sd">            A dictionary containing metadata associated with the source.</span>
+<span class="sd">        __queue__ : dict</span>
+<span class="sd">            A dictionary representing the processing queue.</span>
+<span class="sd">        N : int</span>
+<span class="sd">            The number of processes in the queue.</span>
+<span class="sd">        processes : dict</span>
+<span class="sd">            A dictionary of processes representing individual pulses.</span>
+
+<span class="sd">        Methods:</span>
+<span class="sd">        get_process_parameters() -&gt; None</span>
+<span class="sd">            Calculates individual pulse parameters from the queue and stores them as processes.</span>
+<span class="sd">        refresh_processes() -&gt; None</span>
+<span class="sd">            Regenerates the process list from stored arguments.</span>
+<span class="sd">        execute(method, sdir) -&gt; None</span>
+<span class="sd">            A method to generate pulse wavefront files using a given method and save them to a specified directory.</span>
+<span class="sd">        store_hdf5(sdir) -&gt; None</span>
+<span class="sd">            A method to store data in HDF5 format (Note: this method is incomplete in the provided code snippet).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span> <span class="o">=</span> <span class="n">init_metadata</span><span class="p">()</span>
@@ -370,36 +464,36 @@
             <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">sdir</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="s2">&quot;list of strings should be length N (number of pulses to be generated)&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">sdir</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;sdir should be type str or list&quot;</span>
-        
+
         <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">sdir</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">itr</span><span class="p">,</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processes</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
                 <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">sdir</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
                     <span class="n">file</span> <span class="o">=</span> <span class="n">sdir</span><span class="p">[</span><span class="n">itr</span><span class="p">]</span>
-    
+
                 <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">sdir</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
                     <span class="k">if</span> <span class="s2">&quot;.h5&quot;</span> <span class="ow">in</span> <span class="n">sdir</span><span class="p">:</span>
                         <span class="n">file</span> <span class="o">=</span> <span class="n">sdir</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.h5&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{:03}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">itr</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.h5&quot;</span>
-    
+
                     <span class="k">if</span> <span class="s2">&quot;.hdf5&quot;</span> <span class="ow">in</span> <span class="n">sdir</span><span class="p">:</span>
                         <span class="n">file</span> <span class="o">=</span> <span class="n">sdir</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.h5&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{:03}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">itr</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.hdf5&quot;</span>
-    
+
                 <span class="bp">self</span><span class="o">.</span><span class="n">processes</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file</span>
-    
+
                 <span class="n">efield</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processes</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-    
+
                 <span class="n">group</span> <span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
                 <span class="n">group</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">efield</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">efield</span><span class="p">)</span>
-    
+
                 <span class="n">params</span> <span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s2">&quot;/params&quot;</span><span class="p">)</span>
-    
+
                 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
                     <span class="n">params</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">processes</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">k</span><span class="p">])</span>
-    
+
                 <span class="n">mesh</span> <span class="o">=</span> <span class="n">hf</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s2">&quot;/mesh&quot;</span><span class="p">)</span>
                 <span class="n">mesh</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
                 <span class="n">mesh</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
                 <span class="n">mesh</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)</span>
-    
+
             <span class="n">hf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="c1">###</span>
 
@@ -428,26 +522,47 @@
         <span class="n">theta_y</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        initialisation function.</span>
-
-<span class="sd">        :param x: horizontal coordinates (np.ndarray)</span>
-<span class="sd">        :param y: vertical coordinates (np.ndarray)</span>
-<span class="sd">        :param photon_energy: photon energy in eV (float)</span>
-<span class="sd">        :param pulse_energy: pulse energy in J (float)</span>
-<span class="sd">        :param pulse_duration: pulse duration in seconds (float)</span>
-<span class="sd">        :param bandwidth: pulse bandwidth as a fraction of photon energy (float)</span>
-<span class="sd">        :param sigma: gaussian beam width (float)</span>
-<span class="sd">        :param div: beam divergence (float)</span>
-<span class="sd">        :param x0: horizontal position jitter (float)</span>
-<span class="sd">        :param y0: vertical position jitter (float)</span>
-<span class="sd">        :param t0: temporal jitter (float)</span>
-<span class="sd">        :param theta_x: horizontal pointing angle (float)</span>
-<span class="sd">        :param theta_y: vertical pointing angle (float)</span>
-
-<span class="sd">        :param N: number of pulses - only valid if all other parameters are floats or lambdas</span>
-
+<span class="sd">        A derived class from Source, specifically representing a Self-Amplified Spontaneous Emission (SASE) source.</span>
+<span class="sd">    </span>
+<span class="sd">        Attributes:</span>
+<span class="sd">        Inherits all attributes from the Source class.</span>
+<span class="sd">    </span>
+<span class="sd">        Methods:</span>
+<span class="sd">        generate_sase_field(params) -&gt; np.ndarray</span>
+<span class="sd">            Generates a SASE field using the sase_pulse function with the specified parameters.</span>
+<span class="sd">        generate_pulses(sdir) -&gt; None</span>
+<span class="sd">            Executes the generation of SASE fields for each process and saves the results in the specified directory.</span>
+<span class="sd">    </span>
+<span class="sd">        Parameters:</span>
+<span class="sd">        x : np.ndarray</span>
+<span class="sd">            Horizontal coordinates.</span>
+<span class="sd">        y : np.ndarray</span>
+<span class="sd">            Vertical coordinates.</span>
+<span class="sd">        t : np.ndarray</span>
+<span class="sd">            Time coordinates.</span>
+<span class="sd">        photon_energy : float</span>
+<span class="sd">            Photon energy in eV.</span>
+<span class="sd">        pulse_energy : float</span>
+<span class="sd">            Pulse energy in J.</span>
+<span class="sd">        pulse_duration : float</span>
+<span class="sd">            Pulse duration in seconds.</span>
+<span class="sd">        bandwidth : float</span>
+<span class="sd">            Pulse bandwidth as a fraction of photon energy.</span>
+<span class="sd">        sigma : float</span>
+<span class="sd">            Gaussian beam width.</span>
+<span class="sd">        div : float</span>
+<span class="sd">            Beam divergence.</span>
+<span class="sd">        x0 : float</span>
+<span class="sd">            Horizontal position jitter.</span>
+<span class="sd">        y0 : float</span>
+<span class="sd">            Vertical position jitter.</span>
+<span class="sd">        t0 : float</span>
+<span class="sd">            Temporal jitter.</span>
+<span class="sd">        theta_x : float</span>
+<span class="sd">            Horizontal pointing angle.</span>
+<span class="sd">        theta_y : float</span>
+<span class="sd">            Vertical pointing angle.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
             <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>

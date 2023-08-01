@@ -44,6 +44,7 @@ setup(
     cmdclass=versioneer.get_cmdclass(),
     description="A phenomenological model of X-ray Free Electron Laser (XFEL) radiation and radiation statistics.",
     long_description=readme,
+    long_description_content_type='text/markdown',
     author="Trey Guest",
     author_email="trey.guest@xfel.eu",
     url="https://github.com/twguest/phenom",

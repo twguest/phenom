@@ -14,24 +14,42 @@ np.seterr(invalid="ignore")
 
 def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0):
     """
-    generate a single SASE pulse profiles
+    Generate a single SASE (Self-Amplified Spontaneous Emission) pulse profile.
 
-    assumes that the spectral and temporal profiles are gaussian,
-    assumes that there is no jitter from the central value of the Gaussian (ie, the pulse profile
-    is persistent).
+    This function assumes that both the spectral and temporal profiles are Gaussian. The current implementation does not consider any jitter from the central value of the Gaussian, meaning the pulse profile is considered persistent.
 
-    in future, we will extend this extned the functionality to account for non-Gaussian profiles,
-    and pulse-length jitter.
+    Future extensions to this function might include the ability to handle non-Gaussian profiles and pulse-length jitter, as well as the trimming of the function to relevant regions to reduce the number of points.
 
-    it will also be useful to trim the function to the relevant regions (and thus reduce the number of points)
+    :param t: numpy.ndarray
+        Time axis of the pulse. Represents the time range over which the pulse is defined.
 
-    :param pulse_duration: expectation fwhm value of the SASE pulse time [in s]
-    :param photon_energy: central energy of pulse [in eV]
-    :param bandwidth: energy bandwidth / relative of the pulse
-    :param t0: timing jitter (float) (should geberally be less than 2*sampling*bandwidth)
-    :param t: time axis
+    :param pulse_duration: float
+        Expected full width at half maximum (FWHM) value of the SASE pulse time, in seconds.
 
-    :returns: spectrum
+    :param photon_energy: float
+        Central energy of the pulse, in electronvolts.
+
+    :param bandwidth: float, optional
+        Energy bandwidth relative to the pulse. Represents the spread in energy of the pulse.
+        Default is 1e-04.
+
+    :param t0: float, optional
+        Timing jitter, which should generally be less than twice the product of the sampling rate and the bandwidth.
+        Default is 0.
+
+    :return: numpy.ndarray
+        The complex spectrum of the SASE pulse, represented as a 1D array.
+
+    :Description:
+        The function begins by defining several parameters including the pulse duration in terms of standard deviation, the bandwidth in absolute terms, the energy range (E), and the corresponding time-domain (et).
+        It then calculates the temporal and spectral envelopes using a Gaussian function (assumed to be `gaussian_1d` within the function's scope).
+        Random phases are introduced to the spectral envelope, and the final spectrum is computed using a Fourier transform.
+        The resulting spectrum is normalized so that the area under the intensity curve is 1.
+
+    :Note:
+        - The `gaussian_1d` function, used to define the temporal and spectral envelopes, should be available in the scope of this function.
+        - Constants like `hr_eV_s` used for unit conversion should also be defined.
+        - The provided time axis 't' should be a 1D array with an appropriate range to represent the pulse profile.
     """
     nt = t.shape[0]
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>phenom.spectrum &mdash; phenom 0.0.1.post61.dev0+g7c5302a documentation</title>
+  <title>phenom.spectrum &mdash; phenom 0.0.2.post0.dev0+g4264519 documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
@@ -35,7 +35,7 @@
             phenom
           </a>
               <div class="version">
-                0.0.1.post61.dev0+g7c5302a
+                0.0.2.post0.dev0+g4264519
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -95,24 +95,42 @@
 
 <div class="viewcode-block" id="linear_SASE_spectrum"><a class="viewcode-back" href="../../api.html#phenom.spectrum.linear_SASE_spectrum">[docs]</a><span class="k">def</span> <span class="nf">linear_SASE_spectrum</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">pulse_duration</span><span class="p">,</span> <span class="n">photon_energy</span><span class="p">,</span> <span class="n">bandwidth</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    generate a single SASE pulse profiles</span>
+<span class="sd">    Generate a single SASE (Self-Amplified Spontaneous Emission) pulse profile.</span>
 
-<span class="sd">    assumes that the spectral and temporal profiles are gaussian,</span>
-<span class="sd">    assumes that there is no jitter from the central value of the Gaussian (ie, the pulse profile</span>
-<span class="sd">    is persistent).</span>
+<span class="sd">    This function assumes that both the spectral and temporal profiles are Gaussian. The current implementation does not consider any jitter from the central value of the Gaussian, meaning the pulse profile is considered persistent.</span>
 
-<span class="sd">    in future, we will extend this extned the functionality to account for non-Gaussian profiles,</span>
-<span class="sd">    and pulse-length jitter.</span>
+<span class="sd">    Future extensions to this function might include the ability to handle non-Gaussian profiles and pulse-length jitter, as well as the trimming of the function to relevant regions to reduce the number of points.</span>
 
-<span class="sd">    it will also be useful to trim the function to the relevant regions (and thus reduce the number of points)</span>
+<span class="sd">    :param t: numpy.ndarray</span>
+<span class="sd">        Time axis of the pulse. Represents the time range over which the pulse is defined.</span>
 
-<span class="sd">    :param pulse_duration: expectation fwhm value of the SASE pulse time [in s]</span>
-<span class="sd">    :param photon_energy: central energy of pulse [in eV]</span>
-<span class="sd">    :param bandwidth: energy bandwidth / relative of the pulse</span>
-<span class="sd">    :param t0: timing jitter (float) (should geberally be less than 2*sampling*bandwidth)</span>
-<span class="sd">    :param t: time axis</span>
+<span class="sd">    :param pulse_duration: float</span>
+<span class="sd">        Expected full width at half maximum (FWHM) value of the SASE pulse time, in seconds.</span>
 
-<span class="sd">    :returns: spectrum</span>
+<span class="sd">    :param photon_energy: float</span>
+<span class="sd">        Central energy of the pulse, in electronvolts.</span>
+
+<span class="sd">    :param bandwidth: float, optional</span>
+<span class="sd">        Energy bandwidth relative to the pulse. Represents the spread in energy of the pulse.</span>
+<span class="sd">        Default is 1e-04.</span>
+
+<span class="sd">    :param t0: float, optional</span>
+<span class="sd">        Timing jitter, which should generally be less than twice the product of the sampling rate and the bandwidth.</span>
+<span class="sd">        Default is 0.</span>
+
+<span class="sd">    :return: numpy.ndarray</span>
+<span class="sd">        The complex spectrum of the SASE pulse, represented as a 1D array.</span>
+
+<span class="sd">    :Description:</span>
+<span class="sd">        The function begins by defining several parameters including the pulse duration in terms of standard deviation, the bandwidth in absolute terms, the energy range (E), and the corresponding time-domain (et).</span>
+<span class="sd">        It then calculates the temporal and spectral envelopes using a Gaussian function (assumed to be `gaussian_1d` within the function&#39;s scope).</span>
+<span class="sd">        Random phases are introduced to the spectral envelope, and the final spectrum is computed using a Fourier transform.</span>
+<span class="sd">        The resulting spectrum is normalized so that the area under the intensity curve is 1.</span>
+
+<span class="sd">    :Note:</span>
+<span class="sd">        - The `gaussian_1d` function, used to define the temporal and spectral envelopes, should be available in the scope of this function.</span>
+<span class="sd">        - Constants like `hr_eV_s` used for unit conversion should also be defined.</span>
+<span class="sd">        - The provided time axis &#39;t&#39; should be a 1D array with an appropriate range to represent the pulse profile.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nt</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 

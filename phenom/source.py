@@ -14,7 +14,6 @@ import numpy as np
 
 from phenom.gaussian import complex_gaussian_beam
 from phenom.spectrum import linear_SASE_spectrum
-from phenom.utils import e2wav
 from phenom.wavefront_tools import wavefront_tilt
 
 
@@ -32,25 +31,56 @@ def sase_pulse(
     y0,
     t0,
     theta_x,
-    theta_y,
-):
+    theta_y):
     """
-    SASE pulse model
+    Generate a Self-Amplified Spontaneous Emission (SASE) pulse model.
 
-    :param x: horizontal coordinates (np.ndarray)
-    :param y: vertical coordinates (np.ndarray)
-    :param photon_energy: photon energy in eV (float)
-    :param pulse_energy: pulse energy in J (float)
-    :param pulse_duration: pulse duration in seconds (float)
-    :param bandwidth: pulse bandwidth as a fraction of photon energy (float)
-    :param sigma: gaussian beam width (float)
-    :param div: beam divergence (float)
-    :param x0: horizontal position jitter (float)
-    :param y0: vertical position jitter (float)
-    :param t0: temporal jitter (float)
-    :param theta_x: horizontal pointing angle (float)
-    :param theta_y: vertical pointing angle (float)
+    This function models a SASE pulse by combining the temporal profile (from the linear_SASE_spectrum function), the spatial profile (from the complex_gaussian_beam function), and a wavefront tilt.
 
+    :param x: numpy.ndarray
+        Horizontal coordinates, representing the spatial dimension in the horizontal direction.
+
+    :param y: numpy.ndarray
+        Vertical coordinates, representing the spatial dimension in the vertical direction.
+
+    :param t: numpy.ndarray
+        Time coordinates, representing the temporal dimension of the pulse.
+
+    :param photon_energy: float
+        Photon energy of the pulse, in electronvolts (eV).
+
+    :param pulse_energy: float
+        Total energy of the pulse, in joules (J).
+
+    :param pulse_duration: float
+        Duration of the pulse, in seconds.
+
+    :param bandwidth: float
+        Bandwidth of the pulse, given as a fraction of the photon energy.
+
+    :param sigma: float
+        Gaussian beam width, representing the standard deviation of the spatial Gaussian profile.
+
+    :param div: float
+        Beam divergence, in radians.
+
+    :param x0: float
+        Horizontal position jitter, representing a shift in the horizontal direction.
+
+    :param y0: float
+        Vertical position jitter, representing a shift in the vertical direction.
+
+    :param t0: float
+        Temporal jitter, representing a shift in the temporal profile.
+
+    :param theta_x: float
+        Horizontal pointing angle, defining the tilt of the wavefront in the horizontal direction.
+
+    :param theta_y: float
+        Vertical pointing angle, defining the tilt of the wavefront in the vertical direction.
+
+    :return: numpy.ndarray
+        Electric field of the modeled SASE pulse, represented as a complex array.
     """
 
     tfield = linear_SASE_spectrum(
@@ -84,6 +114,33 @@ def sase_pulse(
 
 
 def check_arg_types(args):
+    """
+    Check the argument types in a given dictionary.
+    
+    This function verifies that each value in the dictionary corresponds to one of the allowed types. If the value is a list, it is converted to a NumPy array.
+    
+    :param args: dict
+        A dictionary containing the arguments to be checked. The keys represent argument names, and the values are the corresponding objects to be verified.
+    
+    :raises AssertionError:
+        If any value in the dictionary is not of one of the allowed types: float, list, numpy.ndarray, or FunctionType.
+    
+    :side effect:
+        If any value in the dictionary is of type list, it is converted to a numpy.ndarray, and the dictionary is updated in place.
+    
+    :Note:
+        This function is intended for internal use, to ensure that the inputs to a given function adhere to the expected types.
+        It is useful in the development and debugging process, particularly when dealing with complex functions that accept multiple argument types.
+    
+    :Example:
+        args = {
+            'x': [1, 2, 3],
+            'y': 5.0,
+            'func': lambda x: x**2
+        }
+        check_arg_types(args)
+        # args now contains: {'x': numpy.ndarray([1, 2, 3]), 'y': 5.0, 'func': <function>}
+    """
     parse_types = [float, list, np.ndarray, FunctionType]
 
     keys = list(args.keys())
@@ -104,15 +161,35 @@ def check_arg_types(args):
 
 def sort_arg_types(args, __type__):
     """
-    parser utility: sorts function types + array length assertions
+    Sorts the arguments based on their types and asserts array length consistency.
 
-    :param args: arguments of the Source function
-    :param __type__: argument types
+    This utility function organizes the arguments of the Source function by their types into different categories and ensures that all lists and 1D NumPy arrays have equal lengths. It's useful for categorizing and validating the input parameters.
 
-    :returns N: number of pulses to iterate over
-    :returns __set__: dict of argument keys sorted by value type
+    :param args: dict
+        A dictionary containing the arguments of the Source function. The keys represent argument names, and the values are the corresponding objects to be sorted.
+
+    :param __type__: type
+        The expected types for the arguments.
+
+    :returns N: int
+        The number of pulses to iterate over. If there are no arrays in the arguments, this value will be 1. Otherwise, it will be the common length of all 1D NumPy arrays.
+
+    :returns __set__: dict
+        A dictionary with keys representing the types ("float", "np.ndarray", "FunctionType") and values as lists containing the corresponding keys from the input 'args' that match the type.
+
+    :raises AssertionError:
+        If the lengths of all lists and 1D NumPy arrays are not equal.
+
+    :Example:
+        args = {
+            'x': np.array([1, 2, 3]),
+            'y': 5.0,
+            'func': lambda x: x**2
+        }
+        N, sorted_args = sort_arg_types(args, __type__)
+        # N = 3
+        # sorted_args = {'float': ['y'], 'np.ndarray': ['x'], 'FunctionType': ['func']}
     """
-
     __keys__ = list(args.keys())
 
     __arrays__ = []
@@ -194,16 +271,33 @@ def init_metadata():
 
 
 class Source:
-    """
-    Base structure of phenom.source model
-
-    features:
-        - io
-        - execute
-        - parseing annd
-    """
 
     def __init__(self, **kwargs):
+        """
+        A generic class representing a source for generating electromagnetic wavefronts.
+
+        Attributes:
+        args : dict
+            A dictionary containing the arguments that define the source properties.
+        metadata : dict
+            A dictionary containing metadata associated with the source.
+        __queue__ : dict
+            A dictionary representing the processing queue.
+        N : int
+            The number of processes in the queue.
+        processes : dict
+            A dictionary of processes representing individual pulses.
+
+        Methods:
+        get_process_parameters() -> None
+            Calculates individual pulse parameters from the queue and stores them as processes.
+        refresh_processes() -> None
+            Regenerates the process list from stored arguments.
+        execute(method, sdir) -> None
+            A method to generate pulse wavefront files using a given method and save them to a specified directory.
+        store_hdf5(sdir) -> None
+            A method to store data in HDF5 format (Note: this method is incomplete in the provided code snippet).
+        """
         self.args = locals()
 
         self.metadata = init_metadata()
@@ -347,26 +441,47 @@ class SASE_Source(Source):
         theta_y,
     ):
         """
-        initialisation function.
-
-        :param x: horizontal coordinates (np.ndarray)
-        :param y: vertical coordinates (np.ndarray)
-        :param photon_energy: photon energy in eV (float)
-        :param pulse_energy: pulse energy in J (float)
-        :param pulse_duration: pulse duration in seconds (float)
-        :param bandwidth: pulse bandwidth as a fraction of photon energy (float)
-        :param sigma: gaussian beam width (float)
-        :param div: beam divergence (float)
-        :param x0: horizontal position jitter (float)
-        :param y0: vertical position jitter (float)
-        :param t0: temporal jitter (float)
-        :param theta_x: horizontal pointing angle (float)
-        :param theta_y: vertical pointing angle (float)
-
-        :param N: number of pulses - only valid if all other parameters are floats or lambdas
-
+        A derived class from Source, specifically representing a Self-Amplified Spontaneous Emission (SASE) source.
+    
+        Attributes:
+        Inherits all attributes from the Source class.
+    
+        Methods:
+        generate_sase_field(params) -> np.ndarray
+            Generates a SASE field using the sase_pulse function with the specified parameters.
+        generate_pulses(sdir) -> None
+            Executes the generation of SASE fields for each process and saves the results in the specified directory.
+    
+        Parameters:
+        x : np.ndarray
+            Horizontal coordinates.
+        y : np.ndarray
+            Vertical coordinates.
+        t : np.ndarray
+            Time coordinates.
+        photon_energy : float
+            Photon energy in eV.
+        pulse_energy : float
+            Pulse energy in J.
+        pulse_duration : float
+            Pulse duration in seconds.
+        bandwidth : float
+            Pulse bandwidth as a fraction of photon energy.
+        sigma : float
+            Gaussian beam width.
+        div : float
+            Beam divergence.
+        x0 : float
+            Horizontal position jitter.
+        y0 : float
+            Vertical position jitter.
+        t0 : float
+            Temporal jitter.
+        theta_x : float
+            Horizontal pointing angle.
+        theta_y : float
+            Vertical pointing angle.
         """
-
         super().__init__(
             x=x,
             y=y,

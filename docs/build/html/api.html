@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>API &mdash; phenom 0.0.1.post61.dev0+g7c5302a documentation</title>
+  <title>API &mdash; phenom 0.0.2.post0.dev0+g4264519 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
@@ -23,7 +23,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Minimum Version of Python and NumPy" href="min_versions.html" />
-    <link rel="prev" title="Modelling the SASE Undulator of the European XFEL" href="notebooks/sase_model_pt3.html" /> 
+    <link rel="prev" title="Tutorial: Using phenom to Model Shot-to-Shot the European XFEL" href="notebooks/sase_model_pt3.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,7 +38,7 @@
             phenom
           </a>
               <div class="version">
-                0.0.1.post61.dev0+g7c5302a
+                0.0.2.post0.dev0+g4264519
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -95,39 +95,47 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="phenom.source.SASE_Source">
 <span class="sig-prename descclassname"><span class="pre">phenom.source.</span></span><span class="sig-name descname"><span class="pre">SASE_Source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#SASE_Source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.SASE_Source" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base structure of phenom.source model</p>
-<dl class="simple">
-<dt>features:</dt><dd><ul class="simple">
-<li><p>io</p></li>
-<li><p>execute</p></li>
-<li><p>parseing annd</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="phenom.spectrum.linear_SASE_spectrum">
 <span class="sig-prename descclassname"><span class="pre">phenom.spectrum.</span></span><span class="sig-name descname"><span class="pre">linear_SASE_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/spectrum.html#linear_SASE_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.spectrum.linear_SASE_spectrum" title="Permalink to this definition">¶</a></dt>
-<dd><p>generate a single SASE pulse profiles</p>
-<p>assumes that the spectral and temporal profiles are gaussian,
-assumes that there is no jitter from the central value of the Gaussian (ie, the pulse profile
-is persistent).</p>
-<p>in future, we will extend this extned the functionality to account for non-Gaussian profiles,
-and pulse-length jitter.</p>
-<p>it will also be useful to trim the function to the relevant regions (and thus reduce the number of points)</p>
+<dd><p>Generate a single SASE (Self-Amplified Spontaneous Emission) pulse profile.</p>
+<p>This function assumes that both the spectral and temporal profiles are Gaussian. The current implementation does not consider any jitter from the central value of the Gaussian, meaning the pulse profile is considered persistent.</p>
+<p>Future extensions to this function might include the ability to handle non-Gaussian profiles and pulse-length jitter, as well as the trimming of the function to relevant regions to reduce the number of points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pulse_duration</strong> – expectation fwhm value of the SASE pulse time [in s]</p></li>
-<li><p><strong>photon_energy</strong> – central energy of pulse [in eV]</p></li>
-<li><p><strong>bandwidth</strong> – energy bandwidth / relative of the pulse</p></li>
-<li><p><strong>t0</strong> – timing jitter (float) (should geberally be less than 2*sampling*bandwidth)</p></li>
-<li><p><strong>t</strong> – time axis</p></li>
+<li><p><strong>t</strong> – numpy.ndarray
+Time axis of the pulse. Represents the time range over which the pulse is defined.</p></li>
+<li><p><strong>pulse_duration</strong> – float
+Expected full width at half maximum (FWHM) value of the SASE pulse time, in seconds.</p></li>
+<li><p><strong>photon_energy</strong> – float
+Central energy of the pulse, in electronvolts.</p></li>
+<li><p><strong>bandwidth</strong> – float, optional
+Energy bandwidth relative to the pulse. Represents the spread in energy of the pulse.
+Default is 1e-04.</p></li>
+<li><p><strong>t0</strong> – float, optional
+Timing jitter, which should generally be less than twice the product of the sampling rate and the bandwidth.
+Default is 0.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>spectrum</p>
+<dd class="field-even"><p>numpy.ndarray
+The complex spectrum of the SASE pulse, represented as a 1D array.</p>
+</dd>
+<dt class="field-odd">Description<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The function begins by defining several parameters including the pulse duration in terms of standard deviation, the bandwidth in absolute terms, the energy range (E), and the corresponding time-domain (et).
+It then calculates the temporal and spectral envelopes using a Gaussian function (assumed to be <cite>gaussian_1d</cite> within the function’s scope).
+Random phases are introduced to the spectral envelope, and the final spectrum is computed using a Fourier transform.
+The resulting spectrum is normalized so that the area under the intensity curve is 1.</p>
+</dd>
+<dt class="field-even">Note<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p>The <cite>gaussian_1d</cite> function, used to define the temporal and spectral envelopes, should be available in the scope of this function.</p></li>
+<li><p>Constants like <cite>hr_eV_s</cite> used for unit conversion should also be defined.</p></li>
+<li><p>The provided time axis ‘t’ should be a 1D array with an appropriate range to represent the pulse profile.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -141,7 +149,7 @@ and pulse-length jitter.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="notebooks/sase_model_pt3.html" class="btn btn-neutral float-left" title="Modelling the SASE Undulator of the European XFEL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notebooks/sase_model_pt3.html" class="btn btn-neutral float-left" title="Tutorial: Using phenom to Model Shot-to-Shot the European XFEL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="min_versions.html" class="btn btn-neutral float-right" title="Minimum Version of Python and NumPy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

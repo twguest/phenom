@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Usage &mdash; phenom 0.0.1.post61.dev0+g7c5302a documentation</title>
+  <title>Usage &mdash; phenom 0.0.2.post0.dev0+g4264519 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
@@ -38,7 +38,7 @@
             phenom
           </a>
               <div class="version">
-                0.0.1.post61.dev0+g7c5302a
+                0.0.2.post0.dev0+g4264519
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -100,24 +100,44 @@ wavefront function.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="phenom.source.sase_pulse">
 <span class="sig-prename descclassname"><span class="pre">phenom.source.</span></span><span class="sig-name descname"><span class="pre">sase_pulse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#sase_pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.sase_pulse" title="Permalink to this definition">¶</a></dt>
-<dd><p>SASE pulse model</p>
+<dd><p>Generate a Self-Amplified Spontaneous Emission (SASE) pulse model.</p>
+<p>This function models a SASE pulse by combining the temporal profile (from the linear_SASE_spectrum function), the spatial profile (from the complex_gaussian_beam function), and a wavefront tilt.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> – horizontal coordinates (np.ndarray)</p></li>
-<li><p><strong>y</strong> – vertical coordinates (np.ndarray)</p></li>
-<li><p><strong>photon_energy</strong> – photon energy in eV (float)</p></li>
-<li><p><strong>pulse_energy</strong> – pulse energy in J (float)</p></li>
-<li><p><strong>pulse_duration</strong> – pulse duration in seconds (float)</p></li>
-<li><p><strong>bandwidth</strong> – pulse bandwidth as a fraction of photon energy (float)</p></li>
-<li><p><strong>sigma</strong> – gaussian beam width (float)</p></li>
-<li><p><strong>div</strong> – beam divergence (float)</p></li>
-<li><p><strong>x0</strong> – horizontal position jitter (float)</p></li>
-<li><p><strong>y0</strong> – vertical position jitter (float)</p></li>
-<li><p><strong>t0</strong> – temporal jitter (float)</p></li>
-<li><p><strong>theta_x</strong> – horizontal pointing angle (float)</p></li>
-<li><p><strong>theta_y</strong> – vertical pointing angle (float)</p></li>
+<li><p><strong>x</strong> – numpy.ndarray
+Horizontal coordinates, representing the spatial dimension in the horizontal direction.</p></li>
+<li><p><strong>y</strong> – numpy.ndarray
+Vertical coordinates, representing the spatial dimension in the vertical direction.</p></li>
+<li><p><strong>t</strong> – numpy.ndarray
+Time coordinates, representing the temporal dimension of the pulse.</p></li>
+<li><p><strong>photon_energy</strong> – float
+Photon energy of the pulse, in electronvolts (eV).</p></li>
+<li><p><strong>pulse_energy</strong> – float
+Total energy of the pulse, in joules (J).</p></li>
+<li><p><strong>pulse_duration</strong> – float
+Duration of the pulse, in seconds.</p></li>
+<li><p><strong>bandwidth</strong> – float
+Bandwidth of the pulse, given as a fraction of the photon energy.</p></li>
+<li><p><strong>sigma</strong> – float
+Gaussian beam width, representing the standard deviation of the spatial Gaussian profile.</p></li>
+<li><p><strong>div</strong> – float
+Beam divergence, in radians.</p></li>
+<li><p><strong>x0</strong> – float
+Horizontal position jitter, representing a shift in the horizontal direction.</p></li>
+<li><p><strong>y0</strong> – float
+Vertical position jitter, representing a shift in the vertical direction.</p></li>
+<li><p><strong>t0</strong> – float
+Temporal jitter, representing a shift in the temporal profile.</p></li>
+<li><p><strong>theta_x</strong> – float
+Horizontal pointing angle, defining the tilt of the wavefront in the horizontal direction.</p></li>
+<li><p><strong>theta_y</strong> – float
+Vertical pointing angle, defining the tilt of the wavefront in the vertical direction.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray
+Electric field of the modeled SASE pulse, represented as a complex array.</p>
 </dd>
 </dl>
 </dd></dl>

@@ -2,7 +2,6 @@
  "cells": [
   {
    "cell_type": "markdown",
-   "id": "58972405",
    "metadata": {},
    "source": [
     "# Generate your first SASE Pulse\n",
@@ -24,7 +23,6 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "4b18b71f",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -33,7 +31,6 @@
   },
   {
    "cell_type": "markdown",
-   "id": "7cccd739",
    "metadata": {},
    "source": [
     "from which we can define a pulse of arbitrary characteristics"
@@ -42,7 +39,6 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "7986f74b",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -72,7 +68,6 @@
   },
   {
    "cell_type": "markdown",
-   "id": "4d0ef600",
    "metadata": {},
    "source": [
     "We can visualise the spatial and temporal intensity properties of this field:"
@@ -81,7 +76,6 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "f2be8911",
    "metadata": {},
    "outputs": [
     {
@@ -147,7 +141,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.11.3"
+   "version": "3.8.2"
   }
  },
  "nbformat": 4,
