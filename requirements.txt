@@ -1,5 +1,5 @@
 matplotlib==3.7.1
-numpy==1.21
+numpy==1.22.0
 scipy==1.10.1
 tables 
 h5py
