@@ -25,7 +25,7 @@ Phenom has been designed to require minimal knowledge of the XFEL process prior 
 
 More details on generating these pulses can be found in the [documentation](https://twguest.github.io/phenom).
 
-## Citations
+## Citation:
 The use of this package and the methods applied therein should be acknowledged using the following citation:
 - Guest, T. W., R. Bean, R. Kammering, G. van Riessen, A. P. Mancuso, and B. Abbey. “A Phenomenological Model of the X-Ray Pulse Statistics of a High-Repetition-Rate X-Ray Free-Electron Laser.” IUCrJ 10, no. 6 (November 1, 2023). https://doi.org/10.1107/S2052252523008242.
 
