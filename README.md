@@ -31,6 +31,6 @@ The use of this package and the methods applied therein should be acknowledged u
 
 ## Cited By:
 Below is a list of research which have acknowledged the application of this model
-[1] E, Juncheng, Carsten Fortmann-Grote, Trey Guest, Egor Sobolev, Luca Gelisio, Richard Bean, and Adrian P. Mancuso. “SimEx-Lite: Easy Access to Start-to-End Simulation for Experiments at Advanced Light Sources.” In Advances in Computational Methods for X-Ray Optics VI, edited by Oleg Chubar and Takashi Tanaka, 22. San Diego, United States: SPIE, 2023. https://doi.org/10.1117/12.2677299.
+- E, Juncheng, Carsten Fortmann-Grote, Trey Guest, Egor Sobolev, Luca Gelisio, Richard Bean, and Adrian P. Mancuso. “SimEx-Lite: Easy Access to Start-to-End Simulation for Experiments at Advanced Light Sources.” In Advances in Computational Methods for X-Ray Optics VI, edited by Oleg Chubar and Takashi Tanaka, 22. San Diego, United States: SPIE, 2023. https://doi.org/10.1117/12.2677299.
 
 
