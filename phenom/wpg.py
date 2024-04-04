@@ -58,7 +58,7 @@ def wpg_converter(save_loc, key):
 
     wfr.params.wEFieldUnit = 'sqrt(W/mm^2)'
     wfr.params.photonEnergy = photon_energy
-    wfr.params.wDomain = 'time'
+    wfr.params.wDomain = 'frequency'
     wfr.params.Mesh.nSlices = nt
     wfr.params.Mesh.nx = nx
     wfr.params.Mesh.ny = ny
