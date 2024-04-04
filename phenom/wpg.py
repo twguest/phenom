@@ -58,14 +58,15 @@ def wpg_converter(save_loc, key):
 
     wfr.params.wEFieldUnit = 'sqrt(W/mm^2)'
     wfr.params.photonEnergy = photon_energy
-    wfr.params.wDomain = 'frequency'
+    
     wfr.params.Mesh.nSlices = nt
     wfr.params.Mesh.nx = nx
-    wfr.params.Mesh.ny = ny
-
+    wfr.params.Mesh.ny = ny      
+    
     wfr.params.Mesh.sliceMin = np.min(t)
     wfr.params.Mesh.sliceMax = np.max(t)
 
+    wfr.params.wDomain = 'time'
 
     wfr.params.Mesh.xMin = np.min(x)
     wfr.params.Mesh.xMax = np.max(x)
