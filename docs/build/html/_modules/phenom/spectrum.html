@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>phenom.spectrum &mdash; phenom 0.0.3.post10.dev0+g31d86a1 documentation</title>
+  <title>phenom.spectrum &mdash; phenom 0.0.7.post14.dev0+gdaef6bf documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
@@ -13,8 +13,9 @@
   <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -28,18 +29,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../index.html" class="icon icon-home">
-            phenom
+            <a href="../../index.html" class="icon icon-home"> phenom
           </a>
               <div class="version">
-                0.0.3.post10.dev0+g31d86a1
+                0.0.7.post14.dev0+gdaef6bf
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -64,7 +61,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
       <li class="breadcrumb-item active">phenom.spectrum</li>
       <li class="wy-breadcrumbs-aside">
@@ -79,62 +76,84 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">fft</span>
-<span class="kn">from</span> <span class="nn">scipy.constants</span> <span class="kn">import</span> <span class="n">e</span><span class="p">,</span> <span class="n">h</span>
 
 <span class="kn">from</span> <span class="nn">phenom.gaussian</span> <span class="kn">import</span> <span class="n">gaussian_1d</span>
 
-<span class="n">h_eV_s</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="n">e</span>
-<span class="n">hr_eV_s</span> <span class="o">=</span> <span class="n">h_eV_s</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
 
-<span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="n">invalid</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-
-
-<div class="viewcode-block" id="linear_SASE_spectrum"><a class="viewcode-back" href="../../api.html#phenom.spectrum.linear_SASE_spectrum">[docs]</a><span class="k">def</span> <span class="nf">linear_SASE_spectrum</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">pulse_duration</span><span class="p">,</span> <span class="n">photon_energy</span><span class="p">,</span> <span class="n">bandwidth</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="linear_SASE_spectrum"><a class="viewcode-back" href="../../api.html#phenom.spectrum.linear_SASE_spectrum">[docs]</a><span class="k">def</span> <span class="nf">linear_SASE_spectrum</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">pulse_duration</span><span class="p">,</span> <span class="n">photon_energy</span><span class="p">,</span> <span class="n">bandwidth</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;freq&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    generate a single SASE pulse profiles</span>
+<span class="sd">    Generate a single SASE pulse profile in the time and frequency domain.</span>
 
-<span class="sd">    assumes that the spectral and temporal profiles are gaussian,</span>
-<span class="sd">    assumes that there is no jitter from the central value of the Gaussian (ie, the pulse profile</span>
-<span class="sd">    is persistent).</span>
-
-<span class="sd">    in future, we will extend this extned the functionality to account for non-Gaussian profiles,</span>
-<span class="sd">    and pulse-length jitter.</span>
-
-<span class="sd">    it will also be useful to trim the function to the relevant regions (and thus reduce the number of points)</span>
-
-<span class="sd">    :param pulse_duration: expectation fwhm value of the SASE pulse time [in s]</span>
-<span class="sd">    :param photon_energy: central energy of pulse [in eV]</span>
-<span class="sd">    :param bandwidth: energy bandwidth / relative of the pulse</span>
-<span class="sd">    :param t0: timing jitter (float) (should geberally be less than 2*sampling*bandwidth)</span>
-<span class="sd">    :param t: time axis</span>
-
-<span class="sd">    :returns: spectrum</span>
+<span class="sd">    :param t: Time axis [s](np.ndarray)</span>
+<span class="sd">    :param pulse_duration: FWHM value of the SASE pulse duration [s](float)</span>
+<span class="sd">    :param photon_energy: Central energy of the pulse [eV](float)</span>
+<span class="sd">    :param bandwidth: Energy bandwidth / relative of the pulse [unitless](float)</span>
+<span class="sd">    :param t0: Timing jitter (generally should be less than 2*sampling*bandwidth) [s](float)</span>
+<span class="sd">    :param norm: Normalize intensity spectrum to 1 [default=False](bool)</span>
+<span class="sd">    :param plot: Plot the outputs if True [default=False](bool)</span>
+<span class="sd">    :param output: &#39;time&#39; or &#39;frequency&#39; spectrum </span>
+<span class="sd">    </span>
+<span class="sd">    :returns: Complex spectrum in time or frequency domain [default time/s](np.ndarray)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">nt</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">hr_eV_s</span> <span class="o">=</span> <span class="mf">4.135667696e-15</span>  <span class="c1"># Planck constant in eV*s</span>
 
-    <span class="n">pulse_duration</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">pulse_duration</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
-    <span class="n">bw</span> <span class="o">=</span> <span class="n">photon_energy</span> <span class="o">*</span> <span class="n">bandwidth</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">photon_energy</span> <span class="o">-</span> <span class="n">bw</span><span class="p">,</span> <span class="n">photon_energy</span> <span class="o">+</span> <span class="n">bw</span><span class="p">,</span> <span class="n">nt</span><span class="p">)</span>  <span class="c1">### bandwidthfine frequency/energy domain</span>
+    <span class="n">bw</span> <span class="o">=</span> <span class="n">photon_energy</span> <span class="o">*</span> <span class="n">bandwidth</span>  <span class="c1"># spectral width (FWHM)</span>
+    <span class="n">sigma_pulse</span> <span class="o">=</span> <span class="n">pulse_duration</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>  <span class="c1"># convert FWHM to standard deviation</span>
 
-    <span class="n">estep</span> <span class="o">=</span> <span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">E</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">hr_eV_s</span>  <span class="c1">### step size of freq domain</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">photon_energy</span> <span class="o">-</span> <span class="mi">3</span><span class="o">*</span><span class="n">bw</span><span class="p">,</span> <span class="n">photon_energy</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">bw</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
-    <span class="n">et</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">estep</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">estep</span><span class="p">,</span> <span class="n">nt</span><span class="p">)</span>  <span class="c1">### bandwidthfine time-domain</span>
-
-    <span class="n">temporal_envelope</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="o">*</span> <span class="n">gaussian_1d</span><span class="p">(</span><span class="n">et</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">pulse_duration</span><span class="p">)</span>
-
+    <span class="c1">### Gaussian Envelopes</span>
+    <span class="n">temporal_envelope</span> <span class="o">=</span> <span class="n">gaussian_1d</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">sigma_pulse</span><span class="p">)</span>
     <span class="n">spectral_envelope</span> <span class="o">=</span> <span class="n">gaussian_1d</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">photon_energy</span><span class="p">,</span> <span class="n">bw</span><span class="p">)</span>
 
-    <span class="n">random_phases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">temporal_envelope</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="c1">### Random Phase and Fourier Transform</span>
+    <span class="n">random_phases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">E</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+    <span class="n">complex_spectrum</span> <span class="o">=</span> <span class="n">spectral_envelope</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">random_phases</span><span class="p">)</span>
+    <span class="n">ifft_spectrum</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">complex_spectrum</span><span class="p">))</span>
 
-    <span class="n">spectrum</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fftshift</span><span class="p">(</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">spectral_envelope</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">random_phases</span><span class="p">)))</span> <span class="o">*</span> <span class="n">temporal_envelope</span>
-    <span class="n">spectrum</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">spectrum</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1">### normalise area under intensity curve to 1</span>
+    <span class="c1">### Applying Temporal Envelope</span>
+    <span class="n">time_domain_field</span> <span class="o">=</span> <span class="n">ifft_spectrum</span> <span class="o">*</span> <span class="n">temporal_envelope</span>
+    <span class="n">intensity_time_domain</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">time_domain_field</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
 
-    <span class="k">return</span> <span class="n">spectrum</span></div>
+    <span class="c1">### Fourier Transform back to Frequency Domain</span>
+    <span class="n">freq_domain_field</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">time_domain_field</span><span class="p">)</span>
+    <span class="n">intensity_freq_domain</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">freq_domain_field</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    
+
+    <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">411</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Temporal Envelope&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">temporal_envelope</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">412</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Initial Intensity Spectrum&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">complex_spectrum</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">413</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Time Domain Intensity&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">intensity_time_domain</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">414</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Frequency Domain Intensity After Temporal Envelope&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">intensity_freq_domain</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;time&#39;</span><span class="p">:</span>
+        <span class="n">complex_spectrum</span> <span class="o">=</span> <span class="n">time_domain_field</span>
+    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;freq&#39;</span><span class="p">:</span>
+        <span class="n">complex_spectrum</span> <span class="o">=</span> <span class="n">freq_domain_field</span>
+        
+        
+    <span class="k">return</span> <span class="n">complex_spectrum</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">spectrum</span> <span class="o">=</span> <span class="n">linear_SASE_spectrum</span><span class="p">(</span><span class="n">pulse_duration</span><span class="o">=</span><span class="mf">25e-15</span><span class="p">,</span> <span class="n">photon_energy</span><span class="o">=</span><span class="mi">9500</span><span class="p">,</span> <span class="n">bandwidth</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">nt</span><span class="o">=</span><span class="mi">750</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">25e-15</span><span class="p">,</span> <span class="mf">25e-15</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
+    <span class="n">spectrum</span> <span class="o">=</span> <span class="n">linear_SASE_spectrum</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">pulse_duration</span><span class="o">=</span><span class="mf">5e-15</span><span class="p">,</span> <span class="n">photon_energy</span><span class="o">=</span><span class="mi">9500</span><span class="p">,</span> <span class="n">bandwidth</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;time&#39;</span><span class="p">)</span>
 </pre></div>
 
            </div>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>API &mdash; phenom 0.0.3.post10.dev0+g31d86a1 documentation</title>
+  <title>API &mdash; phenom 0.0.7.post14.dev0+gdaef6bf documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
@@ -14,15 +14,16 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Interfacing with WavefrontPropaGator (WPG)" href="notebooks/phenom_to_wpg.html" /> 
+    <link rel="prev" title="Simulating the SASE Spectrum" href="notebooks/sase_spectra.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -30,18 +31,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            phenom
+            <a href="index.html" class="icon icon-home"> phenom
           </a>
               <div class="version">
-                0.0.3.post10.dev0+g31d86a1
+                0.0.7.post14.dev0+gdaef6bf
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -52,19 +49,9 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#sase-source">SASE Source</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#a-complex-wavefront">A complex wavefront</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#phenom.gaussian.complex_gaussian_beam"><code class="docutils literal notranslate"><span class="pre">complex_gaussian_beam()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#a-complex-time-spectrum">A complex time spectrum</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#phenom.spectrum.linear_SASE_spectrum"><code class="docutils literal notranslate"><span class="pre">linear_SASE_spectrum()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#a-complex-pointing-angle-tilt">A complex pointing angle tilt</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#phenom.wavefront_tools.wavefront_tilt"><code class="docutils literal notranslate"><span class="pre">wavefront_tilt()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#phenom.source.sase_pulse"><code class="docutils literal notranslate"><span class="pre">sase_pulse()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#a-complex-wavefront">A complex wavefront</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-complex-time-spectrum">A complex time spectrum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-complex-pointing-angle-tilt">A complex pointing angle tilt</a></li>
 </ul>
 </li>
 </ul>
@@ -84,7 +71,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">API</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
@@ -96,20 +83,20 @@
            <div itemprop="articleBody">
              
   <section id="api">
-<h1>API<a class="headerlink" href="#api" title="Permalink to this heading">¶</a></h1>
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
 <section id="sase-source">
-<h2>SASE Source<a class="headerlink" href="#sase-source" title="Permalink to this heading">¶</a></h2>
+<h2>SASE Source<a class="headerlink" href="#sase-source" title="Permalink to this headline">¶</a></h2>
 <p>The simplest way to generate represenations of the SASE field is using the SASE
 wavefront function.</p>
 <p>The properties of this wavefield are based on a model of XFEL radiation containing 3 components:</p>
 <section id="a-complex-wavefront">
-<h3>A complex wavefront<a class="headerlink" href="#a-complex-wavefront" title="Permalink to this heading">¶</a></h3>
+<h3>A complex wavefront<a class="headerlink" href="#a-complex-wavefront" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="phenom.gaussian.complex_gaussian_beam">
 <span class="sig-prename descclassname"><span class="pre">phenom.gaussian.</span></span><span class="sig-name descname"><span class="pre">complex_gaussian_beam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/gaussian.html#complex_gaussian_beam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.gaussian.complex_gaussian_beam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Analytical model for a complex gaussian source</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – 1d horizontal coordinate [np.array]</p></li>
 <li><p><strong>y</strong> – 1d vertical coordinates [np.array]</p></li>
@@ -129,42 +116,39 @@ wavefront function.</p>
 
 </section>
 <section id="a-complex-time-spectrum">
-<h3>A complex time spectrum<a class="headerlink" href="#a-complex-time-spectrum" title="Permalink to this heading">¶</a></h3>
+<h3>A complex time spectrum<a class="headerlink" href="#a-complex-time-spectrum" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="phenom.spectrum.linear_SASE_spectrum">
-<span class="sig-prename descclassname"><span class="pre">phenom.spectrum.</span></span><span class="sig-name descname"><span class="pre">linear_SASE_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/spectrum.html#linear_SASE_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.spectrum.linear_SASE_spectrum" title="Permalink to this definition">¶</a></dt>
-<dd><p>generate a single SASE pulse profiles</p>
-<p>assumes that the spectral and temporal profiles are gaussian,
-assumes that there is no jitter from the central value of the Gaussian (ie, the pulse profile
-is persistent).</p>
-<p>in future, we will extend this extned the functionality to account for non-Gaussian profiles,
-and pulse-length jitter.</p>
-<p>it will also be useful to trim the function to the relevant regions (and thus reduce the number of points)</p>
+<span class="sig-prename descclassname"><span class="pre">phenom.spectrum.</span></span><span class="sig-name descname"><span class="pre">linear_SASE_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'freq'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/spectrum.html#linear_SASE_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.spectrum.linear_SASE_spectrum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a single SASE pulse profile in the time and frequency domain.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pulse_duration</strong> – expectation fwhm value of the SASE pulse time [in s]</p></li>
-<li><p><strong>photon_energy</strong> – central energy of pulse [in eV]</p></li>
-<li><p><strong>bandwidth</strong> – energy bandwidth / relative of the pulse</p></li>
-<li><p><strong>t0</strong> – timing jitter (float) (should geberally be less than 2*sampling*bandwidth)</p></li>
-<li><p><strong>t</strong> – time axis</p></li>
+<li><p><strong>t</strong> – Time axis [s](np.ndarray)</p></li>
+<li><p><strong>pulse_duration</strong> – FWHM value of the SASE pulse duration [s](float)</p></li>
+<li><p><strong>photon_energy</strong> – Central energy of the pulse [eV](float)</p></li>
+<li><p><strong>bandwidth</strong> – Energy bandwidth / relative of the pulse [unitless](float)</p></li>
+<li><p><strong>t0</strong> – Timing jitter (generally should be less than 2*sampling*bandwidth) [s](float)</p></li>
+<li><p><strong>norm</strong> – Normalize intensity spectrum to 1 [default=False](bool)</p></li>
+<li><p><strong>plot</strong> – Plot the outputs if True [default=False](bool)</p></li>
+<li><p><strong>output</strong> – ‘time’ or ‘frequency’ spectrum</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>spectrum</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Complex spectrum in time or frequency domain [default time/s](np.ndarray)</p>
 </dd>
 </dl>
 </dd></dl>
 
 </section>
 <section id="a-complex-pointing-angle-tilt">
-<h3>A complex pointing angle tilt<a class="headerlink" href="#a-complex-pointing-angle-tilt" title="Permalink to this heading">¶</a></h3>
+<h3>A complex pointing angle tilt<a class="headerlink" href="#a-complex-pointing-angle-tilt" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="phenom.wavefront_tools.wavefront_tilt">
 <span class="sig-prename descclassname"><span class="pre">phenom.wavefront_tools.</span></span><span class="sig-name descname"><span class="pre">wavefront_tilt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/wavefront_tools.html#wavefront_tilt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.wavefront_tools.wavefront_tilt" title="Permalink to this definition">¶</a></dt>
 <dd><p>define a two-dimensional complex tilted plane-wave, tilted along transverse pointing vectors kx and ky</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mesh</strong> – [2,nx,ny] array of coordinates, first-axis corresponds to x and y axis,</p></li>
 <li><p><strong>kx</strong> – horizontal pointing vector [-pi, pi]</p></li>
@@ -177,10 +161,10 @@ and pulse-length jitter.</p>
 <p>These are combined in the sase pules module.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="phenom.source.sase_pulse">
-<span class="sig-prename descclassname"><span class="pre">phenom.source.</span></span><span class="sig-name descname"><span class="pre">sase_pulse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#sase_pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.sase_pulse" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">phenom.source.</span></span><span class="sig-name descname"><span class="pre">sase_pulse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'freq'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#sase_pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.sase_pulse" title="Permalink to this definition">¶</a></dt>
 <dd><p>SASE pulse model</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – horizontal coordinates (np.ndarray)</p></li>
 <li><p><strong>y</strong> – vertical coordinates (np.ndarray)</p></li>
@@ -195,6 +179,7 @@ and pulse-length jitter.</p>
 <li><p><strong>t0</strong> – temporal jitter (float)</p></li>
 <li><p><strong>theta_x</strong> – horizontal pointing angle (float)</p></li>
 <li><p><strong>theta_y</strong> – vertical pointing angle (float)</p></li>
+<li><p><strong>domain</strong> – ‘time’ or ‘freq’, determines the output of sase spectrum</p></li>
 </ul>
 </dd>
 </dl>
@@ -232,7 +217,7 @@ and pulse-length jitter.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="notebooks/phenom_to_wpg.html" class="btn btn-neutral float-left" title="Interfacing with WavefrontPropaGator (WPG)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notebooks/sase_spectra.html" class="btn btn-neutral float-left" title="Simulating the SASE Spectrum" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

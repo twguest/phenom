@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generating Pulses &mdash; phenom 0.0.3.post10.dev0+g31d86a1 documentation</title>
+  <title>Generating Pulses &mdash; phenom 0.0.7.post14.dev0+gdaef6bf documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
@@ -15,8 +15,9 @@
   <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -34,18 +35,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index.html" class="icon icon-home">
-            phenom
+            <a href="../index.html" class="icon icon-home"> phenom
           </a>
               <div class="version">
-                0.0.3.post10.dev0+g31d86a1
+                0.0.7.post14.dev0+gdaef6bf
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -65,6 +62,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#tutorials">Tutorials:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#integration">Integration:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#info">Info:</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
@@ -83,7 +81,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
       <li class="breadcrumb-item active">Generating Pulses</li>
       <li class="wy-breadcrumbs-aside">
@@ -96,7 +94,7 @@
            <div itemprop="articleBody">
              
   <section id="Generating-Pulses">
-<h1>Generating Pulses<a class="headerlink" href="#Generating-Pulses" title="Permalink to this heading">¶</a></h1>
+<h1>Generating Pulses<a class="headerlink" href="#Generating-Pulses" title="Permalink to this headline">¶</a></h1>
 <p>Here is a demonstrastion of how to generate a single SASE pulse</p>
 <p>The ‘sase.pulse’ function generates an array containing a scalar complex electric field representation of an XFEL Source. The pulse function takes as its input the following parameters:</p>
 <ol class="arabic simple">
@@ -108,18 +106,19 @@
 <p>See the module <a class="reference external" href="https://twguest.github.io/phenom/API.html#phenom.source.sase_pulse">documentation</a> for more</p>
 <p>We begin by importing the sase_pulse function from the phenom.source module:</p>
 <section id="Generate-a-Single-Pulse">
-<h2>Generate a Single Pulse<a class="headerlink" href="#Generate-a-Single-Pulse" title="Permalink to this heading">¶</a></h2>
+<h2>Generate a Single Pulse<a class="headerlink" href="#Generate-a-Single-Pulse" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phenom.source</span> <span class="kn">import</span> <span class="n">sase_pulse</span>
+<span class="kn">from</span> <span class="nn">phenom.spectrum</span> <span class="kn">import</span> <span class="n">linear_SASE_spectrum</span>
 </pre></div>
 </div>
 </div>
 <p>from which we can define a pulse of arbitrary characteristics</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -128,14 +127,16 @@
 <span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">250e-06</span><span class="p">,</span> <span class="mf">250e-06</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">25e-15</span><span class="p">,</span> <span class="mf">25e-15</span><span class="p">,</span> <span class="mi">250</span><span class="p">)</span>
 
+<span class="n">sase</span> <span class="o">=</span> <span class="n">linear_SASE_spectrum</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mf">5e-03</span> <span class="p">,</span> <span class="mf">5e-15</span><span class="p">,</span> <span class="mi">9200</span><span class="p">)</span>
+
 <span class="c1">## define the pulse</span>
 <span class="n">pulse</span> <span class="o">=</span> <span class="n">sase_pulse</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
                    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
                    <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="p">,</span>
-                   <span class="n">photon_energy</span> <span class="o">=</span> <span class="mf">10e3</span><span class="p">,</span>
+                   <span class="n">photon_energy</span> <span class="o">=</span> <span class="mf">9200.</span><span class="p">,</span>
                    <span class="n">pulse_energy</span> <span class="o">=</span> <span class="mf">1e-04</span><span class="p">,</span>
-                   <span class="n">pulse_duration</span> <span class="o">=</span> <span class="mf">15e-15</span><span class="p">,</span>
-                   <span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
+                   <span class="n">pulse_duration</span> <span class="o">=</span> <span class="mf">5e-15</span><span class="p">,</span>
+                   <span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1e-12</span><span class="p">,</span>
                    <span class="n">sigma</span> <span class="o">=</span> <span class="mf">50e-06</span><span class="p">,</span>
                    <span class="n">div</span> <span class="o">=</span> <span class="mf">2.5e-03</span><span class="p">,</span>
                    <span class="n">x0</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
@@ -149,7 +150,7 @@
 </div>
 <p>We can visualise the spatial and temporal intensity properties of this field:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -166,7 +167,7 @@
                 <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;bone&#39;</span>
                 <span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Intensity (W/mm$^2$)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Intensity (W/mm$^2$)&quot;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax1</span><span class="p">)</span>
 
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x ($\mu$m)&#39;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y ($\mu$m)&#39;</span><span class="p">)</span>
@@ -178,7 +179,7 @@
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -191,6 +192,14 @@ Text(0.5, 0, &#39;Time (fs)&#39;)
 </div>
 <div class="output_area docutils container">
 <img alt="../_images/notebooks_sase_model_pt1_6_1.png" src="../_images/notebooks_sase_model_pt1_6_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div>
 </section>
