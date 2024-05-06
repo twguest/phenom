@@ -48,11 +48,7 @@ def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0
     freq_domain_field = fft.fft(time_domain_field)
     intensity_freq_domain = abs(freq_domain_field) ** 2
     
-    if output == 'time':
-        complex_spectrum = time_domain_field
-    elif output == 'freq':
-        complex_spectrum = freq_domain_field
-        
+
     if plot:
 
         plt.figure(figsize=(10, 10))
@@ -71,6 +67,12 @@ def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0
         plt.tight_layout()
         plt.show()
 
+    if output == 'time':
+        complex_spectrum = time_domain_field
+    elif output == 'freq':
+        complex_spectrum = np.fft.ifftshift(freq_domain_field)
+        
+        
     return complex_spectrum
 
 
