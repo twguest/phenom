@@ -58,14 +58,13 @@ def sase_pulse(
         pulse_duration=pulse_duration,
         photon_energy=photon_energy,
         bandwidth=bandwidth,
-        t0=t0,
-    )
+        t0=t0,)
 
     sfield = complex_gaussian_beam(
         x=x,
         y=y,
         photon_energy=photon_energy,
-        pulse_energy=photon_energy,
+        pulse_energy=pulse_energy,
         sigma=sigma,
         div=div,
         x0=x0,

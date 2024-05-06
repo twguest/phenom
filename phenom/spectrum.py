@@ -5,17 +5,11 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from numpy import fft
-from scipy.constants import e, h
 
 from phenom.gaussian import gaussian_1d
 
-h_eV_s = h / e
-hr_eV_s = h_eV_s / (2 * np.pi)
 
-np.seterr(invalid="ignore")
-
-
-def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0, norm=False, plot=False):
+def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0, norm=False, plot=False, output = 'time'):
     """
     Generate a single SASE pulse profile in the time and frequency domain.
 
@@ -26,7 +20,9 @@ def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0
     :param t0: Timing jitter (generally should be less than 2*sampling*bandwidth) [s](float)
     :param norm: Normalize intensity spectrum to 1 [default=False](bool)
     :param plot: Plot the outputs if True [default=False](bool)
-    :returns: Complex spectrum in the frequency domain [unitless](np.ndarray)
+    :param output: 'time' or 'frequency' spectrum 
+    
+    :returns: Complex spectrum in time or frequency domain [default time/s](np.ndarray)
     """
     hr_eV_s = 4.135667696e-15  # Planck constant in eV*s
 
@@ -51,7 +47,12 @@ def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0
     ### Fourier Transform back to Frequency Domain
     freq_domain_field = fft.fft(time_domain_field)
     intensity_freq_domain = abs(freq_domain_field) ** 2
-
+    
+    if output == 'time':
+        complex_spectrum = time_domain_field
+    elif output == 'freq':
+        complex_spectrum = freq_domain_field
+        
     if plot:
 
         plt.figure(figsize=(10, 10))
@@ -75,4 +76,4 @@ def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0
 
 if __name__ == "__main__":
     t = np.linspace(-25e-15, 25e-15, 1500)
-    spectrum = linear_SASE_spectrum(t, pulse_duration=5e-15, photon_energy=9500, bandwidth=1e-12, plot=True)
+    spectrum = linear_SASE_spectrum(t, pulse_duration=5e-15, photon_energy=9500, bandwidth=1e-12, plot=True, output = 'time')
