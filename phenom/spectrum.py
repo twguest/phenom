@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
+
+from matplotlib import pyplot as plt
+
 from numpy import fft
 from scipy.constants import e, h
 
@@ -12,48 +15,64 @@ hr_eV_s = h_eV_s / (2 * np.pi)
 np.seterr(invalid="ignore")
 
 
-def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0):
+def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0, norm=False, plot=False):
     """
-    generate a single SASE pulse profiles
+    Generate a single SASE pulse profile in the time and frequency domain.
 
-    assumes that the spectral and temporal profiles are gaussian,
-    assumes that there is no jitter from the central value of the Gaussian (ie, the pulse profile
-    is persistent).
-
-    in future, we will extend this extned the functionality to account for non-Gaussian profiles,
-    and pulse-length jitter.
-
-    it will also be useful to trim the function to the relevant regions (and thus reduce the number of points)
-
-    :param pulse_duration: expectation fwhm value of the SASE pulse time [in s]
-    :param photon_energy: central energy of pulse [in eV]
-    :param bandwidth: energy bandwidth / relative of the pulse
-    :param t0: timing jitter (float) (should geberally be less than 2*sampling*bandwidth)
-    :param t: time axis
-
-    :returns: spectrum
+    :param t: Time axis [s](np.ndarray)
+    :param pulse_duration: FWHM value of the SASE pulse duration [s](float)
+    :param photon_energy: Central energy of the pulse [eV](float)
+    :param bandwidth: Energy bandwidth / relative of the pulse [unitless](float)
+    :param t0: Timing jitter (generally should be less than 2*sampling*bandwidth) [s](float)
+    :param norm: Normalize intensity spectrum to 1 [default=False](bool)
+    :param plot: Plot the outputs if True [default=False](bool)
+    :returns: Complex spectrum in the frequency domain [unitless](np.ndarray)
     """
-    nt = t.shape[0]
+    hr_eV_s = 4.135667696e-15  # Planck constant in eV*s
 
-    pulse_duration = np.sqrt(2) * pulse_duration / (2 * np.sqrt(2 * np.log(2)))
-    bw = photon_energy * bandwidth * np.sqrt(2)
-    E = np.linspace(photon_energy - bw, photon_energy + bw, nt)  ### bandwidthfine frequency/energy domain
+    bw = photon_energy * bandwidth  # spectral width (FWHM)
+    sigma_pulse = pulse_duration / (2 * np.sqrt(2 * np.log(2)))  # convert FWHM to standard deviation
 
-    estep = (E[1] - E[0]) / hr_eV_s  ### step size of freq domain
+    E = np.linspace(photon_energy - 3*bw, photon_energy + 3*bw, t.shape[-1])
 
-    et = np.linspace(-np.pi / estep, np.pi / estep, nt)  ### bandwidthfine time-domain
-
-    temporal_envelope = (1 / np.sqrt(2 * np.pi)) * gaussian_1d(et, 1, t0, pulse_duration)
-
+    ### Gaussian Envelopes
+    temporal_envelope = gaussian_1d(t, 1, t0, sigma_pulse)
     spectral_envelope = gaussian_1d(E, 1, photon_energy, bw)
 
-    random_phases = np.random.uniform(-np.pi, np.pi, temporal_envelope.shape)
+    ### Random Phase and Fourier Transform
+    random_phases = np.random.uniform(-np.pi, np.pi, E.size)
+    complex_spectrum = spectral_envelope * np.exp(-1j * random_phases)
+    ifft_spectrum = fft.ifftshift(fft.ifft(complex_spectrum))
 
-    spectrum = fft.fftshift(fft.fft(spectral_envelope * np.exp(-1j * random_phases))) * temporal_envelope
-    spectrum /= np.sqrt(np.sum(abs(spectrum)) ** 2)  ### normalise area under intensity curve to 1
+    ### Applying Temporal Envelope
+    time_domain_field = ifft_spectrum * temporal_envelope
+    intensity_time_domain = abs(time_domain_field) ** 2
 
-    return spectrum
+    ### Fourier Transform back to Frequency Domain
+    freq_domain_field = fft.fft(time_domain_field)
+    intensity_freq_domain = abs(freq_domain_field) ** 2
+
+    if plot:
+
+        plt.figure(figsize=(10, 10))
+        plt.subplot(411)
+        plt.title("Temporal Envelope")
+        plt.plot(t, temporal_envelope)
+        plt.subplot(412)
+        plt.title("Initial Intensity Spectrum")
+        plt.plot(E, abs(complex_spectrum)**2)
+        plt.subplot(413)
+        plt.title("Time Domain Intensity")
+        plt.plot(t, intensity_time_domain)
+        plt.subplot(414)
+        plt.title("Frequency Domain Intensity After Temporal Envelope")
+        plt.plot(E, intensity_freq_domain)
+        plt.tight_layout()
+        plt.show()
+
+    return complex_spectrum
 
 
 if __name__ == "__main__":
-    spectrum = linear_SASE_spectrum(pulse_duration=25e-15, photon_energy=9500, bandwidth=1e-3, nt=750)
+    t = np.linspace(-25e-15, 25e-15, 1500)
+    spectrum = linear_SASE_spectrum(t, pulse_duration=5e-15, photon_energy=9500, bandwidth=1e-12, plot=True)
