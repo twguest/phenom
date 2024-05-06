@@ -65,9 +65,11 @@ def wpg_converter(save_loc, key):
     
     wfr.params.Mesh.sliceMin = np.min(t)
     wfr.params.Mesh.sliceMax = np.max(t)
-
+    
     wfr.params.wDomain = 'time'
-
+    
+    srwlpy.SetRepresElecField(wfr._srwl_wf, 'frequency')
+    
     wfr.params.Mesh.xMin = np.min(x)
     wfr.params.Mesh.xMax = np.max(x)
     wfr.params.Mesh.yMin = np.min(y)
@@ -77,5 +79,5 @@ def wpg_converter(save_loc, key):
     wfr.params.Ry = 1
 
     wfr.data.arrEhor = complex_to_wpg(efield)
-    srwlpy.SetRepresElecField(wfr._srwl_wf, 'frequency')
+    
     return wfr

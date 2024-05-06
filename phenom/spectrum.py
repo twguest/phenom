@@ -70,7 +70,7 @@ def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0
     if output == 'time':
         complex_spectrum = time_domain_field
     elif output == 'freq':
-        complex_spectrum = np.fft.ifftshift(freq_domain_field)
+        complex_spectrum = freq_domain_field
         
         
     return complex_spectrum

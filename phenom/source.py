@@ -33,6 +33,7 @@ def sase_pulse(
     t0,
     theta_x,
     theta_y,
+    domain = 'freq'
 ):
     """
     SASE pulse model
@@ -50,7 +51,7 @@ def sase_pulse(
     :param t0: temporal jitter (float)
     :param theta_x: horizontal pointing angle (float)
     :param theta_y: vertical pointing angle (float)
-
+    :param domain: 'time' or 'freq', determines the output of sase spectrum
     """
 
     tfield = linear_SASE_spectrum(
@@ -58,7 +59,8 @@ def sase_pulse(
         pulse_duration=pulse_duration,
         photon_energy=photon_energy,
         bandwidth=bandwidth,
-        t0=t0,)
+        t0=t0,
+        output = domain)
 
     sfield = complex_gaussian_beam(
         x=x,
@@ -116,18 +118,21 @@ def sort_arg_types(args, __type__):
 
     __arrays__ = []
     __lams__ = []
-
+    __strs__ = []
     N = 1  ### number of pulses
 
     for key in __keys__:
         # print(key,type(args[key])) # dev @author: twguest - 13/06/23
-
+        
         if type(args[key]) == np.ndarray:
             __arrays__.append(key)
 
         elif type(args[key]) == FunctionType:
             __lams__.append(key)
-
+        
+        elif type(args[key]) == str:
+            __strs__.append(key)
+            
     __len__ = [args[key].shape[0] for key in __arrays__]
 
     if len(__arrays__) > 0:
@@ -135,7 +140,7 @@ def sort_arg_types(args, __type__):
 
         N = int(np.mean(__len__))
 
-    __floats__ = list(set(__keys__) - set(__arrays__) - set(__lams__))
+    __floats__ = list(set(__keys__) - set(__arrays__) - set(__lams__) - set(__strs__))
 
     __set__ = {}
 
@@ -344,6 +349,7 @@ class SASE_Source(Source):
         t0,
         theta_x,
         theta_y,
+        domain = 'freq'
     ):
         """
         initialisation function.
@@ -381,6 +387,7 @@ class SASE_Source(Source):
             t0=t0,
             theta_x=theta_x,
             theta_y=theta_y,
+            domain = domain
         )
 
     def generate_sase_field(self, params):
