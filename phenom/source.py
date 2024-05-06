@@ -344,6 +344,7 @@ class SASE_Source(Source):
         t0,
         theta_x,
         theta_y,
+        domain = 'freq'
     ):
         """
         initialisation function.
@@ -381,6 +382,7 @@ class SASE_Source(Source):
             t0=t0,
             theta_x=theta_x,
             theta_y=theta_y,
+            domain = 'freq',
         )
 
     def generate_sase_field(self, params):
@@ -405,3 +407,6 @@ class SASE_Source(Source):
 
     def generate_pulses(self, sdir):
         self.execute(self.generate_sase_field, sdir)
+        
+        
+

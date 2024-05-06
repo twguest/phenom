@@ -9,7 +9,7 @@ from numpy import fft
 from phenom.gaussian import gaussian_1d
 
 
-def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0, norm=False, plot=False, output = 'time'):
+def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0, norm=False, plot=False, output = 'freq'):
     """
     Generate a single SASE pulse profile in the time and frequency domain.
 
