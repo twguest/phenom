@@ -41,16 +41,17 @@ def linear_SASE_spectrum(t, pulse_duration, photon_energy, bandwidth=1e-04, t0=0
     ifft_spectrum = fft.ifftshift(fft.ifft(complex_spectrum))
 
     ### Applying Temporal Envelope
-    time_domain_field = ifft_spectrum * temporal_envelope
-    intensity_time_domain = abs(time_domain_field) ** 2
-
-    ### Fourier Transform back to Frequency Domain
-    freq_domain_field = fft.fft(time_domain_field)
-    intensity_freq_domain = abs(freq_domain_field) ** 2
+    time_domain_field = np.fft.ifftshift(ifft_spectrum * temporal_envelope)
     
+    
+    ### Fourier Transform back to Frequency Domain
+    freq_domain_field = fft.fft(time_domain_field)  
 
     if plot:
-
+        
+        intensity_time_domain = abs(time_domain_field) ** 2
+        intensity_freq_domain = abs(freq_domain_field) ** 2
+    
         plt.figure(figsize=(10, 10))
         plt.subplot(411)
         plt.title("Temporal Envelope")
