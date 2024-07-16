@@ -1,7 +1,11 @@
 # phenom
 
-[![](https://github.com/twguest/phenom/actions/workflows/pre-commmit.yml/badge.svg)]( https://github.com/twguest/phenom/actions/workflows/pre-commmit.yml)[![](https://img.shields.io/pypi/v/phenom.svg)](https://pypi.python.org/pypi/phenom_xfel)
-
+![Tests](https://github.com/github/docs/actions/workflows/pre-commit.yml/badge.svg)
+[![Latest Release](https://img.shields.io/github/v/release/twguest/phenom)](https://github.com/twguest/phenom/releases)
+![docs](https://github.com/github/docs/actions/workflows/static.yml/badge.svg)
+[![Documentation](https://img.shields.io/badge/documentation-online-blue)](https://twguest.github.io/phenom/)
+[![](https://img.shields.io/pypi/v/phenom.svg)](https://pypi.python.org/pypi/phenom_xfel)
+![Language](https://img.shields.io/badge/language-python-blue)
 
 A **phenom**enological model of X-ray Free Electron Laser (XFEL) radiation.
 
