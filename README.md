@@ -1,4 +1,4 @@
-§# phenom
+# phenom
 
 [![](https://github.com/twguest/phenom/actions/workflows/pre-commmit.yml/badge.svg)]( https://github.com/twguest/phenom/actions/workflows/pre-commmit.yml)[![](https://img.shields.io/pypi/v/phenom.svg)](https://pypi.python.org/pypi/phenom_xfel)
 
