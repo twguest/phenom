@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulating the SASE Spectrum &mdash; phenom 0.1.0.post11+g291236e documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/documentation_options.js?v=1d77bddb"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API" href="../api.html" />
+    <link rel="prev" title="Interfacing with WavefrontPropaGator (WPG)" href="phenom_to_wpg.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            phenom
+          </a>
+              <div class="version">
+                0.1.0.post11+g291236e
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#getting-started">Getting Started:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#tutorials">Tutorials:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#integration">Integration:</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../examples.html#info">Info:</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Simulating the SASE Spectrum</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">phenom</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
+      <li class="breadcrumb-item active">Simulating the SASE Spectrum</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/sase_spectra.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Simulating-the-SASE-Spectrum">
+<h1>Simulating the SASE Spectrum<a class="headerlink" href="#Simulating-the-SASE-Spectrum" title="Link to this heading">¶</a></h1>
+<p><strong>Input Parameters:</strong> - <span class="math notranslate nohighlight">\(\omega\)</span>: Frequency domain array, <strong>specified by the user</strong>. - <span class="math notranslate nohighlight">\(\bar{I}(\omega)\)</span>: Measured average spectrum, <strong>specified by the user</strong>. - <span class="math notranslate nohighlight">\(F_0(t)\)</span>: Temporal filtering function, <strong>specified by the user</strong> based on expected pulse shapes (e.g., Gaussian if not otherwise indicated). - <code class="docutils literal notranslate"><span class="pre">duration</span></code>: Duration of the FEL pulse, <strong>specified by the user</strong> to define the width of <span class="math notranslate nohighlight">\(F_0(t)\)</span>.</p>
+<p><strong>Output:</strong> - <span class="math notranslate nohighlight">\(E_f(t)\)</span>: Simulated temporal electric field after applying temporal filtering.</p>
+<p><strong>Steps:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Define Initial Spectrum:</strong></p>
+<ul class="simple">
+<li><p>For each frequency <span class="math notranslate nohighlight">\(\omega_i\)</span> in the frequency domain array <span class="math notranslate nohighlight">\(\omega\)</span>:</p>
+<ul>
+<li><p>Calculate <span class="math notranslate nohighlight">\(A_0(\omega_i) = \sqrt{\bar{I}(\omega_i)}\)</span> to obtain the amplitude from the measured spectrum.</p></li>
+<li><p>Generate a random phase <span class="math notranslate nohighlight">\(\phi_0(\omega_i)\)</span> uniformly distributed between <span class="math notranslate nohighlight">\(-\pi\)</span> and <span class="math notranslate nohighlight">\(\pi\)</span>. These phases are randomly generated within the algorithm to mimic the stochastic nature of real pulses.</p></li>
+<li><p>Define the initial complex spectrum <span class="math notranslate nohighlight">\(E_0(\omega) = A_0(\omega) \cdot \exp(i \cdot \phi_0(\omega))\)</span>.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Fourier Transform to Time Domain:</strong></p>
+<ul class="simple">
+<li><p>Compute the inverse Fourier transform of <span class="math notranslate nohighlight">\(E_0(\omega)\)</span> to convert it from the frequency domain to the time domain. This results in <span class="math notranslate nohighlight">\(E_0(t)\)</span>, where the Fourier transform calculations are handled by a numerical library (e.g., FFT functions in Python).</p></li>
+</ul>
+</li>
+<li><p><strong>Apply Temporal Filtering:</strong></p>
+<ul class="simple">
+<li><p>The temporal filtering function <span class="math notranslate nohighlight">\(F_0(t)\)</span> uses the <code class="docutils literal notranslate"><span class="pre">duration</span></code> to scale its width, typically matching the known or expected FWHM of the pulse.</p></li>
+<li><p>Multiply <span class="math notranslate nohighlight">\(E_0(t)\)</span> by <span class="math notranslate nohighlight">\(F_0(t)\)</span> to obtain the filtered temporal field <span class="math notranslate nohighlight">\(F(t) = E_0(t) \cdot F_0(t)\)</span>, where the multiplication is element-wise across the time domain signal.</p></li>
+</ul>
+</li>
+<li><p><strong>Final Temporal Electric Field:</strong></p>
+<ul class="simple">
+<li><p>The final temporal electric field <span class="math notranslate nohighlight">\(E_f(t)\)</span> is calculated as <span class="math notranslate nohighlight">\(F(t)\)</span>, which represents the electric field of the FEL pulse after applying the temporal characteristics of the pulse via the filtering process.</p></li>
+</ul>
+</li>
+<li><p><strong>Normalization (Optional):</strong></p>
+<ul class="simple">
+<li><p>If normalization is required (for example, to ensure the total power is consistent between simulations), adjust <span class="math notranslate nohighlight">\(E_f(t)\)</span> accordingly. This might involve scaling <span class="math notranslate nohighlight">\(E_f(t)\)</span> so that the integral over its squared magnitude equals one.</p></li>
+</ul>
+</li>
+<li><p><strong>Repeat for Different Pulses (if required):</strong></p>
+<ul class="simple">
+<li><p>To simulate multiple pulses, especially in scenarios where stochastic variation is significant (e.g., in an experimental setting), repeat steps 1-5 for each pulse, generating new random phases for each simulation.</p></li>
+</ul>
+</li>
+</ol>
+<p>This algorithm provides a comprehensive framework for simulating the temporal electric field of an FEL pulse, incorporating essential physical characteristics such as random phase noise and temporal filtering. By allowing for user specifications and built-in calculations, it offers flexibility and precision suited for advanced photonics research and development.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">phenom.spectrum</span> <span class="kn">import</span> <span class="n">linear_SASE_spectrum</span>
+<span class="c1"># Example usage with plotting enabled</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">25e-15</span><span class="p">,</span> <span class="mf">25e-15</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
+<span class="n">spectrum</span> <span class="o">=</span> <span class="n">linear_SASE_spectrum</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">pulse_duration</span><span class="o">=</span><span class="mf">5e-15</span><span class="p">,</span> <span class="n">photon_energy</span><span class="o">=</span><span class="mi">9500</span><span class="p">,</span> <span class="n">bandwidth</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_sase_spectra_1_0.png" src="../_images/notebooks_sase_spectra_1_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="phenom_to_wpg.html" class="btn btn-neutral float-left" title="Interfacing with WavefrontPropaGator (WPG)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Trey Guest.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
