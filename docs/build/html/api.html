@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>API &mdash; phenom 0.1.0.post11+g291236e documentation</title>
+  <title>A complex wavefront &mdash; phenom 0.1.0.post13.dev0+g151a0be documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
@@ -13,7 +13,7 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/documentation_options.js?v=1d77bddb"></script>
+        <script src="_static/documentation_options.js?v=8c18e567"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -37,7 +37,7 @@
             phenom
           </a>
               <div class="version">
-                0.1.0.post11+g291236e
+                0.1.0.post13.dev0+g151a0be
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -50,25 +50,20 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#sase-source">SASE Source</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#a-complex-wavefront">A complex wavefront</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#phenom.gaussian.complex_gaussian_beam"><code class="docutils literal notranslate"><span class="pre">complex_gaussian_beam()</span></code></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">A complex wavefront</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.gaussian.complex_gaussian_beam"><code class="docutils literal notranslate"><span class="pre">complex_gaussian_beam()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#a-complex-time-spectrum">A complex time spectrum</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#phenom.spectrum.linear_SASE_spectrum"><code class="docutils literal notranslate"><span class="pre">linear_SASE_spectrum()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#a-complex-time-spectrum">A complex time spectrum</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.spectrum.linear_SASE_spectrum"><code class="docutils literal notranslate"><span class="pre">linear_SASE_spectrum()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#a-complex-pointing-angle-tilt">A complex pointing angle tilt</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#phenom.wavefront_tools.wavefront_tilt"><code class="docutils literal notranslate"><span class="pre">wavefront_tilt()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#phenom.source.sase_pulse"><code class="docutils literal notranslate"><span class="pre">sase_pulse()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#a-complex-pointing-angle-tilt">A complex pointing angle tilt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.wavefront_tools.wavefront_tilt"><code class="docutils literal notranslate"><span class="pre">wavefront_tilt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.source.sase_pulse"><code class="docutils literal notranslate"><span class="pre">sase_pulse()</span></code></a></li>
 </ul>
 </li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="#sase-source">SASE Source</a></li>
 </ul>
 
         </div>
@@ -85,7 +80,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">API</li>
+      <li class="breadcrumb-item active">A complex wavefront</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -95,15 +90,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="api">
-<h1>API<a class="headerlink" href="#api" title="Link to this heading">¶</a></h1>
-<section id="sase-source">
-<h2>SASE Source<a class="headerlink" href="#sase-source" title="Link to this heading">¶</a></h2>
+  <p>===
+Key Cocepts
+===</p>
 <p>The simplest way to generate represenations of the SASE field is using the SASE
 wavefront function.</p>
 <p>The properties of this wavefield are based on a model of XFEL radiation containing 3 components:</p>
 <section id="a-complex-wavefront">
-<h3>A complex wavefront<a class="headerlink" href="#a-complex-wavefront" title="Link to this heading">¶</a></h3>
+<h1>A complex wavefront<a class="headerlink" href="#a-complex-wavefront" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="phenom.gaussian.complex_gaussian_beam">
 <span class="sig-prename descclassname"><span class="pre">phenom.gaussian.</span></span><span class="sig-name descname"><span class="pre">complex_gaussian_beam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/gaussian.html#complex_gaussian_beam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.gaussian.complex_gaussian_beam" title="Link to this definition">¶</a></dt>
@@ -129,7 +123,7 @@ wavefront function.</p>
 
 </section>
 <section id="a-complex-time-spectrum">
-<h3>A complex time spectrum<a class="headerlink" href="#a-complex-time-spectrum" title="Link to this heading">¶</a></h3>
+<h1>A complex time spectrum<a class="headerlink" href="#a-complex-time-spectrum" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="phenom.spectrum.linear_SASE_spectrum">
 <span class="sig-prename descclassname"><span class="pre">phenom.spectrum.</span></span><span class="sig-name descname"><span class="pre">linear_SASE_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'freq'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/spectrum.html#linear_SASE_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.spectrum.linear_SASE_spectrum" title="Link to this definition">¶</a></dt>
@@ -155,7 +149,7 @@ wavefront function.</p>
 
 </section>
 <section id="a-complex-pointing-angle-tilt">
-<h3>A complex pointing angle tilt<a class="headerlink" href="#a-complex-pointing-angle-tilt" title="Link to this heading">¶</a></h3>
+<h1>A complex pointing angle tilt<a class="headerlink" href="#a-complex-pointing-angle-tilt" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="phenom.wavefront_tools.wavefront_tilt">
 <span class="sig-prename descclassname"><span class="pre">phenom.wavefront_tools.</span></span><span class="sig-name descname"><span class="pre">wavefront_tilt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/wavefront_tools.html#wavefront_tilt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.wavefront_tools.wavefront_tilt" title="Link to this definition">¶</a></dt>
@@ -198,17 +192,16 @@ wavefront function.</p>
 </dl>
 </dd></dl>
 
-<p>Generating a SASE pulse looks something like this:</p>
+</section>
+<section id="sase-source">
+<h1>SASE Source<a class="headerlink" href="#sase-source" title="Link to this heading">¶</a></h1>
+<p>Generating a SASE pulse looks something like this which can be called via</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">phenom.source</span> <span class="kn">import</span> <span class="n">sase_pulse</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">500e-06</span><span class="p">,</span> <span class="mf">500e-06</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">500e-063</span><span class="p">,</span> <span class="mf">500e-06</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">100e-15</span><span class="p">,</span> <span class="mf">100e-15</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
-
-<span class="n">electric_field</span>  <span class="o">=</span> <span class="n">sase_pulse</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
-                              <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
-                              <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="p">,</span>
+<span class="n">electric_field</span>  <span class="o">=</span> <span class="n">sase_pulse</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">500e-06</span><span class="p">,</span> <span class="mf">500e-06</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+                              <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">500e-063</span><span class="p">,</span> <span class="mf">500e-06</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
+                              <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">100e-15</span><span class="p">,</span> <span class="mf">100e-15</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
                               <span class="n">photon_energy</span> <span class="o">=</span> <span class="mf">9200.</span><span class="p">,</span>
                               <span class="n">pulse_energy</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
                               <span class="n">pulse_duration</span> <span class="o">=</span> <span class="mf">25e-15</span><span class="p">,</span>
@@ -222,8 +215,6 @@ wavefront function.</p>
                               <span class="n">theta_y</span> <span class="o">=</span> <span class="mf">0.</span>
 </pre></div>
 </div>
-</section>
-</section>
 </section>
 
 
