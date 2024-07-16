@@ -5,6 +5,7 @@ __pycache__/
 *.enc
 *.h5
 *.csv
+*.spyproject/*
 # C extensions
 *.so
 
