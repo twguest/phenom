@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interfacing with WavefrontPropaGator (WPG) &mdash; phenom 0.0.7.post14.dev0+gdaef6bf documentation</title>
+  <title>Interfacing with WavefrontPropaGator (WPG) &mdash; phenom 0.1.0.post11+g291236e documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
@@ -14,12 +14,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/documentation_options.js?v=1d77bddb"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -35,14 +34,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> phenom
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            phenom
           </a>
               <div class="version">
-                0.0.7.post14.dev0+gdaef6bf
+                0.1.0.post11+g291236e
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -80,7 +83,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
       <li class="breadcrumb-item active">Interfacing with WavefrontPropaGator (WPG)</li>
       <li class="wy-breadcrumbs-aside">
@@ -96,7 +99,7 @@
 <p>Since the WPG package is a requirement of phenom, we encourage you to install WPG if you wish to use the phenom WPG interface.</p>
 <p>You can check your installation of WPG, and the subsequent requirement of SRW as :</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">wpg</span>
@@ -105,14 +108,14 @@
 </div>
 </div>
 <section id="Interfacing-with-WavefrontPropaGator-(WPG)">
-<h1>Interfacing with WavefrontPropaGator (WPG)<a class="headerlink" href="#Interfacing-with-WavefrontPropaGator-(WPG)" title="Permalink to this headline">¶</a></h1>
+<h1>Interfacing with WavefrontPropaGator (WPG)<a class="headerlink" href="#Interfacing-with-WavefrontPropaGator-(WPG)" title="Link to this heading">¶</a></h1>
 <p>The phenom.wpg script provides the functionalities require to convert the source wavefront files to the WavefrontPropaGator (WPG) format.</p>
 <p>Load the source generated in the any of the previous <a class="reference external" href="https://twguest.github.io/phenom/examples.html">tutorials</a>:</p>
 <section id="Converting-Source-Data-to-a-WPG-Wavefront">
-<h2>Converting Source Data to a WPG Wavefront<a class="headerlink" href="#Converting-Source-Data-to-a-WPG-Wavefront" title="Permalink to this headline">¶</a></h2>
+<h2>Converting Source Data to a WPG Wavefront<a class="headerlink" href="#Converting-Source-Data-to-a-WPG-Wavefront" title="Link to this heading">¶</a></h2>
 <p>The ‘wpg_converter’ writes each key of the source to a seperate .h5 file that is WPG readable</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">phenom.wpg</span> <span class="kn">import</span> <span class="n">wpg_converter</span>
@@ -124,9 +127,38 @@
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Traceback <span class="ansi-cyan-fg">(most recent call last)</span>:
+
+  Cell <span class="ansi-green-intense-fg ansi-bold">In[2], line 5</span>
+    wfr = wpg_converter(save_loc, key = key)
+
+  File <span class="ansi-green-intense-fg ansi-bold">~/phenom/phenom/wpg.py:41</span> in <span class="ansi-magenta-intense-fg ansi-bold">wpg_converter</span>
+    with h5.File(save_loc, mode = &#39;r&#39;) as hf:
+
+  File <span class="ansi-green-intense-fg ansi-bold">~/miniconda3/envs/mid/lib/python3.12/site-packages/h5py/_hl/files.py:562</span> in <span class="ansi-magenta-intense-fg ansi-bold">__init__</span>
+    fid = make_fid(name, mode, userblock_size, fapl, fcpl, swmr=swmr)
+
+  File <span class="ansi-green-intense-fg ansi-bold">~/miniconda3/envs/mid/lib/python3.12/site-packages/h5py/_hl/files.py:235</span> in <span class="ansi-magenta-intense-fg ansi-bold">make_fid</span>
+    fid = h5f.open(name, flags, fapl=fapl)
+
+  File <span class="ansi-green-intense-fg ansi-bold">h5py/_objects.pyx:54</span> in <span class="ansi-magenta-intense-fg ansi-bold">h5py._objects.with_phil.wrapper</span>
+
+  File <span class="ansi-green-intense-fg ansi-bold">h5py/_objects.pyx:55</span> in <span class="ansi-magenta-intense-fg ansi-bold">h5py._objects.with_phil.wrapper</span>
+
+<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">h5py/h5f.pyx:102</span><span class="ansi-cyan-fg"> in </span><span class="ansi-magenta-fg">h5py.h5f.open</span><span class="ansi-cyan-fg">
+
+</span><span class="ansi-red-fg">FileNotFoundError</span><span class="ansi-red-fg">:</span> [Errno 2] Unable to synchronously open file (unable to open file: name = &#39;./sase_field.h5&#39;, errno = 2, error message = &#39;No such file or directory&#39;, flags = 0, o_flags = 0)
+
+</pre></div></div>
+</div>
 <p>With the pulse wavefront now WPG readable, we can apply in to wavefront propagation simulations:</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">wpg.beamline</span> <span class="kn">import</span> <span class="n">Beamline</span>
@@ -144,19 +176,12 @@
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_phenom_to_wpg_7_0.png" src="../_images/notebooks_phenom_to_wpg_7_0.png" />
-</div>
-</div>
 </section>
 <section id="Converting-Multiple-Pulses-to-WPG-Wavefronts">
-<h2>Converting Multiple Pulses to WPG Wavefronts<a class="headerlink" href="#Converting-Multiple-Pulses-to-WPG-Wavefronts" title="Permalink to this headline">¶</a></h2>
+<h2>Converting Multiple Pulses to WPG Wavefronts<a class="headerlink" href="#Converting-Multiple-Pulses-to-WPG-Wavefronts" title="Link to this heading">¶</a></h2>
 <p>We can convert all pulses in a source .h5 to WPG readable wavefronts by iterating of the source .h5:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span> <span class="k">as</span> <span class="nn">h5</span>
@@ -170,8 +195,8 @@
 </pre></div>
 </div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -186,22 +211,6 @@
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Energy (keV)&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Intensity (a.u.)&quot;</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Text(0, 0.5, &#39;Intensity (a.u.)&#39;)
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../_images/notebooks_phenom_to_wpg_10_1.png" src="../_images/notebooks_phenom_to_wpg_10_1.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">

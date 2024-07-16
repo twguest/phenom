@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The SASE Source Module &mdash; phenom 0.0.7.post14.dev0+gdaef6bf documentation</title>
+  <title>The SASE Source Module &mdash; phenom 0.1.0.post11+g291236e documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
@@ -14,12 +14,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/documentation_options.js?v=1d77bddb"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -35,14 +34,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> phenom
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            phenom
           </a>
               <div class="version">
-                0.0.7.post14.dev0+gdaef6bf
+                0.1.0.post11+g291236e
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -87,7 +90,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
       <li class="breadcrumb-item active">The SASE Source Module</li>
       <li class="wy-breadcrumbs-aside">
@@ -100,7 +103,7 @@
            <div itemprop="articleBody">
              
   <section id="The-SASE-Source-Module">
-<h1>The SASE Source Module<a class="headerlink" href="#The-SASE-Source-Module" title="Permalink to this headline">¶</a></h1>
+<h1>The SASE Source Module<a class="headerlink" href="#The-SASE-Source-Module" title="Link to this heading">¶</a></h1>
 <p>XFEL pulses seldom come alone - in the following section, we demonstrate how the ‘phenom.source’ module can be used to generate large ensembles of XFEL pulses.</p>
 <p>To do so, we begin by importing the SASE source module</p>
 <div class="nbinput nblast docutils container">
@@ -112,10 +115,10 @@
 </div>
 </div>
 <section id="Store-a-Pulse">
-<h2>Store a Pulse<a class="headerlink" href="#Store-a-Pulse" title="Permalink to this headline">¶</a></h2>
+<h2>Store a Pulse<a class="headerlink" href="#Store-a-Pulse" title="Link to this heading">¶</a></h2>
 <p>The SASE source class provides a mechanism of generating multiple pulses and storing them to individual .h5 files. In the simplest case, it takes as its inputs identical parameters to the sase_source function defined in the previous section.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -146,7 +149,7 @@
 </div>
 <p>which we can within a .h5 file:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -158,10 +161,10 @@
 </div>
 </section>
 <section id="Load-a-Pulse-from-Memory">
-<h2>Load a Pulse from Memory<a class="headerlink" href="#Load-a-Pulse-from-Memory" title="Permalink to this headline">¶</a></h2>
+<h2>Load a Pulse from Memory<a class="headerlink" href="#Load-a-Pulse-from-Memory" title="Link to this heading">¶</a></h2>
 <p>The SASE_Source module stores pulses within a master .h5 file</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span> <span class="k">as</span> <span class="nn">h5</span>
@@ -211,7 +214,7 @@ Shape:  (500, 500, 250)
 </div>
 <p>To complete this example, lets load the electric field and mesh of the first pulse, and plot its intensity as demonstrated eariler</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">h5</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">save_loc</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">hf</span><span class="p">:</span>
@@ -225,7 +228,7 @@ Shape:  (500, 500, 250)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -243,8 +246,8 @@ Shape:  (500, 500, 250)
 
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Intensity (W/mm$^2$)&quot;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax1</span><span class="p">)</span>
 
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x ($\mu$m)&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y ($\mu$m)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;x ($\mu$m)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;y ($\mu$m)&#39;</span><span class="p">)</span>
 
 
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="mf">1e15</span><span class="p">,</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">sase_pulse</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
@@ -253,7 +256,7 @@ Shape:  (500, 500, 250)
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -271,12 +274,12 @@ Text(0.5, 0, &#39;Time (fs)&#39;)
 </section>
 </section>
 <section id="Generating-Multiple-Pulses">
-<h1>Generating Multiple Pulses<a class="headerlink" href="#Generating-Multiple-Pulses" title="Permalink to this headline">¶</a></h1>
+<h1>Generating Multiple Pulses<a class="headerlink" href="#Generating-Multiple-Pulses" title="Link to this heading">¶</a></h1>
 <p>The advantadge that the SASE pulse class brings over the sase_pulse function is the capacity to generate ensembles of pulses in a pythonised manner. Each of the non-mesh variables of the SASE pulse class can take the form of a list, numpy.ndarray or python ‘lambda’.</p>
 <p>The source module will generate and save N pulses to the SASE master .h5, where N is the length of the longest non-integer input of the function.</p>
 <p>Let’s consider a few examples</p>
 <section id="Pulses-from-Lists">
-<h2>Pulses from Lists<a class="headerlink" href="#Pulses-from-Lists" title="Permalink to this headline">¶</a></h2>
+<h2>Pulses from Lists<a class="headerlink" href="#Pulses-from-Lists" title="Link to this heading">¶</a></h2>
 <p>Suppose we want to consider a set of 5 pulses in the energy range 1-5 keV. If these pulses have identical properties, other than photon energy, we can generate them as follows:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -385,7 +388,7 @@ Pulse Parameters:
 </div>
 </section>
 <section id="Pulses-from-Arrays">
-<h2>Pulses from Arrays<a class="headerlink" href="#Pulses-from-Arrays" title="Permalink to this headline">¶</a></h2>
+<h2>Pulses from Arrays<a class="headerlink" href="#Pulses-from-Arrays" title="Link to this heading">¶</a></h2>
 <p>Let’s now consider the case of a pulse with a fluctuating center-of-mass in the transverse-plane. If this process is determininstic, we can define a set of input parameters from an arbitrary function.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -517,7 +520,7 @@ Pulse Parameters:
 </div>
 </section>
 <section id="Pulses-from-Lambdas">
-<h2>Pulses from Lambdas<a class="headerlink" href="#Pulses-from-Lambdas" title="Permalink to this headline">¶</a></h2>
+<h2>Pulses from Lambdas<a class="headerlink" href="#Pulses-from-Lambdas" title="Link to this heading">¶</a></h2>
 <p>The SASE pulse model is inherently stochastic due to the partially random SASE spectral distribution. Using python lambdas, we can create a source that with properties that fluctuate in time.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
