@@ -3,3 +3,4 @@ numpy>=1.21
 scipy>=1.10.1
 tables 
 h5py
+pytest
