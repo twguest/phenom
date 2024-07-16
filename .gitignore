@@ -79,3 +79,8 @@ target/
 
 # Ipython Notebook
 .ipynb_checkpoints
+.spyproject/config/backups/codestyle.ini.bak
+.spyproject/config/backups/encoding.ini.bak
+.spyproject/config/backups/vcs.ini.bak
+.spyproject/config/backups/workspace.ini.bak
+phenom/ellipses.csv
