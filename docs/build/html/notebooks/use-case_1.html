@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Load Experimental Data &mdash; phenom  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Interfacing with WavefrontPropaGator (WPG)" href="phenom_to_wpg.html" />
+    <link rel="prev" title="Tutorial: Using phenom to Model Shot-to-Shot the European XFEL" href="sase_model_pt3.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            phenom
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../key_concepts.html">Key Concepts</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#getting-started">Getting Started:</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../examples.html#tutorials">Tutorials:</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sase_model_pt3.html">Tutorial: Using phenom to Model Shot-to-Shot the European XFEL</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Load Experimental Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Extract-Approximate-Pointing-Angle">Extract Approximate Pointing Angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Generate-Stochastic-Wavefronts">Generate Stochastic Wavefronts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html#integration">Integration:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">phenom Module API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">phenom</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../examples.html">Examples</a></li>
+      <li class="breadcrumb-item active">Load Experimental Data</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/notebooks/use-case_1.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">extra_data</span> <span class="kn">import</span> <span class="n">open_run</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">center_of_mass</span>
+<span class="kn">from</span> <span class="nn">wpg.source</span> <span class="kn">import</span> <span class="n">sase_pulse</span>
+<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">mcolors</span>
+</pre></div>
+</div>
+</div>
+<section id="Load-Experimental-Data">
+<h1>Load Experimental Data<a class="headerlink" href="#Load-Experimental-Data" title="Link to this heading">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">start_pulse</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">end_pulse</span> <span class="o">=</span> <span class="mi">89</span>
+
+<span class="n">run</span> <span class="o">=</span> <span class="n">open_run</span><span class="p">(</span><span class="s2">&quot;900384&quot;</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">cam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="n">run</span><span class="o">.</span><span class="n">get_array</span><span class="p">(</span>
+        <span class="s2">&quot;SA1_XTD9_IMGPII45/CAM/BEAMVIEW_SHIMADZU:daqOutput&quot;</span><span class="p">,</span> <span class="s2">&quot;data.image.pixels&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">[</span>
+        <span class="p">:,</span>
+        <span class="p">:,</span>
+        <span class="n">start_pulse</span><span class="p">:</span><span class="n">end_pulse</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p><img alt="image" src="../_images/use-case-1.png" /></p>
+<p>Demonstration of correlated dynamics between the electron bunch and the photon beam, attributed to instabilities in compensation kickers.</p>
+</section>
+<section id="Extract-Approximate-Pointing-Angle">
+<h1>Extract Approximate Pointing Angle<a class="headerlink" href="#Extract-Approximate-Pointing-Angle" title="Link to this heading">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">px</span> <span class="o">=</span> <span class="mf">14.9e-06</span>  <span class="c1"># in m</span>
+<span class="n">py</span> <span class="o">=</span> <span class="mf">10.6e-06</span>  <span class="c1"># in m</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="mf">1.1</span>  <span class="c1"># MHz</span>
+<span class="n">z</span> <span class="o">=</span> <span class="mi">300</span>  <span class="c1"># observation plan in m</span>
+
+<span class="c1"># Calculate center of mass for each (nx, ny) slice in the (nt1, nt2) data</span>
+<span class="n">com_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">center_of_mass</span><span class="p">(</span><span class="n">cam</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">com_p</span> <span class="o">=</span> <span class="n">com_p</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+    <span class="n">cam</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">cam</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">2</span>
+<span class="p">)</span>  <span class="c1"># Reshaping to (nt1, nt2, 2) for x, y coordinates</span>
+<span class="n">com_p</span> <span class="o">=</span> <span class="n">com_p</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">py</span>
+
+<span class="n">com_p_mean</span> <span class="o">=</span> <span class="n">com_p</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">com_p_std</span> <span class="o">=</span> <span class="n">com_p</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Convert C.O.M to Pointing Angle (under geometric approximation)</span>
+<span class="n">theta_y_mean</span> <span class="o">=</span> <span class="n">com_p_mean</span> <span class="o">/</span> <span class="n">z</span>
+<span class="n">theta_y_std</span> <span class="o">=</span> <span class="n">com_p_std</span> <span class="o">/</span> <span class="n">z</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Generate-Stochastic-Wavefronts">
+<h1>Generate Stochastic Wavefronts<a class="headerlink" href="#Generate-Stochastic-Wavefronts" title="Link to this heading">¶</a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">450e-06</span><span class="p">,</span> <span class="mf">450e-06</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">50e-15</span><span class="p">,</span> <span class="mf">50e-15</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">wavefronts</span> <span class="o">=</span> <span class="n">sase_pulse</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+    <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span>
+    <span class="n">photon_energy</span><span class="o">=</span><span class="mf">10e3</span><span class="p">,</span>
+    <span class="n">pulse_energy</span><span class="o">=</span><span class="mf">1e-03</span><span class="p">,</span>
+    <span class="n">pulse_duration</span><span class="o">=</span><span class="mf">25e-15</span><span class="p">,</span>
+    <span class="n">bandwidth</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span>
+    <span class="n">sigma</span><span class="o">=</span><span class="mf">40e-06</span><span class="p">,</span>
+    <span class="n">div</span><span class="o">=</span><span class="mf">3.5e-06</span><span class="p">,</span>
+    <span class="n">x0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">y0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">t0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">theta_x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">theta_y</span><span class="o">=</span><span class="n">theta_y_mean</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">theta_y_std</span><span class="p">),</span>
+    <span class="n">domain</span><span class="o">=</span><span class="s2">&quot;freq&quot;</span><span class="p">,</span>
+    <span class="n">polarization</span><span class="o">=</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">wpg.beamline</span> <span class="kn">import</span> <span class="n">Beamline</span>
+<span class="kn">from</span> <span class="nn">wpg.optical_elements</span> <span class="kn">import</span> <span class="n">Drift</span>
+<span class="kn">from</span> <span class="nn">wpg.wpg_uti_oe</span> <span class="kn">import</span> <span class="n">propagation_parameters</span>
+<span class="kn">from</span> <span class="nn">wpg.wpg_uti_wf</span> <span class="kn">import</span> <span class="n">plot_intensity_map</span>
+
+
+<span class="k">for</span> <span class="n">itr</span><span class="p">,</span> <span class="n">wfr</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">wavefronts</span><span class="p">)):</span>
+
+    <span class="n">bl</span> <span class="o">=</span> <span class="n">Beamline</span><span class="p">()</span>
+    <span class="n">bl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Drift</span><span class="p">(</span><span class="mi">300</span><span class="p">),</span> <span class="n">propagation_parameters</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;fresnel&#39;</span><span class="p">))</span>
+    <span class="n">bl</span><span class="o">.</span><span class="n">propagate</span><span class="p">(</span><span class="n">wfr</span><span class="p">)</span>
+
+<span class="n">norm</span> <span class="o">=</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">wavefronts</span><span class="p">))</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">itr</span><span class="p">,</span> <span class="n">wfr</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">wavefronts</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wfr</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">wfr</span><span class="o">.</span><span class="n">get_profile</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="n">cmap</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">itr</span><span class="p">)))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;x (mm)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Intensity (a.u.)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Simulated Beam Profile @ Observation Point&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+80it [00:10,  7.54it/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 1.0, &#39;Simulated Beam Profile @ Observation Point&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_use-case_1_8_2.png" src="../_images/notebooks_use-case_1_8_2.png" />
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sase_model_pt3.html" class="btn btn-neutral float-left" title="Tutorial: Using phenom to Model Shot-to-Shot the European XFEL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="phenom_to_wpg.html" class="btn btn-neutral float-right" title="Interfacing with WavefrontPropaGator (WPG)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Trey Guest.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

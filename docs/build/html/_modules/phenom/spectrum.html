@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>phenom.spectrum &mdash; phenom 0.0.7.post14.dev0+gdaef6bf documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <title>phenom.spectrum &mdash; phenom  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css?v=7f9a90b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -29,14 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> phenom
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            phenom
           </a>
-              <div class="version">
-                0.0.7.post14.dev0+gdaef6bf
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -44,8 +46,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../key_concepts.html">Key Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">phenom Module API</a></li>
 </ul>
 
         </div>
@@ -61,7 +64,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
       <li class="breadcrumb-item active">phenom.spectrum</li>
       <li class="wy-breadcrumbs-aside">
@@ -84,7 +87,9 @@
 <span class="kn">from</span> <span class="nn">phenom.gaussian</span> <span class="kn">import</span> <span class="n">gaussian_1d</span>
 
 
-<div class="viewcode-block" id="linear_SASE_spectrum"><a class="viewcode-back" href="../../api.html#phenom.spectrum.linear_SASE_spectrum">[docs]</a><span class="k">def</span> <span class="nf">linear_SASE_spectrum</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">pulse_duration</span><span class="p">,</span> <span class="n">photon_energy</span><span class="p">,</span> <span class="n">bandwidth</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;freq&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="linear_SASE_spectrum">
+<a class="viewcode-back" href="../../api.html#phenom.spectrum.linear_SASE_spectrum">[docs]</a>
+<span class="k">def</span> <span class="nf">linear_SASE_spectrum</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">pulse_duration</span><span class="p">,</span> <span class="n">photon_energy</span><span class="p">,</span> <span class="n">bandwidth</span><span class="o">=</span><span class="mf">1e-04</span><span class="p">,</span> <span class="n">t0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;freq&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a single SASE pulse profile in the time and frequency domain.</span>
 
@@ -116,16 +121,17 @@
     <span class="n">ifft_spectrum</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">complex_spectrum</span><span class="p">))</span>
 
     <span class="c1">### Applying Temporal Envelope</span>
-    <span class="n">time_domain_field</span> <span class="o">=</span> <span class="n">ifft_spectrum</span> <span class="o">*</span> <span class="n">temporal_envelope</span>
-    <span class="n">intensity_time_domain</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">time_domain_field</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-
-    <span class="c1">### Fourier Transform back to Frequency Domain</span>
-    <span class="n">freq_domain_field</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">time_domain_field</span><span class="p">)</span>
-    <span class="n">intensity_freq_domain</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">freq_domain_field</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">time_domain_field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">ifft_spectrum</span> <span class="o">*</span> <span class="n">temporal_envelope</span><span class="p">)</span>
     
+    
+    <span class="c1">### Fourier Transform back to Frequency Domain</span>
+    <span class="n">freq_domain_field</span> <span class="o">=</span> <span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">time_domain_field</span><span class="p">)</span>  
 
     <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
-
+        
+        <span class="n">intensity_time_domain</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">time_domain_field</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">intensity_freq_domain</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">freq_domain_field</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    
         <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">411</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Temporal Envelope&quot;</span><span class="p">)</span>
@@ -149,6 +155,7 @@
         
         
     <span class="k">return</span> <span class="n">complex_spectrum</span></div>
+
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

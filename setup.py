@@ -3,8 +3,6 @@ from os import path
 
 from setuptools import find_packages, setup
 
-import versioneer
-
 # NOTE: This file must remain Python 2 compatible for the foreseeable future,
 # to ensure that we error out properly for people with outdated setuptools
 # and/or pip.
@@ -41,7 +39,6 @@ with open(path.join(here, "requirements.txt")) as requirements_file:
 setup(
     name="phenom_xfel",
     version="v0.0.8",  # versioneer.get_version(),
-    cmdclass=versioneer.get_cmdclass(),
     description="A phenomenological model of X-ray Free Electron Laser (XFEL) radiation and radiation statistics.",
     long_description=readme,
     long_description_content_type='text/markdown',

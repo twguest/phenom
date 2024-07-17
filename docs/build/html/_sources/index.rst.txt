@@ -11,5 +11,6 @@ Welcome to Phenom
    :maxdepth: 3
 
    installation
+   key_concepts
    examples 
    api

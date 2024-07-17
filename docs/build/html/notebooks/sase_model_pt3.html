@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tutorial: Using phenom to Model Shot-to-Shot the European XFEL &mdash; phenom 0.1.0.post13.dev0+g151a0be documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+  <title>Tutorial: Using phenom to Model Shot-to-Shot the European XFEL &mdash; phenom  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css?v=7f9a90b1" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/documentation_options.js?v=8c18e567"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -25,7 +27,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Interfacing with WavefrontPropaGator (WPG)" href="phenom_to_wpg.html" />
+    <link rel="next" title="Load Experimental Data" href="use-case_1.html" />
     <link rel="prev" title="The SASE Source Module" href="sase_model_pt2.html" /> 
 </head>
 
@@ -40,9 +42,6 @@
           <a href="../index.html" class="icon icon-home">
             phenom
           </a>
-              <div class="version">
-                0.1.0.post13.dev0+g151a0be
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -53,6 +52,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../key_concepts.html">Key Concepts</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../examples.html">Examples</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#getting-started">Getting Started:</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../examples.html#tutorials">Tutorials:</a><ul class="current">
@@ -60,16 +60,15 @@
 <li class="toctree-l4"><a class="reference internal" href="#An-Emipirical-Model-of-SA1-Undulator-at-the-European-XFEL">An Emipirical Model of SA1 Undulator at the European XFEL</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="use-case_1.html">Load Experimental Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="use-case_1.html#Extract-Approximate-Pointing-Angle">Extract Approximate Pointing Angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="use-case_1.html#Generate-Stochastic-Wavefronts">Generate Stochastic Wavefronts</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../examples.html#integration">Integration:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../examples.html#info">Info:</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">A complex wavefront</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html#a-complex-time-spectrum">A complex time spectrum</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html#a-complex-pointing-angle-tilt">A complex pointing angle tilt</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html#sase-source">SASE Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">phenom Module API</a></li>
 </ul>
 
         </div>
@@ -185,20 +184,20 @@
 <span class="n">fig</span><span class="p">,</span> <span class="p">[</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">,</span><span class="n">ax3</span><span class="p">]</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
 <span class="n">duration</span> <span class="o">=</span> <span class="n">analytical_pulse_duration</span><span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="mf">0.250</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Pulse Duration: </span><span class="si">{:.2f}</span><span class="s2"> fs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">duration</span> <span class="o">*</span> <span class="mf">1e15</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Pulse Duration: </span><span class="si">{:.2f}</span><span class="s2"> fs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">duration</span> <span class="o">*</span> <span class="mf">1e15</span><span class="p">))</span>
 
 <span class="n">pulse_energy</span> <span class="o">=</span> <span class="n">analytical_pulse_energy</span><span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="p">,</span> <span class="n">photon_energy</span> <span class="o">=</span> <span class="n">energies</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">energies</span><span class="p">,</span> <span class="n">pulse_energy</span> <span class="o">*</span> <span class="mf">1e3</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Pulse Energy (mJ)&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Pulse Energy (mJ)&quot;</span><span class="p">)</span>
 
 <span class="n">pulse_width</span> <span class="o">=</span> <span class="n">analytical_pulse_width</span><span class="p">(</span><span class="n">photon_energy</span> <span class="o">=</span> <span class="n">energies</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">energies</span><span class="p">,</span> <span class="n">pulse_width</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Pulse Width ($\mu$m)&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Pulse Width ($\mu$m)&quot;</span><span class="p">)</span>
 
 <span class="n">pulse_div</span> <span class="o">=</span> <span class="n">analytical_pulse_divergence</span><span class="p">(</span><span class="n">photon_energy</span> <span class="o">=</span> <span class="n">energies</span><span class="p">)</span>
 <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">energies</span><span class="p">,</span> <span class="n">analytical_pulse_divergence</span><span class="p">(</span><span class="n">photon_energy</span> <span class="o">=</span> <span class="n">energies</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">)</span>
 <span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Energy (eV)&quot;</span><span class="p">)</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Pulse Divergence ($\mu$rad)&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Pulse Divergence ($\mu$rad)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -211,9 +210,9 @@
 &lt;&gt;:22: SyntaxWarning: invalid escape sequence &#39;\m&#39;
 &lt;&gt;:17: SyntaxWarning: invalid escape sequence &#39;\m&#39;
 &lt;&gt;:22: SyntaxWarning: invalid escape sequence &#39;\m&#39;
-/var/folders/r5/xp94p76n08l4hvjctdh74hl00000gn/T/ipykernel_16628/3668744920.py:17: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+/var/folders/r5/xp94p76n08l4hvjctdh74hl00000gn/T/ipykernel_23188/3668744920.py:17: SyntaxWarning: invalid escape sequence &#39;\m&#39;
   ax2.set_ylabel(&#34;Pulse Width ($\mu$m)&#34;)
-/var/folders/r5/xp94p76n08l4hvjctdh74hl00000gn/T/ipykernel_16628/3668744920.py:22: SyntaxWarning: invalid escape sequence &#39;\m&#39;
+/var/folders/r5/xp94p76n08l4hvjctdh74hl00000gn/T/ipykernel_23188/3668744920.py:22: SyntaxWarning: invalid escape sequence &#39;\m&#39;
   ax3.set_ylabel(&#34;Pulse Divergence ($\mu$rad)&#34;)
 </pre></div></div>
 </div>
@@ -303,7 +302,7 @@ Text(0, 0.5, &#39;Pulse Divergence ($\\mu$rad)&#39;)
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span> <span class="k">as</span> <span class="nn">h5</span>
@@ -331,8 +330,8 @@ Text(0, 0.5, &#39;Pulse Divergence ($\\mu$rad)&#39;)
 
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Intensity (W/mm$^2$)&quot;</span><span class="p">)</span>
 
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x ($\mu$m)&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y ($\mu$m)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;x ($\mu$m)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;y ($\mu$m)&#39;</span><span class="p">)</span>
 
 
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="mf">1e15</span><span class="p">,</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">sase_pulse</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span>
@@ -341,22 +340,7 @@ Text(0, 0.5, &#39;Pulse Divergence ($\\mu$rad)&#39;)
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-&lt;&gt;:26: SyntaxWarning: invalid escape sequence &#39;\m&#39;
-&lt;&gt;:27: SyntaxWarning: invalid escape sequence &#39;\m&#39;
-&lt;&gt;:26: SyntaxWarning: invalid escape sequence &#39;\m&#39;
-&lt;&gt;:27: SyntaxWarning: invalid escape sequence &#39;\m&#39;
-/var/folders/r5/xp94p76n08l4hvjctdh74hl00000gn/T/ipykernel_16628/2998508477.py:26: SyntaxWarning: invalid escape sequence &#39;\m&#39;
-  ax1.set_xlabel(&#39;x ($\mu$m)&#39;)
-/var/folders/r5/xp94p76n08l4hvjctdh74hl00000gn/T/ipykernel_16628/2998508477.py:27: SyntaxWarning: invalid escape sequence &#39;\m&#39;
-  ax1.set_ylabel(&#39;y ($\mu$m)&#39;)
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -368,7 +352,7 @@ Text(0.5, 0, &#39;Time (fs)&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_sase_model_pt3_8_2.png" src="../_images/notebooks_sase_model_pt3_8_2.png" />
+<img alt="../_images/notebooks_sase_model_pt3_8_1.png" src="../_images/notebooks_sase_model_pt3_8_1.png" />
 </div>
 </div>
 <p>We can similarly pass a list of photon_energies:</p>
@@ -417,7 +401,7 @@ Text(0.5, 0, &#39;Time (fs)&#39;)
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="sase_model_pt2.html" class="btn btn-neutral float-left" title="The SASE Source Module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="phenom_to_wpg.html" class="btn btn-neutral float-right" title="Interfacing with WavefrontPropaGator (WPG)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="use-case_1.html" class="btn btn-neutral float-right" title="Load Experimental Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

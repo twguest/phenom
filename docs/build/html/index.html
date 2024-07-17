@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to Phenom &mdash; phenom 0.1.0.post13.dev0+g151a0be documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <title>Welcome to Phenom &mdash; phenom  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/plot_directive.css?v=7f9a90b1" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/documentation_options.js?v=8c18e567"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -38,9 +40,6 @@
           <a href="#" class="icon icon-home">
             phenom
           </a>
-              <div class="version">
-                0.1.0.post13.dev0+g151a0be
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -51,11 +50,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_concepts.html">Key Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">A complex wavefront</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#a-complex-time-spectrum">A complex time spectrum</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#a-complex-pointing-angle-tilt">A complex pointing angle tilt</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#sase-source">SASE Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">phenom Module API</a></li>
 </ul>
 
         </div>
@@ -87,8 +84,10 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_concepts.html">Key Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#getting-started">Getting Started:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/sase_spectra.html">Simulating the SASE Spectrum</a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/sase_model_pt1.html">Generating Pulses</a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/sase_model_pt2.html">The SASE Source Module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/sase_model_pt2.html#Generating-Multiple-Pulses">Generating Multiple Pulses</a></li>
@@ -96,32 +95,58 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#tutorials">Tutorials:</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/sase_model_pt3.html">Tutorial: Using phenom to Model Shot-to-Shot the European XFEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/use-case_1.html">Load Experimental Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/use-case_1.html#Extract-Approximate-Pointing-Angle">Extract Approximate Pointing Angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/use-case_1.html#Generate-Stochastic-Wavefronts">Generate Stochastic Wavefronts</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#integration">Integration:</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="notebooks/phenom_to_wpg.html">Interfacing with WavefrontPropaGator (WPG)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#info">Info:</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="notebooks/sase_spectra.html">Simulating the SASE Spectrum</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">A complex wavefront</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">phenom Module API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api.html#phenom.gaussian.complex_gaussian_beam"><code class="docutils literal notranslate"><span class="pre">complex_gaussian_beam()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.gaussian.gaussian_1d"><code class="docutils literal notranslate"><span class="pre">gaussian_1d()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.io.load_hdf5"><code class="docutils literal notranslate"><span class="pre">load_hdf5()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.mesh.Mesh"><code class="docutils literal notranslate"><span class="pre">Mesh</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.mesh.Mesh.build_from_array"><code class="docutils literal notranslate"><span class="pre">Mesh.build_from_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.mesh.Mesh.check_axes_options"><code class="docutils literal notranslate"><span class="pre">Mesh.check_axes_options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.mesh.Mesh.get_array"><code class="docutils literal notranslate"><span class="pre">Mesh.get_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.mesh.Mesh.get_extent"><code class="docutils literal notranslate"><span class="pre">Mesh.get_extent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.mesh.Mesh.get_sampling"><code class="docutils literal notranslate"><span class="pre">Mesh.get_sampling()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.mesh.Mesh.meshgrid"><code class="docutils literal notranslate"><span class="pre">Mesh.meshgrid</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.mesh.Mesh.sampling"><code class="docutils literal notranslate"><span class="pre">Mesh.sampling()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#a-complex-time-spectrum">A complex time spectrum</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.spectrum.linear_SASE_spectrum"><code class="docutils literal notranslate"><span class="pre">linear_SASE_spectrum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.source.SASE_Source"><code class="docutils literal notranslate"><span class="pre">SASE_Source</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.source.SASE_Source.generate_pulses"><code class="docutils literal notranslate"><span class="pre">SASE_Source.generate_pulses()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.source.SASE_Source.generate_sase_field"><code class="docutils literal notranslate"><span class="pre">SASE_Source.generate_sase_field()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#a-complex-pointing-angle-tilt">A complex pointing angle tilt</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.wavefront_tools.wavefront_tilt"><code class="docutils literal notranslate"><span class="pre">wavefront_tilt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.source.Source"><code class="docutils literal notranslate"><span class="pre">Source</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.source.Source.execute"><code class="docutils literal notranslate"><span class="pre">Source.execute()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.source.Source.get_process_parameters"><code class="docutils literal notranslate"><span class="pre">Source.get_process_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.source.Source.refresh_processes"><code class="docutils literal notranslate"><span class="pre">Source.refresh_processes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api.html#phenom.source.Source.store_hdf5"><code class="docutils literal notranslate"><span class="pre">Source.store_hdf5()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.source.check_arg_types"><code class="docutils literal notranslate"><span class="pre">check_arg_types()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.source.get_queue"><code class="docutils literal notranslate"><span class="pre">get_queue()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.source.init_metadata"><code class="docutils literal notranslate"><span class="pre">init_metadata()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api.html#phenom.source.sase_pulse"><code class="docutils literal notranslate"><span class="pre">sase_pulse()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.source.sort_arg_types"><code class="docutils literal notranslate"><span class="pre">sort_arg_types()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.spectrum.linear_SASE_spectrum"><code class="docutils literal notranslate"><span class="pre">linear_SASE_spectrum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.utils.complex_to_wpg"><code class="docutils literal notranslate"><span class="pre">complex_to_wpg()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.utils.e2k"><code class="docutils literal notranslate"><span class="pre">e2k()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.utils.e2wav"><code class="docutils literal notranslate"><span class="pre">e2wav()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.wavefront_tools.geometric_focus"><code class="docutils literal notranslate"><span class="pre">geometric_focus()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.wavefront_tools.wavefront_tilt"><code class="docutils literal notranslate"><span class="pre">wavefront_tilt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.wpg.complex_to_wpg"><code class="docutils literal notranslate"><span class="pre">complex_to_wpg()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#phenom.wpg.wpg_converter"><code class="docutils literal notranslate"><span class="pre">wpg_converter()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#sase-source">SASE Source</a></li>
 </ul>
 </div>
 </section>

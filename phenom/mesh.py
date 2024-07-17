@@ -4,18 +4,31 @@ import numpy as np
 
 class Mesh:
     """
-    generalised Mesh class
+    Generalized Mesh class.
 
-    is constructed via two-methods: from single-value field definitions or from
+    This class can be constructed via two methods: from single-value field definitions or from
     numpy arrays defining exact coordinates.
 
-    **kwargs
-
-
-
-    :params x: (optional) [np.ndarray]
-    :params y: (optional) [np.ndarray]
-    :params t: (optional) [np.ndarray]
+    Parameters
+    ----------
+    nx : int, optional
+        Number of points in the x direction, by default 512.
+    ny : int, optional
+        Number of points in the y direction, by default 512.
+    nt : int, optional
+        Number of points in the t direction, by default 10.
+    dx : float, optional
+        Sampling interval in the x direction, by default 1.
+    dy : float, optional
+        Sampling interval in the y direction, by default 1.
+    dt : float, optional
+        Sampling interval in the t direction, by default 1.
+    x : np.ndarray, optional
+        Array of x coordinates, by default None.
+    y : np.ndarray, optional
+        Array of y coordinates, by default None.
+    t : np.ndarray, optional
+        Array of t coordinates, by default None.
     """
 
     def __init__(self, nx=512, ny=512, nt=10, dx=1, dy=1, dt=1, x=None, y=None, t=None):
@@ -27,8 +40,8 @@ class Mesh:
 
     def sampling(self):
         """
-        this returns and records the field sampling in each of the spatial
-        dimensions
+        Returns and records the field sampling in each of the spatial
+        dimensions.
         """
         if self.ndims >= 2:
             self.dx = (self.xMax - self.xMin) / self.nx
@@ -39,7 +52,12 @@ class Mesh:
 
     def get_sampling(self):
         """
-        return the two or three dimensioanl sampling of the field.
+        Returns the two or three dimensional sampling of the field.
+
+        Returns
+        -------
+        tuple
+            Sampling intervals in each dimension.
         """
         if self.ndims >= 2:
             return self.dx, self.dy
@@ -48,9 +66,8 @@ class Mesh:
 
     def build_from_array(self):
         """
-        construct a mesh object from linear-space variables
+        Constructs a mesh object from linear-space variables.
         """
-
         self.nx = len(self.x)
         self.xMin = np.min(self.x)
         self.xMax = np.max(self.x)
@@ -68,13 +85,28 @@ class Mesh:
 
     def get_extent(self):
         """
-        returns wpg style extent with respect to the transverse axis
+        Returns wpg style extent with respect to the transverse axis.
+
+        Returns
+        -------
+        list
+            Extent of the mesh in the form [xMin, xMax, yMin, yMax].
         """
         return [self.xMin, self.xMax, self.yMin, self.yMax]
 
     def get_array(self, axes=0):
         """
-        return the mesh in array form
+        Returns the mesh in array form.
+
+        Parameters
+        ----------
+        axes : int or str, optional
+            Axis to retrieve the array for, by default 0.
+
+        Returns
+        -------
+        np.ndarray
+            Array of coordinates for the specified axis.
         """
         self.check_axes_options(axes)
 
@@ -87,24 +119,43 @@ class Mesh:
 
     def check_axes_options(self, axes):
         """
-        a sanity function to check the axis options.
+        Checks the axis options for validity.
+
+        Parameters
+        ----------
+        axes : int or str
+            Axis to check.
+
+        Raises
+        ------
+        AssertionError
+            If the axis is not valid.
         """
         options = ["x", "y", "t", 0, 1, 2]
 
-        assert axes in options, "the supplied axes should be in {}".format(options)
+        assert axes in options, f"the supplied axes should be in {options}"
 
     @property
     def meshgrid(self):
         """
-        returns a 2D numpy style meshgrid of spatial coordinates
+        Returns a 2D numpy style meshgrid of spatial coordinates.
+
+        Returns
+        -------
+        tuple of np.ndarray
+            Meshgrid arrays for the x and y coordinates.
         """
         return np.meshgrid(self.get_array(0), self.get_array(1))
 
     def __update__(self, **kwargs):
         """
-        update the attributes of the mesh via various methods
-        """
+        Updates the attributes of the mesh via various methods.
 
+        Parameters
+        ----------
+        **kwargs
+            Arbitrary keyword arguments.
+        """
         if "wfr" in kwargs:
             for o in [x for x in list(self.__dict__.keys()) if x in dir(kwargs["wfr"].params.Mesh)]:
                 setattr(self, o, getattr(kwargs["wfr"].params.Mesh, o))

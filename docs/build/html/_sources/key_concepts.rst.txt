@@ -1,0 +1,34 @@
+Key Concepts
+============
+
+The simplest way to generate represenations of the SASE field is using the SASE
+wavefront function. 
+
+The properties of this wavefield are based on a model of XFEL radiation containing 3 components:
+
+#. A complex time spectrum
+#. A complex wavefront
+#. A complex pointing angle tilt
+
+ 
+These are combined in the sase pules module, enabling a replica SASE pulse to be generated:
+
+.. code-block:: python
+
+    import numpy as np
+    from phenom.source import sase_pulse
+    
+    electric_field  = sase_pulse(x = np.linspace(-500e-06, 500e-06, 512), 
+                                  y = np.linspace(-500e-063, 500e-06, 512),
+                                  t = np.linspace(-100e-15, 100e-15, 512),
+                                  photon_energy = 9200.,
+                                  pulse_energy = 1e-03,
+                                  pulse_duration = 25e-15,
+                                  bandwidth = 1e03,
+                                  sigma = 100e-06,
+                                  div = 1e-03,
+                                  x0 = 0.,
+                                  y0 = 0.,
+                                  t0 = 2e-15,
+                                  theta_x = 0,
+                                  theta_y = 0.                                                              

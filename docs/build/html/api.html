@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A complex wavefront &mdash; phenom 0.1.0.post13.dev0+g151a0be documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <title>phenom Module API &mdash; phenom  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/plot_directive.css?v=7f9a90b1" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/documentation_options.js?v=8c18e567"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -22,7 +24,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Simulating the SASE Spectrum" href="notebooks/sase_spectra.html" /> 
+    <link rel="prev" title="Interfacing with WavefrontPropaGator (WPG)" href="notebooks/phenom_to_wpg.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,9 +38,6 @@
           <a href="index.html" class="icon icon-home">
             phenom
           </a>
-              <div class="version">
-                0.1.0.post13.dev0+g151a0be
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -49,21 +48,49 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_concepts.html">Key Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">A complex wavefront</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">phenom Module API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#phenom.gaussian.complex_gaussian_beam"><code class="docutils literal notranslate"><span class="pre">complex_gaussian_beam()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.gaussian.gaussian_1d"><code class="docutils literal notranslate"><span class="pre">gaussian_1d()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.io.load_hdf5"><code class="docutils literal notranslate"><span class="pre">load_hdf5()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.mesh.Mesh"><code class="docutils literal notranslate"><span class="pre">Mesh</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.mesh.Mesh.build_from_array"><code class="docutils literal notranslate"><span class="pre">Mesh.build_from_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.mesh.Mesh.check_axes_options"><code class="docutils literal notranslate"><span class="pre">Mesh.check_axes_options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.mesh.Mesh.get_array"><code class="docutils literal notranslate"><span class="pre">Mesh.get_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.mesh.Mesh.get_extent"><code class="docutils literal notranslate"><span class="pre">Mesh.get_extent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.mesh.Mesh.get_sampling"><code class="docutils literal notranslate"><span class="pre">Mesh.get_sampling()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.mesh.Mesh.meshgrid"><code class="docutils literal notranslate"><span class="pre">Mesh.meshgrid</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.mesh.Mesh.sampling"><code class="docutils literal notranslate"><span class="pre">Mesh.sampling()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#a-complex-time-spectrum">A complex time spectrum</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#phenom.spectrum.linear_SASE_spectrum"><code class="docutils literal notranslate"><span class="pre">linear_SASE_spectrum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.source.SASE_Source"><code class="docutils literal notranslate"><span class="pre">SASE_Source</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.source.SASE_Source.generate_pulses"><code class="docutils literal notranslate"><span class="pre">SASE_Source.generate_pulses()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.source.SASE_Source.generate_sase_field"><code class="docutils literal notranslate"><span class="pre">SASE_Source.generate_sase_field()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#a-complex-pointing-angle-tilt">A complex pointing angle tilt</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#phenom.wavefront_tools.wavefront_tilt"><code class="docutils literal notranslate"><span class="pre">wavefront_tilt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.source.Source"><code class="docutils literal notranslate"><span class="pre">Source</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.source.Source.execute"><code class="docutils literal notranslate"><span class="pre">Source.execute()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.source.Source.get_process_parameters"><code class="docutils literal notranslate"><span class="pre">Source.get_process_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.source.Source.refresh_processes"><code class="docutils literal notranslate"><span class="pre">Source.refresh_processes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#phenom.source.Source.store_hdf5"><code class="docutils literal notranslate"><span class="pre">Source.store_hdf5()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.source.check_arg_types"><code class="docutils literal notranslate"><span class="pre">check_arg_types()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.source.get_queue"><code class="docutils literal notranslate"><span class="pre">get_queue()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.source.init_metadata"><code class="docutils literal notranslate"><span class="pre">init_metadata()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#phenom.source.sase_pulse"><code class="docutils literal notranslate"><span class="pre">sase_pulse()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.source.sort_arg_types"><code class="docutils literal notranslate"><span class="pre">sort_arg_types()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.spectrum.linear_SASE_spectrum"><code class="docutils literal notranslate"><span class="pre">linear_SASE_spectrum()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.utils.complex_to_wpg"><code class="docutils literal notranslate"><span class="pre">complex_to_wpg()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.utils.e2k"><code class="docutils literal notranslate"><span class="pre">e2k()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.utils.e2wav"><code class="docutils literal notranslate"><span class="pre">e2wav()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.wavefront_tools.geometric_focus"><code class="docutils literal notranslate"><span class="pre">geometric_focus()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.wavefront_tools.wavefront_tilt"><code class="docutils literal notranslate"><span class="pre">wavefront_tilt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.wpg.complex_to_wpg"><code class="docutils literal notranslate"><span class="pre">complex_to_wpg()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#phenom.wpg.wpg_converter"><code class="docutils literal notranslate"><span class="pre">wpg_converter()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#sase-source">SASE Source</a></li>
 </ul>
 
         </div>
@@ -80,7 +107,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">A complex wavefront</li>
+      <li class="breadcrumb-item active">phenom Module API</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,14 +117,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <p>===
-Key Cocepts
-===</p>
-<p>The simplest way to generate represenations of the SASE field is using the SASE
-wavefront function.</p>
-<p>The properties of this wavefield are based on a model of XFEL radiation containing 3 components:</p>
-<section id="a-complex-wavefront">
-<h1>A complex wavefront<a class="headerlink" href="#a-complex-wavefront" title="Link to this heading">¶</a></h1>
+  <section id="module-phenom.gaussian">
+<span id="phenom-module-api"></span><h1>phenom Module API<a class="headerlink" href="#module-phenom.gaussian" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="phenom.gaussian.complex_gaussian_beam">
 <span class="sig-prename descclassname"><span class="pre">phenom.gaussian.</span></span><span class="sig-name descname"><span class="pre">complex_gaussian_beam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/gaussian.html#complex_gaussian_beam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.gaussian.complex_gaussian_beam" title="Link to this definition">¶</a></dt>
@@ -121,51 +142,255 @@ wavefront function.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="a-complex-time-spectrum">
-<h1>A complex time spectrum<a class="headerlink" href="#a-complex-time-spectrum" title="Link to this heading">¶</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="phenom.spectrum.linear_SASE_spectrum">
-<span class="sig-prename descclassname"><span class="pre">phenom.spectrum.</span></span><span class="sig-name descname"><span class="pre">linear_SASE_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'freq'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/spectrum.html#linear_SASE_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.spectrum.linear_SASE_spectrum" title="Link to this definition">¶</a></dt>
-<dd><p>Generate a single SASE pulse profile in the time and frequency domain.</p>
+<dt class="sig sig-object py" id="phenom.gaussian.gaussian_1d">
+<span class="sig-prename descclassname"><span class="pre">phenom.gaussian.</span></span><span class="sig-name descname"><span class="pre">gaussian_1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/gaussian.html#gaussian_1d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.gaussian.gaussian_1d" title="Link to this definition">¶</a></dt>
+<dd><p>generate a gaussian envelope for modelling the integrated pulse_data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>t</strong> – Time axis [s](np.ndarray)</p></li>
-<li><p><strong>pulse_duration</strong> – FWHM value of the SASE pulse duration [s](float)</p></li>
-<li><p><strong>photon_energy</strong> – Central energy of the pulse [eV](float)</p></li>
-<li><p><strong>bandwidth</strong> – Energy bandwidth / relative of the pulse [unitless](float)</p></li>
-<li><p><strong>t0</strong> – Timing jitter (generally should be less than 2*sampling*bandwidth) [s](float)</p></li>
-<li><p><strong>norm</strong> – Normalize intensity spectrum to 1 [default=False](bool)</p></li>
-<li><p><strong>plot</strong> – Plot the outputs if True [default=False](bool)</p></li>
-<li><p><strong>output</strong> – ‘time’ or ‘frequency’ spectrum</p></li>
+<li><p><strong>x</strong> – dependent-axis, one-dimensional numpy array</p></li>
+<li><p><strong>a</strong> – amplitude of the gaussian (float)</p></li>
+<li><p><strong>mu</strong> – mu</p></li>
+<li><p><strong>width</strong> – widht of gaussian beam</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Complex spectrum in time or frequency domain [default time/s](np.ndarray)</p>
+<dd class="field-even"><p>one-dimensioanl caussian profile</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="a-complex-pointing-angle-tilt">
-<h1>A complex pointing angle tilt<a class="headerlink" href="#a-complex-pointing-angle-tilt" title="Link to this heading">¶</a></h1>
+<p id="module-phenom.io">Created on Wed Jun 14 16:10:23 2023</p>
+<p>&#64;author: twguest</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="phenom.wavefront_tools.wavefront_tilt">
-<span class="sig-prename descclassname"><span class="pre">phenom.wavefront_tools.</span></span><span class="sig-name descname"><span class="pre">wavefront_tilt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/wavefront_tools.html#wavefront_tilt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.wavefront_tools.wavefront_tilt" title="Link to this definition">¶</a></dt>
-<dd><p>define a two-dimensional complex tilted plane-wave, tilted along transverse pointing vectors kx and ky</p>
+<dt class="sig sig-object py" id="phenom.io.load_hdf5">
+<span class="sig-prename descclassname"><span class="pre">phenom.io.</span></span><span class="sig-name descname"><span class="pre">load_hdf5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/io.html#load_hdf5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.io.load_hdf5" title="Link to this definition">¶</a></dt>
+<dd><p>function to read data from a hdf5 file to create a dictionary for each pulse in a source file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>mesh</strong> – [2,nx,ny] array of coordinates, first-axis corresponds to x and y axis,</p></li>
-<li><p><strong>kx</strong> – horizontal pointing vector [-pi, pi]</p></li>
-<li><p><strong>ky</strong> – vertical pointing vector [-pi, pi]</p></li>
+<li><p><strong>file</strong> – source .h5 directory (str)</p></li>
+<li><p><strong>pulse_id</strong> – sub-group within .h5 (str)</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
-<p>These are combined in the sase pules module.</p>
+<span class="target" id="module-phenom.mesh"></span><dl class="py class">
+<dt class="sig sig-object py" id="phenom.mesh.Mesh">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenom.mesh.</span></span><span class="sig-name descname"><span class="pre">Mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/mesh.html#Mesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.mesh.Mesh" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Generalized Mesh class.</p>
+<p>This class can be constructed via two methods: from single-value field definitions or from
+numpy arrays defining exact coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>nx</strong><span class="classifier">int, optional</span></dt><dd><p>Number of points in the x direction, by default 512.</p>
+</dd>
+<dt><strong>ny</strong><span class="classifier">int, optional</span></dt><dd><p>Number of points in the y direction, by default 512.</p>
+</dd>
+<dt><strong>nt</strong><span class="classifier">int, optional</span></dt><dd><p>Number of points in the t direction, by default 10.</p>
+</dd>
+<dt><strong>dx</strong><span class="classifier">float, optional</span></dt><dd><p>Sampling interval in the x direction, by default 1.</p>
+</dd>
+<dt><strong>dy</strong><span class="classifier">float, optional</span></dt><dd><p>Sampling interval in the y direction, by default 1.</p>
+</dd>
+<dt><strong>dt</strong><span class="classifier">float, optional</span></dt><dd><p>Sampling interval in the t direction, by default 1.</p>
+</dd>
+<dt><strong>x</strong><span class="classifier">np.ndarray, optional</span></dt><dd><p>Array of x coordinates, by default None.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">np.ndarray, optional</span></dt><dd><p>Array of y coordinates, by default None.</p>
+</dd>
+<dt><strong>t</strong><span class="classifier">np.ndarray, optional</span></dt><dd><p>Array of t coordinates, by default None.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenom.mesh.Mesh.build_from_array">
+<span class="sig-name descname"><span class="pre">build_from_array</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/mesh.html#Mesh.build_from_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.mesh.Mesh.build_from_array" title="Link to this definition">¶</a></dt>
+<dd><p>Constructs a mesh object from linear-space variables.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenom.mesh.Mesh.check_axes_options">
+<span class="sig-name descname"><span class="pre">check_axes_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/mesh.html#Mesh.check_axes_options"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.mesh.Mesh.check_axes_options" title="Link to this definition">¶</a></dt>
+<dd><p>Checks the axis options for validity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>axes</strong><span class="classifier">int or str</span></dt><dd><p>Axis to check.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>AssertionError</dt><dd><p>If the axis is not valid.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenom.mesh.Mesh.get_array">
+<span class="sig-name descname"><span class="pre">get_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/mesh.html#Mesh.get_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.mesh.Mesh.get_array" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the mesh in array form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>axes</strong><span class="classifier">int or str, optional</span></dt><dd><p>Axis to retrieve the array for, by default 0.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>np.ndarray</dt><dd><p>Array of coordinates for the specified axis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenom.mesh.Mesh.get_extent">
+<span class="sig-name descname"><span class="pre">get_extent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/mesh.html#Mesh.get_extent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.mesh.Mesh.get_extent" title="Link to this definition">¶</a></dt>
+<dd><p>Returns wpg style extent with respect to the transverse axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>list</dt><dd><p>Extent of the mesh in the form [xMin, xMax, yMin, yMax].</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenom.mesh.Mesh.get_sampling">
+<span class="sig-name descname"><span class="pre">get_sampling</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/mesh.html#Mesh.get_sampling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.mesh.Mesh.get_sampling" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the two or three dimensional sampling of the field.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>tuple</dt><dd><p>Sampling intervals in each dimension.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="phenom.mesh.Mesh.meshgrid">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">meshgrid</span></span><a class="headerlink" href="#phenom.mesh.Mesh.meshgrid" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a 2D numpy style meshgrid of spatial coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>tuple of np.ndarray</dt><dd><p>Meshgrid arrays for the x and y coordinates.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenom.mesh.Mesh.sampling">
+<span class="sig-name descname"><span class="pre">sampling</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/mesh.html#Mesh.sampling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.mesh.Mesh.sampling" title="Link to this definition">¶</a></dt>
+<dd><p>Returns and records the field sampling in each of the spatial
+dimensions.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-phenom.source">Created on Sat Jun 10 20:01:09 2023</p>
+<p>&#64;author: twguest</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="phenom.source.SASE_Source">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenom.source.</span></span><span class="sig-name descname"><span class="pre">SASE_Source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'freq'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#SASE_Source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.SASE_Source" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#phenom.source.Source" title="phenom.source.Source"><code class="xref py py-class docutils literal notranslate"><span class="pre">Source</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenom.source.SASE_Source.generate_pulses">
+<span class="sig-name descname"><span class="pre">generate_pulses</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sdir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#SASE_Source.generate_pulses"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.SASE_Source.generate_pulses" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenom.source.SASE_Source.generate_sase_field">
+<span class="sig-name descname"><span class="pre">generate_sase_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#SASE_Source.generate_sase_field"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.SASE_Source.generate_sase_field" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="phenom.source.Source">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">phenom.source.</span></span><span class="sig-name descname"><span class="pre">Source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#Source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.Source" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Base structure of phenom.source model</p>
+<dl class="simple">
+<dt>features:</dt><dd><ul class="simple">
+<li><p>io</p></li>
+<li><p>execute</p></li>
+<li><p>parseing annd</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="phenom.source.Source.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sdir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#Source.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.Source.execute" title="Link to this definition">¶</a></dt>
+<dd><p>a non-parallelised method of generating pulse wavefront files using a method
+files are saved in perscribed sdirs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> – wavefront generating method that takes in process params as its input</p></li>
+<li><p><strong>sdir</strong> – single save directory</p></li>
+</ul>
+</dd>
+</dl>
+<p>### execture needs a check that process keys match requirements of method</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenom.source.Source.get_process_parameters">
+<span class="sig-name descname"><span class="pre">get_process_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#Source.get_process_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.Source.get_process_parameters" title="Link to this definition">¶</a></dt>
+<dd><p>calculates set of individual pulse parameters from queue
+used to generate of processes from queue</p>
+<p>TO-DO: this function is where pulse name in the source .h5 is determined</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenom.source.Source.refresh_processes">
+<span class="sig-name descname"><span class="pre">refresh_processes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#Source.refresh_processes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.Source.refresh_processes" title="Link to this definition">¶</a></dt>
+<dd><p>regeneerate processes list from stored args.</p>
+<p>used to regenerate pulses given input rules</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="phenom.source.Source.store_hdf5">
+<span class="sig-name descname"><span class="pre">store_hdf5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sdir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#Source.store_hdf5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.Source.store_hdf5" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenom.source.check_arg_types">
+<span class="sig-prename descclassname"><span class="pre">phenom.source.</span></span><span class="sig-name descname"><span class="pre">check_arg_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#check_arg_types"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.check_arg_types" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenom.source.get_queue">
+<span class="sig-prename descclassname"><span class="pre">phenom.source.</span></span><span class="sig-name descname"><span class="pre">get_queue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#get_queue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.get_queue" title="Link to this definition">¶</a></dt>
+<dd><p>source models method of parsing input values to individual pulse values</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenom.source.init_metadata">
+<span class="sig-prename descclassname"><span class="pre">phenom.source.</span></span><span class="sig-name descname"><span class="pre">init_metadata</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#init_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.init_metadata" title="Link to this definition">¶</a></dt>
+<dd><p>wrapper to create metadata during Source init</p>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="phenom.source.sase_pulse">
 <span class="sig-prename descclassname"><span class="pre">phenom.source.</span></span><span class="sig-name descname"><span class="pre">sase_pulse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'freq'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#sase_pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.sase_pulse" title="Link to this definition">¶</a></dt>
@@ -192,36 +417,160 @@ wavefront function.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="sase-source">
-<h1>SASE Source<a class="headerlink" href="#sase-source" title="Link to this heading">¶</a></h1>
-<p>Generating a SASE pulse looks something like this which can be called via</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">phenom.source</span> <span class="kn">import</span> <span class="n">sase_pulse</span>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenom.source.sort_arg_types">
+<span class="sig-prename descclassname"><span class="pre">phenom.source.</span></span><span class="sig-name descname"><span class="pre">sort_arg_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">__type__</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/source.html#sort_arg_types"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.source.sort_arg_types" title="Link to this definition">¶</a></dt>
+<dd><p>parser utility: sorts function types + array length assertions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – arguments of the Source function</p></li>
+<li><p><strong>__type__</strong> – argument types</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns N<span class="colon">:</span></dt>
+<dd class="field-even"><p>number of pulses to iterate over</p>
+</dd>
+<dt class="field-odd">Returns __set__<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict of argument keys sorted by value type</p>
+</dd>
+</dl>
+</dd></dl>
 
-<span class="n">electric_field</span>  <span class="o">=</span> <span class="n">sase_pulse</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">500e-06</span><span class="p">,</span> <span class="mf">500e-06</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
-                              <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">500e-063</span><span class="p">,</span> <span class="mf">500e-06</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
-                              <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">100e-15</span><span class="p">,</span> <span class="mf">100e-15</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
-                              <span class="n">photon_energy</span> <span class="o">=</span> <span class="mf">9200.</span><span class="p">,</span>
-                              <span class="n">pulse_energy</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
-                              <span class="n">pulse_duration</span> <span class="o">=</span> <span class="mf">25e-15</span><span class="p">,</span>
-                              <span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1e03</span><span class="p">,</span>
-                              <span class="n">sigma</span> <span class="o">=</span> <span class="mf">100e-06</span><span class="p">,</span>
-                              <span class="n">div</span> <span class="o">=</span> <span class="mf">1e-03</span><span class="p">,</span>
-                              <span class="n">x0</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span>
-                              <span class="n">y0</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span>
-                              <span class="n">t0</span> <span class="o">=</span> <span class="mf">2e-15</span><span class="p">,</span>
-                              <span class="n">theta_x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                              <span class="n">theta_y</span> <span class="o">=</span> <span class="mf">0.</span>
-</pre></div>
-</div>
+<span class="target" id="module-phenom.spectrum"></span><dl class="py function">
+<dt class="sig sig-object py" id="phenom.spectrum.linear_SASE_spectrum">
+<span class="sig-prename descclassname"><span class="pre">phenom.spectrum.</span></span><span class="sig-name descname"><span class="pre">linear_SASE_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulse_duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'freq'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/spectrum.html#linear_SASE_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.spectrum.linear_SASE_spectrum" title="Link to this definition">¶</a></dt>
+<dd><p>Generate a single SASE pulse profile in the time and frequency domain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> – Time axis [s](np.ndarray)</p></li>
+<li><p><strong>pulse_duration</strong> – FWHM value of the SASE pulse duration [s](float)</p></li>
+<li><p><strong>photon_energy</strong> – Central energy of the pulse [eV](float)</p></li>
+<li><p><strong>bandwidth</strong> – Energy bandwidth / relative of the pulse [unitless](float)</p></li>
+<li><p><strong>t0</strong> – Timing jitter (generally should be less than 2*sampling*bandwidth) [s](float)</p></li>
+<li><p><strong>norm</strong> – Normalize intensity spectrum to 1 [default=False](bool)</p></li>
+<li><p><strong>plot</strong> – Plot the outputs if True [default=False](bool)</p></li>
+<li><p><strong>output</strong> – ‘time’ or ‘frequency’ spectrum</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Complex spectrum in time or frequency domain [default time/s](np.ndarray)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-phenom.utils">Created on Sat Jun 10 20:03:10 2023</p>
+<p>&#64;author: twguest</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenom.utils.complex_to_wpg">
+<span class="sig-prename descclassname"><span class="pre">phenom.utils.</span></span><span class="sig-name descname"><span class="pre">complex_to_wpg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/utils.html#complex_to_wpg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.utils.complex_to_wpg" title="Link to this definition">¶</a></dt>
+<dd><p>converter function to transform complex wavefield into wpg style electric
+field array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arr</strong> – complex wavefield array [x,y,t] (complex128 type)</p>
+</dd>
+<dt class="field-even">Returns new_arr<span class="colon">:</span></dt>
+<dd class="field-even"><p>wpg style electric field array [nx,ny,nz,2] (float64)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenom.utils.e2k">
+<span class="sig-prename descclassname"><span class="pre">phenom.utils.</span></span><span class="sig-name descname"><span class="pre">e2k</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/utils.html#e2k"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.utils.e2k" title="Link to this definition">¶</a></dt>
+<dd><p>Converts photon energy to freq. wavevector</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>photon_energy</strong> – photon energy in eV</p>
+</dd>
+<dt class="field-even">Returns k<span class="colon">:</span></dt>
+<dd class="field-even"><p>wavevector (1/m)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenom.utils.e2wav">
+<span class="sig-prename descclassname"><span class="pre">phenom.utils.</span></span><span class="sig-name descname"><span class="pre">e2wav</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/utils.html#e2wav"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.utils.e2wav" title="Link to this definition">¶</a></dt>
+<dd><p>Converts photon energy to photon wavelength.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>photon_energy</strong> – photon energy in eV</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>photon wavelength in m</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-phenom.wavefront_tools">Created on Sat Jun 10 20:01:52 2023</p>
+<p>&#64;author: twguest</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenom.wavefront_tools.geometric_focus">
+<span class="sig-prename descclassname"><span class="pre">phenom.wavefront_tools.</span></span><span class="sig-name descname"><span class="pre">geometric_focus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fwhm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">divergence</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/wavefront_tools.html#geometric_focus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.wavefront_tools.geometric_focus" title="Link to this definition">¶</a></dt>
+<dd><p>calculate the focal length of a converging beam of size fwhm</p>
+<p>approximation that we are viewing the beam far downstream of the beam waist</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenom.wavefront_tools.wavefront_tilt">
+<span class="sig-prename descclassname"><span class="pre">phenom.wavefront_tools.</span></span><span class="sig-name descname"><span class="pre">wavefront_tilt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photon_energy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/wavefront_tools.html#wavefront_tilt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.wavefront_tools.wavefront_tilt" title="Link to this definition">¶</a></dt>
+<dd><p>define a two-dimensional complex tilted plane-wave, tilted along transverse pointing vectors kx and ky</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mesh</strong> – [2,nx,ny] array of coordinates, first-axis corresponds to x and y axis,</p></li>
+<li><p><strong>kx</strong> – horizontal pointing vector [-pi, pi]</p></li>
+<li><p><strong>ky</strong> – vertical pointing vector [-pi, pi]</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-phenom.wpg">Created on Wed Jun 14 16:10:23 2023</p>
+<p>All functions in this file require the install of WPG</p>
+<p>&#64;author: twguest</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="phenom.wpg.complex_to_wpg">
+<span class="sig-prename descclassname"><span class="pre">phenom.wpg.</span></span><span class="sig-name descname"><span class="pre">complex_to_wpg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/wpg.html#complex_to_wpg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.wpg.complex_to_wpg" title="Link to this definition">¶</a></dt>
+<dd><p>converter function to transform complex wavefield into wpg style electric
+field array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arr</strong> – complex wavefield array [x,y,t] (complex128 type)</p>
+</dd>
+<dt class="field-even">Returns new_arr<span class="colon">:</span></dt>
+<dd class="field-even"><p>wpg style electric field array [nx,ny,nz,2] (float64)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="phenom.wpg.wpg_converter">
+<span class="sig-prename descclassname"><span class="pre">phenom.wpg.</span></span><span class="sig-name descname"><span class="pre">wpg_converter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/phenom/wpg.html#wpg_converter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#phenom.wpg.wpg_converter" title="Link to this definition">¶</a></dt>
+<dd><p>Convert saved phenom pulse to wpg type pulse</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>save_loc</strong> – location of source .h5 master file (str)</p></li>
+<li><p><strong>key</strong> – pulse key - e.g. ‘pulse000’ (str)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns wfr<span class="colon">:</span></dt>
+<dd class="field-even"><p>wpg compatible wavefront file</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="notebooks/sase_spectra.html" class="btn btn-neutral float-left" title="Simulating the SASE Spectrum" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notebooks/phenom_to_wpg.html" class="btn btn-neutral float-left" title="Interfacing with WavefrontPropaGator (WPG)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

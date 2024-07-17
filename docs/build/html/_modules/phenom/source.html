@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>phenom.source &mdash; phenom 0.0.7.post14.dev0+gdaef6bf documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/plot_directive.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+  <title>phenom.source &mdash; phenom  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css?v=7f9a90b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -29,14 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> phenom
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            phenom
           </a>
-              <div class="version">
-                0.0.7.post14.dev0+gdaef6bf
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -44,8 +46,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../key_concepts.html">Key Concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">phenom Module API</a></li>
 </ul>
 
         </div>
@@ -61,7 +64,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
       <li class="breadcrumb-item active">phenom.source</li>
       <li class="wy-breadcrumbs-aside">
@@ -93,7 +96,9 @@
 <span class="kn">from</span> <span class="nn">phenom.wavefront_tools</span> <span class="kn">import</span> <span class="n">wavefront_tilt</span>
 
 
-<div class="viewcode-block" id="sase_pulse"><a class="viewcode-back" href="../../api.html#phenom.source.sase_pulse">[docs]</a><span class="k">def</span> <span class="nf">sase_pulse</span><span class="p">(</span>
+<div class="viewcode-block" id="sase_pulse">
+<a class="viewcode-back" href="../../api.html#phenom.source.sase_pulse">[docs]</a>
+<span class="k">def</span> <span class="nf">sase_pulse</span><span class="p">(</span>
     <span class="n">x</span><span class="p">,</span>
     <span class="n">y</span><span class="p">,</span>
     <span class="n">t</span><span class="p">,</span>
@@ -159,6 +164,9 @@
     <span class="k">return</span> <span class="n">efield</span></div>
 
 
+
+<div class="viewcode-block" id="check_arg_types">
+<a class="viewcode-back" href="../../api.html#phenom.source.check_arg_types">[docs]</a>
 <span class="k">def</span> <span class="nf">check_arg_types</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="n">parse_types</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">FunctionType</span><span class="p">]</span>
 
@@ -175,9 +183,12 @@
         <span class="c1">### list to array</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
             <span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-            <span class="n">key_types</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+            <span class="n">key_types</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">])</span></div>
 
 
+
+<div class="viewcode-block" id="sort_arg_types">
+<a class="viewcode-back" href="../../api.html#phenom.source.sort_arg_types">[docs]</a>
 <span class="k">def</span> <span class="nf">sort_arg_types</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">__type__</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    parser utility: sorts function types + array length assertions</span>
@@ -223,9 +234,12 @@
     <span class="fm">__set__</span><span class="p">[</span><span class="s2">&quot;np.ndarray&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">__arrays__</span>
     <span class="fm">__set__</span><span class="p">[</span><span class="s2">&quot;FunctionType&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">__lams__</span>
 
-    <span class="k">return</span> <span class="n">N</span><span class="p">,</span> <span class="fm">__set__</span>
+    <span class="k">return</span> <span class="n">N</span><span class="p">,</span> <span class="fm">__set__</span></div>
 
 
+
+<div class="viewcode-block" id="get_queue">
+<a class="viewcode-back" href="../../api.html#phenom.source.get_queue">[docs]</a>
 <span class="k">def</span> <span class="nf">get_queue</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    source models method of parsing input values to individual pulse values</span>
@@ -261,17 +275,23 @@
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="fm">__set__</span><span class="p">[</span><span class="s2">&quot;np.ndarray&quot;</span><span class="p">]:</span>
         <span class="n">__queue__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
-    <span class="k">return</span> <span class="n">__queue__</span>
+    <span class="k">return</span> <span class="n">__queue__</span></div>
 
 
+
+<div class="viewcode-block" id="init_metadata">
+<a class="viewcode-back" href="../../api.html#phenom.source.init_metadata">[docs]</a>
 <span class="k">def</span> <span class="nf">init_metadata</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    wrapper to create metadata during Source init</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;stored&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;stored&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></div>
 
 
+
+<div class="viewcode-block" id="Source">
+<a class="viewcode-back" href="../../api.html#phenom.source.Source">[docs]</a>
 <span class="k">class</span> <span class="nc">Source</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base structure of phenom.source model</span>
@@ -308,6 +328,8 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">get_process_parameters</span><span class="p">()</span>
 
+<div class="viewcode-block" id="Source.get_process_parameters">
+<a class="viewcode-back" href="../../api.html#phenom.source.Source.get_process_parameters">[docs]</a>
     <span class="k">def</span> <span class="nf">get_process_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        calculates set of individual pulse parameters from queue</span>
@@ -332,8 +354,11 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">processes</span><span class="p">[</span><span class="s2">&quot;pulse</span><span class="si">{:03}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="o">=</span> <span class="n">params</span>
 
-        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__queue__</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__queue__</span></div>
 
+
+<div class="viewcode-block" id="Source.refresh_processes">
+<a class="viewcode-back" href="../../api.html#phenom.source.Source.refresh_processes">[docs]</a>
     <span class="k">def</span> <span class="nf">refresh_processes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        regeneerate processes list from stored args.</span>
@@ -350,8 +375,11 @@
             <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">__queue__</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__queue__</span> <span class="o">=</span> <span class="n">__queue__</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_process_parameters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_process_parameters</span><span class="p">()</span></div>
 
+
+<div class="viewcode-block" id="Source.execute">
+<a class="viewcode-back" href="../../api.html#phenom.source.Source.execute">[docs]</a>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">sdir</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        a non-parallelised method of generating pulse wavefront files using a method</span>
@@ -398,15 +426,22 @@
                 <span class="n">mesh</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
                 <span class="n">mesh</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)</span>
 
-            <span class="n">hf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">hf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
         <span class="c1">###</span>
 
+<div class="viewcode-block" id="Source.store_hdf5">
+<a class="viewcode-back" href="../../api.html#phenom.source.Source.store_hdf5">[docs]</a>
     <span class="k">def</span> <span class="nf">store_hdf5</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sdir</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;stored&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">sdir</span><span class="p">))</span>
 
-        <span class="n">hf</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">sdir</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="n">hf</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">sdir</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span></div>
+</div>
 
 
+
+<div class="viewcode-block" id="SASE_Source">
+<a class="viewcode-back" href="../../api.html#phenom.source.SASE_Source">[docs]</a>
 <span class="k">class</span> <span class="nc">SASE_Source</span><span class="p">(</span><span class="n">Source</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -465,6 +500,8 @@
             <span class="n">domain</span> <span class="o">=</span> <span class="n">domain</span>
         <span class="p">)</span>
 
+<div class="viewcode-block" id="SASE_Source.generate_sase_field">
+<a class="viewcode-back" href="../../api.html#phenom.source.SASE_Source.generate_sase_field">[docs]</a>
     <span class="k">def</span> <span class="nf">generate_sase_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="n">sase_field</span> <span class="o">=</span> <span class="n">sase_pulse</span><span class="p">(</span>
             <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
@@ -483,10 +520,15 @@
             <span class="n">theta_y</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;theta_y&quot;</span><span class="p">],</span>
         <span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">sase_field</span>
+        <span class="k">return</span> <span class="n">sase_field</span></div>
 
+
+<div class="viewcode-block" id="SASE_Source.generate_pulses">
+<a class="viewcode-back" href="../../api.html#phenom.source.SASE_Source.generate_pulses">[docs]</a>
     <span class="k">def</span> <span class="nf">generate_pulses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sdir</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_sase_field</span><span class="p">,</span> <span class="n">sdir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_sase_field</span><span class="p">,</span> <span class="n">sdir</span><span class="p">)</span></div>
+</div>
+
         
 </pre></div>
 
